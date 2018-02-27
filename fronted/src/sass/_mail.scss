@@ -1,0 +1,277 @@
+.star {
+    color: #fff !important;
+    background: #B7C1D3;
+    display: block;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 14px;
+    border-radius: 50%;
+}
+
+.side-mail {
+    margin-top: 20px;
+}
+
+.button-mail {
+    margin: 0 0 15px;
+    text-align: left;
+    width: 100%;
+}
+
+.list-btn-mail {
+    margin-bottom: 15px;
+    > {
+        span {
+            float: left;
+            font-size: 16px;
+            font-style: bold;
+            width: 33px;
+            height: 33px;
+            line-height: 20px;
+            color: #888;
+            font-weight: bold;
+        }
+        i {
+            background: none repeat scroll 0 0 #39B3D7;
+            border-radius: 12px;
+            color: #FFFFFF;
+            float: right;
+            font-style: normal;
+            padding: 0 5px;
+        }
+        a {
+            color: #666;
+        }
+    }
+    &.active {
+        border-bottom: 1px solid #39B3D7;
+        padding: 0 0 14px;
+    }
+}
+
+#content-mail {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 4px;
+    margin-top: 5px;
+    min-height: 500px;
+    padding: 17px 0;
+    width: 100%;
+}
+
+.mail_header {
+    border-radius: 4px;
+    margin: 10px 0 0;
+    width: 100%;
+}
+
+.mail-btn {
+    position: relative;
+    left: 35px;
+    li {
+        display: inline;
+        height: 40px;
+        min-width: 40px;
+        background: none repeat scroll 0 0 #58719c;
+        margin-left: 5px;
+        color: #fff;
+        line-height: 40px;
+        font-size: 17px;
+        border-radius: 5px;
+        padding: 0 0 0 8px;
+        cursor: pointer;
+        text-align: center;
+        position: relative;
+        float: left;
+        left: -35px;
+        top: 3px;
+        b {
+            font-weight: normal;
+            font-size: 13px;
+            margin: 0px 15px 0 0px;
+            position: relative;
+            top: -2px;
+            small {
+                background: rgba(0, 0, 0, 0.1);
+                width: 20px;
+                height: 20px;
+                display: inline-block;
+                line-height: 20px;
+                text-align: center;
+                border-radius: 50%;
+                margin: 0 0 0 5px;
+            }
+        }
+        i,
+        p {
+            float: left;
+        }
+        span {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+}
+
+
+/* compost nest */
+
+.compose {
+    padding: 20px 0;
+    hr {
+        border: solid rgba(98, 113, 155, 0.2);
+        border-width: 1px 0 0;
+        clear: both;
+        margin: 1.25rem 0 1.1875rem;
+        height: 0;
+    }
+    ul {
+        margin: 0px 0 0 -5px;
+        li {
+            list-style: none;
+            padding: 15px 0;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            ;
+            a {
+                color: rgba(98, 113, 155, 0.7);
+            }
+            &:before {
+                margin: 0 10px 0 0;
+            }
+            i {
+                margin: 0 13px 0 0;
+                font-size: 16px;
+                position: relative;
+                top: 0;
+            }
+        }
+    }
+}
+
+.inbox-menu {
+    background: #ffffff;
+    margin: 5px -15px !important;
+    padding: 10px 15px !important;
+    border-radius: 5px;
+}
+
+
+/* Inbox nest */
+
+.inbox-nest {
+    padding: 0 30px;
+    border-left: 1px solid #eee;
+    ul {
+        margin: 0;
+        background: #ffffff;
+        padding: 10px 0;
+        border-radius: 0;
+        li {
+            border-bottom: 1px dashed #eee;
+            margin: 0 0 30px 0;
+            padding: 0 0 15px 0;
+            list-style: none;
+            &:last-child {
+                border-bottom: 0px solid #ddd;
+            }
+            b {
+                padding: 0 10px;
+                font-size: 16px;
+                color: #454545;
+                font-family: 'Montserrat', sans-serif;
+            }
+            small {
+                font-size: 12px;
+                float: right;
+                color: #666;
+                padding: 0 5px;
+                border-radius: 2px;
+                font-weight: bold;
+            }
+            p {
+                display: inline-block;
+                padding: 10px 0 0 45px;
+                width: 100%;
+                margin: 0 0 15px 0;
+                color: #8c92a3;
+            }
+            h5 {
+                display: inline-block;
+                padding: 0 0 0 45px;
+                width: 100%;
+                margin: 0 0 3px;
+                color: #8c92a3;
+                font-weight: 300;
+            }
+            img {
+                float: left;
+                margin: 0 5px 0 0;
+            }
+        }
+    }
+}
+
+.star {
+    float: left;
+    margin: 0 5px 0 0;
+}
+
+span.prefix,
+label.prefix {
+    /* background: #f2f2f2; */
+    border-left: none;
+    /* color: #333333; */
+    border-color: #D5DAE6;
+}
+
+.inbox-header {
+    h1 {
+        font-size: 24px;
+        font-weight: lighter;
+    }
+    h2 {
+        font-size: 30px;
+        font-weight: lighter;
+        color: #fff;
+    }
+    ul {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        margin: 0;
+        border-left: 0px solid #D5DAE6;
+        li {
+            background: $vk;
+            margin: 10px 0;
+            display: inline-block;
+            padding: 0 15px 0 0px;
+            color: #fff;
+            border-radius: 20px;
+            border: none;
+            &:last-child {
+                background: #fff !important;
+            }
+            a {
+                font-size: 11px;
+                color: rgba(98, 113, 155, 0.5);
+                top: 2px;
+                position: relative;
+            }
+            span {
+                height: 30px;
+                width: 30px;
+                display: inline-block;
+                text-align: center;
+                line-height: 30px;
+                border-radius: 50%;
+                color: #fff;
+                cursor: pointer;
+                background: rgba(0, 0, 0, 0.28);
+            }
+        }
+    }
+}

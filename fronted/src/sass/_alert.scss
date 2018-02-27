@@ -1,0 +1,45 @@
+
+
+/*
+ * Component: alert
+ * ----------------
+ */
+
+.alert {
+  border-radius: 3px;
+  h4 {
+    font-weight: 600;
+  }
+  .icon {
+    margin-right: 10px;
+  }
+  .close {
+    color: #000;
+    opacity: 0.2;
+    filter: alpha(opacity = 20);
+    &:hover {
+      opacity: 0.5;
+      filter: alpha(opacity = 50);
+    }
+  }
+  a {
+    color: #fff;
+    text-decoration: underline;
+  }
+}
+
+.alert-success {
+  border-color: #008d4c;
+}
+
+.alert-danger, .alert-error {
+  border-color: #d73925;
+}
+
+.alert-warning {
+  border-color: #e08e0b;
+}
+
+.alert-info {
+  border-color: #00acd6;
+}

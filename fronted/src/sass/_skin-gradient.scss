@@ -1,0 +1,200 @@
+// Social Colors
+$facebook: #3b5998;
+$twitter: #00aced;
+$linkedin: #4875b4;
+$google-plus: #d34836;
+$flickr: #ff0084;
+$tumblr: #32506d;
+$xing: #026466;
+$github: #4183c4;
+$html5: #e34f26;
+$openid: #f78c40;
+$stack-overflow: #fe7a15;
+$youtube: #b00;
+$css3: #0170ba;
+$dribbble: #ea4c89;
+$google-plus: #bb4b39;
+$instagram: #517fa4;
+$pinterest: #cb2027;
+$vk: #45668e;
+$yahoo: #400191;
+$behance: #1769ff;
+$dropbox: #007ee5;
+$reddit: #ff4500;
+$spotify: #7ab800;
+$vine: #00bf8f;
+$foursquare: #1073af;
+$vimeo: #aad450;
+// Devin Color
+$sidebar-devin:#fff;
+$sidebar-devin-text:#fff;
+$text-devin:#222;
+$treeview-background: rgba(0, 0, 0, 0.2);
+//@include filter-gradient(#a6000000, #00000000, horizontal); // IE6-9
+
+/*
+ * Skin: Blue
+ * ----------
+ */
+
+body {
+    background: rgb(122, 188, 255);
+    background: -moz-linear-gradient(top, $facebook 20%, $flickr 100%)!important;
+    background: -webkit-linear-gradient(top, $facebook 20%, $flickr 100%)!important;
+    background: linear-gradient(to bottom, $facebook 20%, $flickr 100%)!important;
+}
+
+.skin-gradient {
+    .main-header {
+        .navbar {
+            background-color: $sidebar-devin;   
+            .nav {
+                >li>a {
+                    color: $text-devin;
+                    &:hover,
+                    &:active,
+                    &:focus {
+                        background: rgba(0, 0, 0, 0.1);
+                        color: #f6f6f6;
+                    }
+                }
+                .open>a {
+                    background: rgba(0, 0, 0, 0.1);
+                    color: #f6f6f6;
+                    &:hover,
+                    &:focus {
+                        background: rgba(0, 0, 0, 0.1);
+                        color: #f6f6f6;
+                    }
+                }
+                >.active>a {
+                    background: rgba(0, 0, 0, 0.1);
+                    color: #f6f6f6;
+                }
+            }
+            .sidebar-toggle {
+                color: #ccc;
+                &:hover {
+                    color: #222;
+                    background-color: $sidebar-devin;
+                }
+            }
+        }
+        .logo {
+            background-color: $sidebar-devin;
+            color: $text-devin;
+            &:hover {}
+        }
+        li.user-header {
+            background-color: $sidebar-devin;
+        }
+    }
+    // Breadcrumb background color setting
+    .content-header {
+        background: rgba(0, 0, 0, 0);
+    }
+    //Main side bar background color setting
+    .main-sidebar,
+    .left-side {
+        background: rgba(0, 0, 0, 0.2);
+        border-right: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    .wrapper {}
+    .user-panel>.info {
+        color: #fff;
+        >a {
+            color: #fff;
+        }
+    }
+    .sidebar-menu>li {
+        &.header {
+            color: $sidebar-devin-text;
+            background: $treeview-background;
+        }
+        >a {
+            border-left: 3px solid transparent;
+        }
+        &:hover>a,
+        &.active>a {
+            color: $sidebar-devin-text;
+            background: $treeview-background;
+            border-left-color: $sidebar-devin;
+        }
+        >.treeview-menu {
+            margin: 0;
+            background: $treeview-background;
+        }
+    }
+    .sidebar a {
+        color: $sidebar-devin-text;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+    .treeview-menu>li {
+        >a {
+            color: $sidebar-devin-text;
+        }
+        &.active>a,
+        >a:hover {
+            color: #ffffff;
+        }
+    }
+    .sidebar-form {
+        border-radius: 3px;
+        border: 1px solid #374850;
+        margin: 10px 10px;
+        input[type="text"],
+        .btn {
+            box-shadow: none;
+            background-color: #374850;
+            border: 1px solid transparent;
+            height: 35px;
+        }
+        input[type="text"] {
+            color: #666;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 2px;
+            &:focus {
+                background-color: #fff;
+                color: #666;
+                +.input-group-btn .btn {
+                    background-color: #fff;
+                    color: #666;
+                    border-left-color: #fff;
+                }
+            }
+        }
+        .btn {
+            color: #999;
+            border-top-left-radius: 0;
+            border-top-right-radius: 2px;
+            border-bottom-right-radius: 2px;
+            border-bottom-left-radius: 0;
+        }
+    }
+    &.layout-top-nav .main-header>.logo {
+        background-color: $sidebar-devin;
+        color: $text-devin;
+        border-bottom: 0 solid transparent;
+        &:hover {
+            background-color: #3b8ab8;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .skin-devin .main-header .navbar .dropdown-menu li {
+        &.divider {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        a {
+            color: #fff;
+            &:hover {
+                background: $sidebar-devin;
+            }
+        }
+    }
+}

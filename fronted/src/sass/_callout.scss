@@ -1,0 +1,40 @@
+/*
+ * Component: Callout
+ * ------------------
+ */
+
+.callout {
+  border-radius: 3px;
+  margin: 0 0 20px 0;
+  padding: 15px 30px 15px 15px;
+  border-left: 5px solid #eee;
+  a {
+    color: #fff;
+    text-decoration: underline;
+    &:hover {
+      color: #eee;
+    }
+  }
+  h4 {
+    margin-top: 0;
+    font-weight: 600;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+  code, .highlight {
+    background-color: #fff;
+  }
+  &.callout-danger {
+    border-color: #c23321;
+  }
+  &.callout-warning {
+    border-color: #c87f0a;
+  }
+  &.callout-info {
+    border-color: #0097bc;
+  }
+  &.callout-success {
+    border-color: #00733e;
+  }
+}

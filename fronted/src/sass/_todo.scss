@@ -1,0 +1,128 @@
+/*
+ * Component: Todo
+
+ * ----------------
+ */
+
+.todo-devin {
+    background: white;
+    border-radius: 0;
+    .todo-list {
+        .todo-content {
+            background: white;
+            width: 100%;
+            display: inline-block;
+            padding: 30px;
+            position: relative;
+            margin: 0;
+            z-index: 0;
+            border-left: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            h2 {
+                margin: 0 0 15px;
+                padding: 0;
+                font-size: 1.5em;
+            }
+            p {
+                margin: 0 0 30px;
+            }
+        }
+    }
+    .el-textarea__inner {
+        padding: 15px!important;
+    }
+}
+
+.side-todo {
+    padding: 30px 0 0 30px;
+    min-height: 300px;
+    border-radius: 5px;
+    position: relative;
+    z-index: 0;
+    ul {
+        margin: 0;
+        padding: 0;
+        li {
+            padding: 10px 0 0;
+            list-style: none;
+            margin: 0 0 30px;
+            img {
+                float: left;
+                border-radius: 50%;
+                width: 60px;
+                border: 2px solid #eee;
+            }
+            .about {
+                float: left;
+                margin-top: 8px;
+                position: relative;
+                left: 20px;
+                .name {
+                    font-weight: 500;
+                    font-size: 14px;
+                }
+            }
+        }
+        .completed {
+            padding: 0 0 30px;
+            margin: 0 0 15px;
+            border-bottom: 1px solid #eee;
+            b {
+                float: right;
+                background: $stack-overflow;
+                color: #fff;
+                display: table;
+                padding: 1px 10px;
+                font-weight: 300;
+                font-size: 12px;
+                border-radius: 50px;
+            }
+        }
+        .pending {
+            b {
+                float: right;
+                background: $vine;
+                color: #fff;
+                display: table;
+                padding: 1px 10px;
+                font-weight: 300;
+                font-size: 12px;
+                border-radius: 50px;
+            }
+        }
+    }
+}
+
+.todo-completed {
+    background: $stack-overflow;
+}
+
+.todo-pending {
+    background: $vine;
+}
+
+.todo-completed,
+.todo-pending {
+    color: #fff;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 11px;
+}
+
+.task-action {
+    span {
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        line-height: 32px;
+        text-align: center;
+        background: $facebook;
+        color: #fff;
+        font-size: 16px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+}

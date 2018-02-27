@@ -1,0 +1,153 @@
+    .particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    
+    .wrapper-404 {
+        position: relative;
+        height: 60vh;
+    }
+
+    .error-404 {
+        position: relative;
+        z-index: 999;
+        margin: 15% auto;
+        padding: 0 20%;
+        text-align: center;
+        .vue-typer .custom {
+            &.char {
+                &.typed {
+                    color: #fff;
+                    font-size: 0.6em;
+                }
+                &.selected {
+                    color: #fff;
+                    background-color: #607D8B;
+                }
+            }
+            &.caret {
+                display: none;
+            }
+        }
+    }
+    
+    .error-number {
+        text-align: center;
+        font-size: 8rem;
+        font-weight: 700;
+        line-height: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: scale 1.4s ease-in-out;
+        color: #fff;
+    }
+    
+    .type-devin {
+        text-align: center;
+        font-size: 3rem;
+        font-weight: 600;
+        line-height: 1.2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: scale 1.4s ease-in-out;
+        color: #fff;
+    }
+    
+    .icon {
+        width: 7rem;
+        max-height: 8rem;
+        margin: 0 .2rem;
+        animation: balance 3s ease infinite 1.3s;
+    }
+    
+    @keyframes scale {
+        0% {
+            opacity: 0;
+            transform: scale(.1);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    @keyframes balance {
+        0% {
+            transform: translate3d(0, 0, 0);
+        }
+        50% {
+            transform: translate3d(0, 1rem, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+    
+    @keyframes typing {
+        0% {
+            width: 0;
+            opacity: 1;
+        }
+        100% {
+            width: 100%;
+            opacity: 1;
+        }
+    }
+    
+    @keyframes blink {
+        0% {
+            border-color: #fff;
+        }
+        100% {
+            border-color: transparent;
+        }
+    }
+    /*
+ * Moon
+ */
+    
+    .moon {
+        position: absolute;
+        bottom: 6%;
+        right: -9%;
+        width: 85vw;
+        height: 50vw;
+        border-radius: 50%;
+        background-color: #eee;
+        background: radial-gradient(#7b4e27 0%, #ffffff 100%);
+        transform: translate3d(20%, 80%, 0);
+        box-shadow: 0 0 3px 27vw rgba(96, 83, 142, .05), 0 0 3px 18vw rgba(96, 83, 142, .1), 0 0 3px 9vw rgba(96, 83, 142, .15);
+        z-index: -1;
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5%;
+            height: 4%;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, .1);
+        }
+        &::before {
+            transform: translate3d(-400%, -1000%, 0);
+        }
+        &::after {
+            transform: translate3d(0, -600%, 0);
+            width: 10%;
+            height: 6%;
+        }
+    }
+    
+    @media only screen and (max-width: 48em) {
+        .type {
+            font-size: .75rem;
+            word-spacing: .2rem;
+        }
+    }
