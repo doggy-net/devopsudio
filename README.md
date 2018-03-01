@@ -9,7 +9,7 @@ Network topology and path
 ```
 #### 启动前端
 ```
-cd fronted
+cd frontend
 cnpm install
 npm run dev
 ```
