@@ -1,6 +1,9 @@
 import Dashboard from './components/Dashboard.vue'
 import NotFound from './components/modules/dashboard/404.vue'
-import BlankPage from './components/modules/common-page/BlankPage.vue'
+import demo1Page from './components/modules/common-page/demo1.vue'
+import demo2Page from './components/modules/common-page/demo2.vue'
+import demo3Page from './components/modules/common-page/demo3.vue'
+import demo4Page from './components/modules/common-page/demo4.vue'
 import Login from './components/Login.vue'
 import NotFoundSecond from './components/modules/dashboard/500.vue'
 
@@ -23,16 +26,28 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'blank-page',
-        component: BlankPage
+        name: 'dashboard',
+        component: demo1Page
+      }, {
+        path: '/demo1',
+        name: 'demo1',
+        component: demo1Page
+      }, {
+        path: '/demo2',
+        name: 'demo2',
+        component: demo2Page
+      }, {
+        path: '/demo3',
+        name: 'demo3',
+        component: demo3Page
+      }, {
+        path: '/demo4',
+        name: 'demo4',
+        component: demo4Page
       }, {
         path: '/login',
         name: 'login',
         component: Login
-      }, {
-        path: '/blank-page',
-        name: 'blank-page',
-        component: BlankPage
       }, {
         path: '/404',
         name: '404',

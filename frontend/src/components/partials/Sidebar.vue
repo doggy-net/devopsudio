@@ -20,27 +20,20 @@
             </span> </a>
                         <ul class="treeview-menu">
                             <li class="active">
-                                <router-link to="/blank-page">
-                                    <avatar username="Blank Page" :size='20' color="#fff"></avatar> Blank Page</router-link>
+                                <router-link to="/demo1">
+                                    <avatar username="Blank Page" :size='20' color="#fff"></avatar> Demo1 Page</router-link>
                             </li>
-                        </ul>
-                    </li>             
-                    <li class="treeview">
-                        <a href="#"> <i class="ti-layout-media-overlay"></i> <span>Common Page</span> <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span> </a>
-                        <ul class="treeview-menu">
                             <li class="active">
-                                <router-link to="/blank-page">
-                                    <avatar username="Blank Page" :size='20' color="#fff"></avatar> Blank Page</router-link>
-                            </li>  
+                                <router-link to="/demo2">
+                                    <avatar username="Blank Page" :size='20' color="#fff"></avatar> Demo2 Page</router-link>
+                            </li>
                             <li class="active">
-                                <router-link to="/blank-page">
-                                    <avatar username="Blank Page" :size='20' color="#fff"></avatar> Blank Page</router-link>
-                            </li>  
-                            <li class="active">
-                                <router-link to="/blank-page">
-                                    <avatar username="Blank Page" :size='20' color="#fff"></avatar> Blank Page</router-link>
+                                <router-link to="/demo3">
+                                    <avatar username="Blank Page" :size='20' color="#fff"></avatar> Demo3 Page</router-link>
+                            </li>
+                          <li class="active">
+                                <router-link to="/demo4">
+                                    <avatar username="Blank Page" :size='20' color="#fff"></avatar> Demo4 Page</router-link>
                             </li>
                         </ul>
                     </li>
