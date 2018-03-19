@@ -3,7 +3,7 @@
         <!-- Logo -->
         <router-link to="/dashboard" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels --><span class="logo-mini"><b> <img src="static/img/logo.png" alt="User Image"></b></span>
-            <!-- logo for regular state and mobile devices --><span class="logo-lg"><img src="/static/img/logo.png" alt="User Image"><b>Devin</b>vue</span> </router-link>
+            <!-- logo for regular state and mobile devices --><span class="logo-lg"><img src="/static/img/logo.png" alt="User Image"><b>Doggy</b>Net</span> </router-link>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
             <!-- Sidebar toggle button-->
@@ -12,8 +12,8 @@
                         <form id="demo-2">
 	<input class="devin-search" type="search">
 </form>
-    
-    
+
+
     </div>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
@@ -131,12 +131,12 @@
                     <!-- Control Sidebar Toggle Button -->
                     <li>
                         <el-dropdown class="header-dropdown-devin" trigger="click"> <span class="el-dropdown-link">
-                            
+
                             <el-button data-toggle="control-sidebar" type="text" size="small"><i class="ti-menu-alt"></i></el-button>
-                          
+
                           </span> </el-dropdown>
                     </li>
-                  
+
                 </ul>
             </div>
         </nav>

@@ -15,44 +15,94 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
                     <li class="treeview">
-                        <a href="#"> <i class="ti-layout-media-overlay"></i> <span>Common Page</span> <span class="pull-right-container">
+                        <a href="#"> <i class="ti-layout-media-overlay"></i> <span>Demo Page</span> <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span> </a>
                         <ul class="treeview-menu">
-                            <li class="active">
+                            <li >
                                 <router-link to="/demo1">
                                     <avatar username="Blank Page" :size='20' color="#fff"></avatar> Demo1 Page</router-link>
                             </li>
-                            <li class="active">
+                            <li >
                                 <router-link to="/demo2">
                                     <avatar username="Blank Page" :size='20' color="#fff"></avatar> Demo2 Page</router-link>
                             </li>
-                            <li class="active">
+                            <li >
                                 <router-link to="/demo3">
                                     <avatar username="Blank Page" :size='20' color="#fff"></avatar> Demo3 Page</router-link>
                             </li>
-                          <li class="active">
+                          <li >
                                 <router-link to="/demo4">
                                     <avatar username="Blank Page" :size='20' color="#fff"></avatar> Demo4 Page</router-link>
                             </li>
                         </ul>
                     </li>
-                    <li class="header">DEVIN VUE 1.0.0</li>
-                    <li> <a href="http://ndesaintheme.com/devin/doc"><span>Documentation</span>
-                  <span class="pull-right-container">
-                  <i class="fa ti-agenda pull-right version"></i>
-                </span>
-                    </a></li>
-                    <li> <a href="#"><span>About</span>
-                  <span class="pull-right-container">
-                  <i class="fa ti-info-alt pull-right version"></i>
-                </span>
-                    </a></li>
-                    <li> <a href="#"><span>Feedback</span>
-                  <span class="pull-right-container">
-                  <i class="version fa ti-package pull-right"></i>
-                </span>
-                    </a></li>
+                    <li class="header">Network Map</li>
+                      <li >
+                          <router-link to="/demo1">
+                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Fast Map</router-link>
+                      </li>
+                      <li >
+                          <router-link to="/demo2">
+                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Live Map</router-link>
+                      </li>
+                      <li >
+                          <router-link to="/demo3">
+                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Favorite</router-link>
+                      </li>
+                    <li class="header">Network Monitor</li>
+                      <li >
+                          <router-link to="/demo1">
+                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Live Monitor</router-link>
+                      </li>
+                      <li >
+                          <router-link to="/demo2">
+                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Alert Setting</router-link>
+                      </li>
+                  <li class="header">App</li>
+                      <li >
+                          <router-link to="/demo1">
+                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Manager</router-link>
+                      </li>
+                      <li >
+                          <router-link to="/demo2">
+                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Editor </router-link>
+                      </li>
+                  <li class="header">Task</li>
+                      <li >
+                          <router-link to="/demo1">
+                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Quick Task</router-link>
+                      </li>
+                      <li >
+                          <router-link to="/demo2">
+                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Schedule Task</router-link>
+                      </li>
+                  <li class="header">Analysis</li>
+                      <li >
+                          <router-link to="/demo1">
+                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Analysis Map</router-link>
+                      </li>
+                      <li >
+                          <router-link to="/demo2">
+                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Analysis Document</router-link>
+                      </li>
+                  <li class="header">System</li>
+                      <li >
+                          <router-link to="/demo1">
+                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> User</router-link>
+                      </li>
+                      <li >
+                          <router-link to="/demo2">
+                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Data Bee</router-link>
+                      </li>
+                      <li >
+                          <router-link to="/demo2">
+                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Data Setting</router-link>
+                      </li>
+                      <li >
+                          <router-link to="/demo2">
+                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Monitor</router-link>
+                      </li>
                     <li>
                         <br>
                         <br>
