@@ -37,72 +37,60 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                            <router-link to="/demo1"> <i class="ti-dashboard"></i> <span>Dashboard</span></router-link>
+                      </li>
                     <li class="header">Network Map</li>
-                      <li >
-                          <router-link to="/demo1">
-                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Fast Map</router-link>
+                      <li>
+                            <router-link to="/demo1"> <i class="ti-world"></i> <span>Fast Map</span></router-link>
                       </li>
-                      <li >
-                          <router-link to="/demo2">
-                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Live Map</router-link>
+                      <li>
+                            <router-link to="/demo1"> <i class="ti-map"></i> <span>Live Map</span></router-link>
                       </li>
-                      <li >
-                          <router-link to="/demo3">
-                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Favorite</router-link>
+                      <li>
+                            <router-link to="/demo1"> <i class="ti-heart"></i> <span>Favorite</span></router-link>
                       </li>
                     <li class="header">Network Monitor</li>
-                      <li >
-                          <router-link to="/demo1">
-                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Live Monitor</router-link>
+                      <li>
+                            <router-link to="/demo1"> <i class="ti-video-camera"></i> <span>Live Monitor</span></router-link>
                       </li>
-                      <li >
-                          <router-link to="/demo2">
-                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Alert Setting</router-link>
+                      <li>
+                            <router-link to="/demo1"> <i class="ti-announcement"></i> <span>Alert Setting</span></router-link>
                       </li>
                   <li class="header">App</li>
-                      <li >
-                          <router-link to="/demo1">
-                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Manager</router-link>
-                      </li>
-                      <li >
-                          <router-link to="/demo2">
-                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Editor </router-link>
-                      </li>
+                    <li>
+                            <router-link to="/demo1"> <i class="ti-email"></i> <span>Manager</span></router-link>
+                    </li>
+                    <li>
+                            <router-link to="/demo1"> <i class="ti-email"></i> <span>Editor</span></router-link>
+                    </li>
                   <li class="header">Task</li>
-                      <li >
-                          <router-link to="/demo1">
-                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Quick Task</router-link>
-                      </li>
-                      <li >
-                          <router-link to="/demo2">
-                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Schedule Task</router-link>
-                      </li>
+                    <li>
+                            <router-link to="/demo1"> <i class="ti-hummer"></i> <span>Quick Task</span></router-link>
+                    </li>
+                    <li>
+                            <router-link to="/demo1"> <i class="ti-time"></i> <span>Schedule Task</span></router-link>
+                    </li>
                   <li class="header">Analysis</li>
-                      <li >
-                          <router-link to="/demo1">
-                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Analysis Map</router-link>
-                      </li>
-                      <li >
-                          <router-link to="/demo2">
-                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Analysis Document</router-link>
-                      </li>
+                    <li>
+                            <router-link to="/demo1"> <i class="ti-file"></i> <span>Analysis Map</span></router-link>
+                    </li>
+                    <li>
+                            <router-link to="/demo1"> <i class="ti-info-alt"></i> <span>Analysis Document</span></router-link>
+                    </li>
                   <li class="header">System</li>
-                      <li >
-                          <router-link to="/demo1">
-                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> User</router-link>
-                      </li>
-                      <li >
-                          <router-link to="/demo2">
-                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Data Bee</router-link>
-                      </li>
-                      <li >
-                          <router-link to="/demo2">
-                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Data Setting</router-link>
-                      </li>
-                      <li >
-                          <router-link to="/demo2">
-                              <avatar username="Blank Page" :size='20' color="#fff"></avatar> Monitor</router-link>
-                      </li>
+                    <li>
+                            <router-link to="/demo1"> <i class="ti-user"></i> <span>User</span></router-link>
+                    </li>
+                    <li>
+                            <router-link to="/demo1"> <i class="ti-eye"></i> <span>Data Bee</span></router-link>
+                    </li>
+                    <li>
+                            <router-link to="/demo1"> <i class="ti-panel"></i> <span>Data Setting</span></router-link>
+                    </li>
+                    <li>
+                            <router-link to="/demo1"> <i class="ti-search"></i> <span>Monitor</span></router-link>
+                    </li>
                     <li>
                         <br>
                         <br>
