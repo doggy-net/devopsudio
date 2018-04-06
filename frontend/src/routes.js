@@ -1,11 +1,12 @@
 import Dashboard from './components/Dashboard.vue'
-import NotFound from './components/modules/dashboard/404.vue'
+import NotFound from './components/modules/error/404.vue'
 import demo1Page from './components/modules/common-page/demo1.vue'
 import demo2Page from './components/modules/common-page/demo2.vue'
 import demo3Page from './components/modules/common-page/demo3.vue'
 import demo4Page from './components/modules/common-page/demo4.vue'
 import Login from './components/Login.vue'
-import NotFoundSecond from './components/modules/dashboard/500.vue'
+import NotFoundSecond from './components/modules/error/500.vue'
+import Index from './components/modules/dashboard/Index.vue'
 
 // Routes
 const routes = [
@@ -27,7 +28,11 @@ const routes = [
       {
         path: '',
         name: 'dashboard',
-        component: demo1Page
+        component: Index
+      }, {
+        path: 'dashboard',
+        name: 'dashboard',
+        component: Index
       }, {
         path: '/demo1',
         name: 'demo1',
