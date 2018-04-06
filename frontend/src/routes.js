@@ -14,7 +14,7 @@ const routes = [
     component: Dashboard,
     meta: { requiresAuth: true },
     beforeEnter: (to, from, next) => {
-      document.body.className += 'skin-light sidebar-mini'
+      document.body.className += 'skin-dark sidebar-mini'
       next()
     },
     activate: function () {

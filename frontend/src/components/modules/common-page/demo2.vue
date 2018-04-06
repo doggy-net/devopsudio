@@ -1,5 +1,4 @@
 <template>
-    <transition name="el-zoom-in-top">
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
@@ -39,7 +38,6 @@
             </section>
             <!-- /.content -->
         </div>
-    </transition>
 </template>
 <script>
   import D3Network from 'vue-d3-network'
