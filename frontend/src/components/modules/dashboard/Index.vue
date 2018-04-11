@@ -1,5 +1,5 @@
 <template>
-    <transition name="slice">
+    <transition name="el-fade-in-linear">
         <div class="content-wrapper dashboard-wrapper">
             <!-- Main content -->
             <section class="content">

@@ -7,17 +7,41 @@ import demo4Page from './components/modules/common-page/demo4.vue'
 import Login from './components/Login.vue'
 import NotFoundSecond from './components/modules/error/500.vue'
 import Index from './components/modules/dashboard/Index.vue'
+import auth from './auth'
+
+const requireAuth = (to, from, next) => {
+  if (!auth.user.authenticated) {
+    next({
+      path: '/login',
+      query: { redirect: to.fullPath }
+    })
+  } else {
+    document.body.className += 'skin-dark sidebar-mini'
+    next()
+  }
+}
+
+const afterAuth = (_to, from, next) => {
+  if (auth.user.authenticated) {
+    next(from.path)
+  } else {
+    next()
+  }
+}
 
 // Routes
 const routes = [
   {
+    path: '/login',
+    name: 'login',
+    meta: { bodyClass: 'login-page' },
+    component: Login,
+    beforeEnter: afterAuth
+  },
+  {
     path: '/',
     component: Dashboard,
-    meta: { requiresAuth: true },
-    beforeEnter: (to, from, next) => {
-      document.body.className += 'skin-dark sidebar-mini'
-      next()
-    },
+    meta: { requiresAuth: true, bodyClass: ' skin-dark sidebar-mini' },
     activate: function () {
       this.$nextTick(function () {
         // => 'DOM loaded and ready'
@@ -28,11 +52,13 @@ const routes = [
       {
         path: '',
         name: 'dashboard',
-        component: Index
+        component: Index,
+        beforeEnter: requireAuth
       }, {
         path: 'dashboard',
         name: 'dashboard',
-        component: Index
+        component: Index,
+        beforeEnter: requireAuth
       }, {
         path: '/demo1',
         name: 'demo1',

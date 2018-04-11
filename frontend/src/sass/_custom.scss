@@ -620,8 +620,17 @@
   color: #444;
 }
 
-.login-page, .register-page {
+.register-page {
   background: #d2d6de;
+}
+
+.login-page {
+  /*//background: #d2d6de;*/
+  padding: 90px 0;
+  background-image: url('/static/img/login-1.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .login-box, .register-box {

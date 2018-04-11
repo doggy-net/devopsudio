@@ -4,12 +4,18 @@ import Resource from 'vue-resource'
 import VueRouter from 'vue-router'
 import routes from './routes'
 import store from './store'
+// fade/zoom 等
+import 'element-ui/lib/theme-chalk/base.css'
+// collapse 展开折叠
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
+import vbclass from 'vue-body-class'
 
 // Resource logic
 Vue.use(Resource)
 Vue.http.options.emulateJSON = true
 Vue.use(VueRouter)
 Vue.use(ElementUI)
+Vue.component(CollapseTransition.name, CollapseTransition)
 
 // Import top level component
 import App from './App.vue'
@@ -27,6 +33,9 @@ var router = new VueRouter({
     return savedPosition || { x: 0, y: 0 }
   }
 })
+
+// vue-body-class(动态修改body的class)
+Vue.use(vbclass, router)
 
 // Check local storage to handle refreshes
 if (window.localStorage) {
