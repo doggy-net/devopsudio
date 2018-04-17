@@ -9,6 +9,10 @@ import 'element-ui/lib/theme-chalk/base.css'
 // collapse 展开折叠
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import vbclass from 'vue-body-class'
+import VueI18n from 'vue-i18n'
+import enLang from './i18n/en'
+import zhChsLang from './i18n/zh-chs'
+import zhChtLang from './i18n/zh-cht'
 
 // Resource logic
 Vue.use(Resource)
@@ -43,6 +47,16 @@ if (window.localStorage) {
     store.commit('SET_TOKEN', window.localStorage.getItem('token'))
   }
 }
+// i18n
+Vue.use(VueI18n)
+const i18n = new VueI18n({
+  locale: 'en',
+  messages: {
+    'en': enLang,
+    'zh-chs': zhChsLang,
+    'zh-cht': zhChtLang
+  }
+})
 
 // Some middleware to help us ensure the user is authenticated.
 
@@ -51,6 +65,7 @@ if (window.localStorage) {
 new Vue({
   el: '#app',
   router: router,
+  i18n,
   store: store,
   render: h => h(App)
 })

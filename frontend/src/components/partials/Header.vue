@@ -17,8 +17,19 @@
     </div>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
+                    <!-- lang selector-->
+                    <li>
+                      <el-select v-model="lang" placeholder="请选择" class="header-dropdown-devin" @change="changeLangEvent">
+                        <el-option
+                          v-for="item in options"
+                          :key="item.value"
+                          :label="item.label"
+                          size="mini"
+                          :value="item.value">
+                        </el-option>
+                      </el-select>
+                    </li>
                     <!-- Messages: style can be found in dropdown.less-->
-
                     <li>
                         <el-dropdown class="header-dropdown-devin" trigger="click"> <span class="el-dropdown-link">
                             <el-badge :value="20" :max="9" class="item">
@@ -145,8 +156,29 @@
 <script>
   export default {
     name: 'DashboardHeader',
+    data: function () {
+      return {
+        options: [{
+          value: 'en',
+          label: 'English'
+        }, {
+          value: 'zh-chs',
+          label: '简体中文'
+        }, {
+          value: 'zh-cht',
+          label: '繁體中文'
+        }],
+        lang: 'en'
+      }
+    },
     mounted: function () {
 
+    },
+    methods: {
+      changeLangEvent () {
+        console.log(this.lang)
+        this.$i18n.locale = this.lang
+      }
     }
   }
 </script>
