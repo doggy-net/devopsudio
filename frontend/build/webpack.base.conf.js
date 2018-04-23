@@ -15,6 +15,10 @@ module.exports = {
   entry: {
     app: './src/main.js'
   },
+  node: {
+    fs: "empty",
+    child_process: "empty"
+  },
   output: {
     path: config.build.assetsRoot,
     publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetsPublicPath,
@@ -71,7 +75,7 @@ module.exports = {
                 }
             }]
         }]
-    },  
+    },
     loaders: [
       {
         test: /\.vue$/,
@@ -80,7 +84,7 @@ module.exports = {
       {
         test: /\.scss$/,
         loaders: [ 'style', 'css?sourceMap', 'sass?sourceMap' ]
-      },    
+      },
       {
         test: /\.js$/,
         loader: 'babel',
@@ -111,7 +115,7 @@ module.exports = {
   },
   eslint: {
     formatter: require('eslint-friendly-formatter')
-  },   
+  },
    vue: {
     loaders: utils.cssLoaders({ sourceMap: true }),
     postcss: [
