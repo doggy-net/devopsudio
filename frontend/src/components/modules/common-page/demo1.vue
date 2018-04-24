@@ -42,13 +42,23 @@
       var links = [{source: 0, target: 1}, {source: 0, target: 2},
         {source: 0, target: 3}, {source: 1, target: 4},
         {source: 1, target: 5}, {source: 1, target: 6}]
+      // add zoom behavior to nodes
+      var zoom = d3.zoom()
+        .scaleExtent([1 / 2, 4])
+        .on('zoom', zoomed)
+      console.log(zoom)
+
       var width = 1800
-      var height = 800
+      var height = 1200
       var svg = d3.select('.box-body')
         .append('svg')
         .attr('width', width)
         .attr('height', height)
-
+        .call(d3.zoom().scaleExtent([1 / 2, 4]).on('zoom', function () {
+          svg.attr('transform', d3.event.transform)
+        }))
+        .append('g')
+      var g = svg.append('g')
       // 通过布局来转换数据，然后进行绘制
       var simulation = d3.forceSimulation(nodes)
         .force('link', d3.forceLink(links).distance(100))
@@ -94,7 +104,6 @@
         .attr('dx', 20)
         .attr('dy', 8)
         .text(function (d) {
-          console.log(d)
           return d.name
         })
       function dragstarted (d) {
@@ -124,6 +133,10 @@
 
         svgTexts.attr('x', function (d) { return d.x })
           .attr('y', function (d) { return d.y })
+      }
+      // zoomed function
+      function zoomed () {
+        g.attr('transform', d3.event.transform)
       }
     },
     data: function () {
