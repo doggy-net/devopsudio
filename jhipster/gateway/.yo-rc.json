@@ -1,0 +1,44 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.doggynet.gateway",
+      "nativeLanguage": "zh-cn"
+    },
+    "jhipsterVersion": "4.14.4",
+    "baseName": "gateway",
+    "packageName": "com.doggynet.gateway",
+    "packageFolder": "com/doggynet/gateway",
+    "serverPort": "8080",
+    "authenticationType": "uaa",
+    "uaaBaseName": "uaa",
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mariadb",
+    "prodDatabaseType": "mariadb",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "consul",
+    "buildTool": "gradle",
+    "enableSocialSignIn": false,
+    "enableSwaggerCodegen": false,
+    "clientFramework": "angularX",
+    "useSass": true,
+    "clientPackageManager": "yarn",
+    "applicationType": "gateway",
+    "testFrameworks": [
+      "gatling",
+      "cucumber",
+      "protractor"
+    ],
+    "jhiPrefix": "jhi",
+    "enableTranslation": true,
+    "nativeLanguage": "zh-cn",
+    "languages": [
+      "zh-cn",
+      "zh-tw",
+      "en"
+    ]
+  }
+}

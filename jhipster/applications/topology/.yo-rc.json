@@ -1,0 +1,44 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.doggynet.topology",
+      "nativeLanguage": "zh-cn"
+    },
+    "jhipsterVersion": "4.14.4",
+    "baseName": "topology",
+    "packageName": "com.doggynet.topology",
+    "packageFolder": "com/doggynet/topology",
+    "serverPort": "8083",
+    "authenticationType": "uaa",
+    "uaaBaseName": "uaa",
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mariadb",
+    "prodDatabaseType": "mariadb",
+    "searchEngine": "elasticsearch",
+    "messageBroker": "kafka",
+    "serviceDiscoveryType": "consul",
+    "buildTool": "gradle",
+    "enableSocialSignIn": false,
+    "enableSwaggerCodegen": true,
+    "jwtSecretKey": "98daf43a7267f2d022189b0cd867db277580854b",
+    "enableTranslation": true,
+    "applicationType": "microservice",
+    "testFrameworks": [
+      "gatling",
+      "cucumber"
+    ],
+    "jhiPrefix": "jhi",
+    "nativeLanguage": "zh-cn",
+    "languages": [
+      "zh-cn",
+      "zh-tw",
+      "en"
+    ],
+    "clientPackageManager": "yarn",
+    "skipClient": true,
+    "skipUserManagement": true
+  }
+}

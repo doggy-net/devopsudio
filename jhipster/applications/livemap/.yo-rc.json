@@ -1,0 +1,43 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.doggynet.livemap",
+      "nativeLanguage": "zh-cn"
+    },
+    "jhipsterVersion": "4.14.4",
+    "baseName": "livemap",
+    "packageName": "com.doggynet.livemap",
+    "packageFolder": "com/doggynet/livemap",
+    "serverPort": "8081",
+    "authenticationType": "uaa",
+    "uaaBaseName": "uaa",
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mariadb",
+    "prodDatabaseType": "mariadb",
+    "searchEngine": "elasticsearch",
+    "messageBroker": "kafka",
+    "serviceDiscoveryType": "consul",
+    "buildTool": "gradle",
+    "enableSocialSignIn": false,
+    "enableSwaggerCodegen": true,
+    "jwtSecretKey": "56420a1a9f8a8f6e01ef6a5a7cdad557166a0da9",
+    "enableTranslation": true,
+    "applicationType": "microservice",
+    "testFrameworks": [
+      "gatling"
+    ],
+    "jhiPrefix": "jhi",
+    "nativeLanguage": "zh-cn",
+    "languages": [
+      "zh-cn",
+      "zh-tw",
+      "en"
+    ],
+    "clientPackageManager": "yarn",
+    "skipClient": true,
+    "skipUserManagement": true
+  }
+}
