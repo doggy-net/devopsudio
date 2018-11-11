@@ -40,203 +40,203 @@ $treeview-background: rgba(0, 0, 0, 0.1);
  */
 
 .skin-light {
-    .main-header {
-        .navbar {
-            background-color: $sidebar-devin;
-            .nav {
-                >li>a {
-                    color: $text-devin;
-                    &:hover,
-                    &:active,
-                    &:focus {
-                        background: rgba(0, 0, 0, 0.1);
-                        color: #f6f6f6;
-                    }
-                }
-                .open>a {
-                    background: rgba(0, 0, 0, 0.1);
-                    color: #f6f6f6;
-                    &:hover,
-                    &:focus {
-                        background: rgba(0, 0, 0, 0.1);
-                        color: #f6f6f6;
-                    }
-                }
-                >.active>a {
-                    background: rgba(0, 0, 0, 0.1);
-                    color: #f6f6f6;
-                }
-            }
-            .sidebar-toggle {
-                color: #ccc;
-                &:hover {
-                    color: #222;
-                    background-color: $sidebar-devin;
-                }
-            }
+  .main-header {
+    .navbar {
+      background-color: $sidebar-devin;
+      .nav {
+        >li>a {
+          color: $text-devin;
+          &:hover,
+          &:active,
+          &:focus {
+            background: rgba(0, 0, 0, 0.1);
+            color: #f6f6f6;
+          }
         }
-        .logo {
-            background-color: $devin-dark;
-            color: $sidebar-devin-text;
-            box-shadow: -5px 4px 20px -4px rgba(0, 0, 0, 0.5);
-            &:hover {}
+        .open>a {
+          background: rgba(0, 0, 0, 0.1);
+          color: #f6f6f6;
+          &:hover,
+          &:focus {
+            background: rgba(0, 0, 0, 0.1);
+            color: #f6f6f6;
+          }
         }
-        li.user-header {
-            background-color: $sidebar-devin;
+        >.active>a {
+          background: rgba(0, 0, 0, 0.1);
+          color: #f6f6f6;
         }
+      }
+      .sidebar-toggle {
+        color: #ccc;
+        &:hover {
+          color: #222;
+          background-color: $sidebar-devin;
+        }
+      }
     }
-    // Breadcrumb background color setting
-    .content-header {
-        background: $sidebar-devin;
-        box-shadow: none;
-        border-bottom: 1px solid #eee;
-        .breadcrumb {
-            li {
-                a {
-                    color: $text-devin;
-                }
-            }
-        }
+    .logo {
+      background-color: $devin-dark;
+      color: $sidebar-devin-text;
+      box-shadow: -5px 4px 20px -4px rgba(0, 0, 0, 0.5);
+      &:hover {}
     }
-    //Main side bar background color setting
-    .main-sidebar,
-    .left-side {
-        background: $devin-dark!important;
-        border-right: 1px solid rgba(0, 0, 0, 0.05);
+    li.user-header {
+      background-color: $sidebar-devin;
     }
-    .content-wrapper {
-        background: $wrapper-bg;
+  }
+  // Breadcrumb background color setting
+  .content-header {
+    background: $sidebar-devin;
+    box-shadow: none;
+    border-bottom: 1px solid #eee;
+    .breadcrumb {
+      li {
+        a {
+          color: $text-devin;
+        }
+      }
     }
-    .user-panel>.info {
-        color: #222;
-        >a {
-            color: #222;
-        }
+  }
+  //Main side bar background color setting
+  .main-sidebar,
+  .left-side {
+    background: $devin-dark!important;
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  .content-wrapper {
+    background: $wrapper-bg;
+  }
+  .user-panel>.info {
+    color: #222;
+    >a {
+      color: #222;
     }
-    .user-panel .bg-user {
-        opacity: 0.4;
+  }
+  .user-panel .bg-user {
+    opacity: 0.4;
+  }
+  .sidebar-menu>li {
+    &.header {
+      color: #fff;
+      background: #333;
     }
-    .sidebar-menu>li {
-        &.header {
-            color: #fff;
-            background: #333;
-        }
-        >a {
-            border-left: 3px solid transparent;
-        }
-        &:hover>a,
-        &.active>a {
-            color: $sidebar-devin-text;
-            background: $treeview-background;
-            border-left-color: $sidebar-devin;
-        }
-        >.treeview-menu {
-            margin: 0;
-            background: $treeview-background;
-        }
+    >a {
+      border-left: 3px solid transparent;
     }
+    &:hover>a,
+    &.active>a {
+      color: $sidebar-devin-text;
+      background: $treeview-background;
+      border-left-color: $sidebar-devin;
+    }
+    >.treeview-menu {
+      margin: 0;
+      background: $treeview-background;
+    }
+  }
 
-    .sidebar a {
-        color: $sidebar-devin-text;
-        &:hover {
-            text-decoration: none;
-        }
+  .sidebar a {
+    color: $sidebar-devin-text;
+    &:hover {
+      text-decoration: none;
     }
-    .treeview-menu>li {
-        >a {
-            color: $sidebar-devin-text;
-        }
-        &.active>a,
-        >a:hover {
-          
-        }
+  }
+  .treeview-menu>li {
+    >a {
+      color: $sidebar-devin-text;
     }
-    .sidebar-form {
-        border-radius: 3px;
-        border: 1px solid #374850;
-        margin: 10px 10px;
-        input[type="text"],
-        .btn {
-            box-shadow: none;
-            background-color: #374850;
-            border: 1px solid transparent;
-            height: 35px;
-        }
-        input[type="text"] {
-            color: #666;
-            border-top-left-radius: 2px;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 2px;
-            &:focus {
-                background-color: #fff;
-                color: #666;
-                +.input-group-btn .btn {
-                    background-color: #fff;
-                    color: #666;
-                    border-left-color: #fff;
-                }
-            }
-        }
-        .btn {
-            color: #999;
-            border-top-left-radius: 0;
-            border-top-right-radius: 2px;
-            border-bottom-right-radius: 2px;
-            border-bottom-left-radius: 0;
-        }
+    &.active>a,
+    >a:hover {
+      
     }
-    &.layout-top-nav .main-header>.logo {
-        background-color: $sidebar-devin;
-        color: $text-devin;
-        border-bottom: 0 solid transparent;
-        &:hover {
-            background-color: #3b8ab8;
-        }
+  }
+  .sidebar-form {
+    border-radius: 3px;
+    border: 1px solid #374850;
+    margin: 10px 10px;
+    input[type="text"],
+    .btn {
+      box-shadow: none;
+      background-color: #374850;
+      border: 1px solid transparent;
+      height: 35px;
     }
-    .main-footer{
-        color: #333;
-        a{
-           color: #333; 
+    input[type="text"] {
+      color: #666;
+      border-top-left-radius: 2px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 2px;
+      &:focus {
+        background-color: #fff;
+        color: #666;
+        +.input-group-btn .btn {
+          background-color: #fff;
+          color: #666;
+          border-left-color: #fff;
         }
+      }
     }
+    .btn {
+      color: #999;
+      border-top-left-radius: 0;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+      border-bottom-left-radius: 0;
+    }
+  }
+  &.layout-top-nav .main-header>.logo {
+    background-color: $sidebar-devin;
+    color: $text-devin;
+    border-bottom: 0 solid transparent;
+    &:hover {
+      background-color: #3b8ab8;
+    }
+  }
+  .main-footer{
+    color: #333;
+    a{
+       color: #333; 
+    }
+  }
 }
 
 @media (max-width: 767px) {
-    .skin-light .main-header .navbar .dropdown-menu li {
-        &.divider {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        a {
-            color: #fff;
-            &:hover {
-                background: $sidebar-devin;
-            }
-        }
+  .skin-light .main-header .navbar .dropdown-menu li {
+    &.divider {
+      background-color: rgba(255, 255, 255, 0.1);
     }
+    a {
+      color: #fff;
+      &:hover {
+        background: $sidebar-devin;
+      }
+    }
+  }
 }
 
-    // sidebar colapse
+  // sidebar colapse
 .skin-light.sidebar-mini.sidebar-collapse .sidebar-menu {
-     
-        li:hover {
-            a {
-                background: #222;
-                color: #fff;
-               
-            }
-        }
-        .treeview {
-            .treeview-menu {
-                background: #222;
-                border: 1px solid #222;
-                li {
-                    
-                    a {
-                        color: #fff!important;
-                         
-                    }
-                }
-            }
-        }
+   
+    li:hover {
+      a {
+        background: #222;
+        color: #fff;
+         
+      }
     }
+    .treeview {
+      .treeview-menu {
+        background: #222;
+        border: 1px solid #222;
+        li {
+          
+          a {
+            color: #fff!important;
+             
+          }
+        }
+      }
+    }
+  }

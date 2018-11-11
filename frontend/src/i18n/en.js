@@ -1,5 +1,8 @@
-module.exports = {
+export default {
   message: {
+    admin: 'Admin',
+    development: 'Development',
+    operations: 'Operations',
     dashboard: 'Dashboard',
     fastMap: 'Fast Map',
     liveMap: 'Live Map',

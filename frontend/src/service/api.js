@@ -1,7 +1,7 @@
 const { SCHEME, HOSTNAME } =
   process.env.NODE_ENV === 'production'
-    ? {SCHEME: 'https', HOSTNAME: window.location.host}
-    : {SCHEME: 'http', HOSTNAME: '127.0.0.1:8001'}
+  ? {SCHEME: 'https', HOSTNAME: window.location.host}
+  : {SCHEME: 'http', HOSTNAME: '127.0.0.1:8001'}
 
 const API_URL = `${SCHEME}://${HOSTNAME}/api/v1`
 const SESSION_URL = `${API_URL}/auth/`

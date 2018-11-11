@@ -1,6 +1,9 @@
-module.exports = {
+export default {
   message: {
-    dashboard: '仪表台',
+    admin: '管理界面',
+    development: '开发界面',
+    operations: '操作界面',
+    dashboard: '仪表盘',
     fastMap: '快拓扑',
     liveMap: '实时拓扑',
     favorite: '收藏夹',

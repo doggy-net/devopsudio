@@ -8,23 +8,23 @@
 .alert {
   border-radius: 3px;
   h4 {
-    font-weight: 600;
+  font-weight: 600;
   }
   .icon {
-    margin-right: 10px;
+  margin-right: 10px;
   }
   .close {
-    color: #000;
-    opacity: 0.2;
-    filter: alpha(opacity = 20);
-    &:hover {
-      opacity: 0.5;
-      filter: alpha(opacity = 50);
-    }
+  color: #000;
+  opacity: 0.2;
+  filter: alpha(opacity = 20);
+  &:hover {
+    opacity: 0.5;
+    filter: alpha(opacity = 50);
+  }
   }
   a {
-    color: #fff;
-    text-decoration: underline;
+  color: #fff;
+  text-decoration: underline;
   }
 }
 

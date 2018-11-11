@@ -4,15 +4,25 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-  token: null
+  token: null,
+  isSidebarCollapsed: window.localStorage.getItem('isSidebarCollapsed') === 'yes'
 }
 
 const mutations = {
-  SET_TOKEN (state, token) {
-    state.token = token
+  toggleSidebar (state) {
+    state.isSidebarCollapsed = !state.isSidebarCollapsed;
+    if (state.isSidebarCollapsed) {
+      window.localStorage.setItem('isSidebarCollapsed', 'yes');
+    } else {
+      window.localStorage.removeItem('isSidebarCollapsed');
+    }
   },
-  REMOVE_TOKEN (state) {
-    state.token = null
+  setToken (state, token) {
+    state.token = token;
+  },
+  removeToken (state) {
+    window.localStorage.removeItem('token');
+    state.token = null;
   }
 }
 

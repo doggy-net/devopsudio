@@ -2,16 +2,16 @@ import APIURI from '../service/api'
 
 export default {
   user: {
-    authenticated: !!window.localStorage.getItem('token')
+    authenticated: window.localStorage.getItem('token')
   },
 
   login (context, creds, redirect) {
     // context.$http.post(APIURI.SESSION_URL, creds)
     //   .then(resp => {
     //     window.localStorage.setItem('token', resp.body.token)
-    //
+
     //     this.user.authenticated = true
-    //
+
     //     if (redirect) {
     //       context.loginLoading = false
     //       context.$router.push({path: redirect})

@@ -9,32 +9,32 @@
   padding: 15px 30px 15px 15px;
   border-left: 5px solid #eee;
   a {
-    color: #fff;
-    text-decoration: underline;
-    &:hover {
-      color: #eee;
-    }
+  color: #fff;
+  text-decoration: underline;
+  &:hover {
+    color: #eee;
+  }
   }
   h4 {
-    margin-top: 0;
-    font-weight: 600;
+  margin-top: 0;
+  font-weight: 600;
   }
   p:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
   }
   code, .highlight {
-    background-color: #fff;
+  background-color: #fff;
   }
   &.callout-danger {
-    border-color: #c23321;
+  border-color: #c23321;
   }
   &.callout-warning {
-    border-color: #c87f0a;
+  border-color: #c87f0a;
   }
   &.callout-info {
-    border-color: #0097bc;
+  border-color: #0097bc;
   }
   &.callout-success {
-    border-color: #00733e;
+  border-color: #00733e;
   }
 }
