@@ -1,9 +1,9 @@
 <template>
-  <vmap mapId="111"/>
+  <v-map mapId="111"/>
 </template>
 
 <script>
-import VMap from '../components/VMap/index.vue'
+import VMap from '../../components/VMap/index.vue'
 export default {
   name: 'Network',
   components: {

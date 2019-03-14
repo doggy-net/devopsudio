@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
+import elementEnLocale from 'element-ui/lib/locale/lang/en' // element-ui lang
+import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN'// element-ui lang
+import elementTwLocale from 'element-ui/lib/locale/lang/zh-TW'// element-ui lang
 import enLang from './i18n/en'
 import zhChsLang from './i18n/zh-chs'
 import zhChtLang from './i18n/zh-cht'
@@ -8,12 +11,9 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import AppMain from './AppMain.vue'
 import Icon from './components/Icon/index.vue'
-import routes from './routes'
+import router from './router'
 import store from './store'
 import auth from './auth'
-
-Vue.use(ElementUI);
-Vue.component(Icon.name, Icon);
 
 Vue.config.productionTip = false
 
@@ -24,46 +24,30 @@ if (window.localStorage) {
     }
 }
 
-// router
-Vue.use(VueRouter);
-const router = new VueRouter({
-  routes,
-  mode: 'history',
-  linkActiveClass: 'open active',
-  scrollBehavior: function (to, from, savedPosition) {
-      return savedPosition || { x: 0, y: 0 }
-  }
-});
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    // this route requires auth, check if logged in
-    // if not, redirect to login page.
-    if (!auth.user.authenticated) {
-      next({
-        path: '/login',
-        params: {
-          redirect: to.fullPath
-        }
-      })
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
-})
-Vue.use(router);
-
 // i18n
 Vue.use(VueI18n);
 const i18n = new VueI18n({
   locale: 'en',
   messages: {
-    'en': enLang,
-    'zh-chs': zhChsLang,
-    'zh-cht': zhChtLang
+    'en': {
+      ...enLang,
+      ...elementEnLocale,
+    },
+    'zh-chs': {
+      ...zhChsLang,
+      ...elementZhLocale,
+    },
+    'zh-cht': {
+      ...zhChtLang,
+      ...elementTwLocale,
+    }
   }
 });
+
+Vue.use(ElementUI, {
+  i18n: (key, value) => i18n.t(key, value)
+});
+Vue.component(Icon.name, Icon);
 
 new Vue({
   el: '#app',

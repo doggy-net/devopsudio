@@ -1,7 +1,0 @@
-{
-    "mongodb_servers": {
-        "servers": ["192.168.33.57:27017"],
-        "username": "mongodb",
-        "password": "mongodb"
-    }
-}

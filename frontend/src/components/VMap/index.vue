@@ -55,9 +55,10 @@
 
 <script>
 import G6 from '@antv/g6';
-// import G6 from '../../node_modules/@antv/g6/src';
+// import G6 from '../../../node_modules/@antv/g6/src';
 import '@antv/g6/build/plugin.tool.minimap';
 import iconPlus from './svg-icons/plus-circle-fill.svg';
+import router from './svg-icons/router.svg';
 
 G6.track(false);
 
@@ -227,7 +228,7 @@ G6.registerEdge('topology', {
   draw: function(item) {
     const group = item.getGraphicGroup();
     const points = item.getPoints();
-    const sourceEdges = item.source.edges;
+    const sourceEdges = item.source.getEdges();
     const targetId = item.target.id;
     let curEdgeIndex = 0;
     let edgeCount = 0;
@@ -351,7 +352,8 @@ export default {
           pos1: '111',
           pos2: '1111',
           shape: 'networkObject',
-          icon: 'img/router.png'
+          icon: router,
+          parent: 'group1'
         }, {
           id: 'node2',
           x: 400,
@@ -359,7 +361,8 @@ export default {
           pos1: '222',
           pos2: '2222',
           shape: 'networkObject',
-          icon: 'img/router.png'
+          icon: router,
+          parent: 'node1'
         }, {
           id: 'node3',
           x: 0,
@@ -367,7 +370,8 @@ export default {
           pos1: '111',
           pos2: '1111',
           shape: 'networkObject',
-          icon: 'img/router.png'
+          icon: router
+          // icon: 'img/router.png'
         }, {
           id: 'node4',
           x: 400,
@@ -426,8 +430,7 @@ export default {
             lineDash: [8, 4]
           },
           label: {   // 文本标签 || 文本图形配置
-            text: '文本标签1',
-            fill: 'green'
+            text: 'HA Group'
           }
         }]
       }
@@ -525,7 +528,7 @@ export default {
         if (edge.model.selected) {
           this.graph.remove(edge);
           if (source) {
-            this.graph.update(source);
+            this.graph.update(source, {});
           }
           edgeIndex--;
         }
@@ -538,7 +541,7 @@ export default {
           groupIndex--;
         }
       }
-      this.graph.draw();
+      // this.graph.draw();
     },
     undo: function() {
       // console.log('undo');
@@ -573,7 +576,7 @@ export default {
     this.graph.read(this.mapData);
     this.graph.getNodes().forEach(
       node => {
-        this.graph.update(node);
+        this.graph.update(node, {});
       }
     );
     this.graph.css({

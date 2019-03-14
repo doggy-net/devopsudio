@@ -143,3 +143,4 @@ node_modules
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
+backend/run_venv.bat

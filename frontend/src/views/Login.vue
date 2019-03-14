@@ -15,7 +15,6 @@
         <el-form-item>
           <el-input type="password" placeholder="请输入密码" v-model="credentials.password">
             <template slot="prefix">
-              <i class="el-icon-info"/>
               <icon icon-class="lock"/>
             </template>
           </el-input>
@@ -30,7 +29,7 @@
 
 <script>
 import auth from '../auth'
-import FP from 'fingerprintjs2'
+// import FP from 'fingerprintjs2'
 
 export default {
   name: 'Login',
@@ -75,8 +74,8 @@ export default {
 
       if (!this.credentials.username && !this.credentials.password) {
         this.errors = {
-        username: '用户名不能为空',
-        password: '密码不能为空'
+          username: '用户名不能为空',
+          password: '密码不能为空'
         }
         return
       }

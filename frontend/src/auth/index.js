@@ -48,21 +48,6 @@ export default {
       })
   },
 
-  signup (context, creds, redirect) {
-    context.$http.post(APIURI.REGISTRATION_URL, creds)
-      .then(resp => {
-        window.localStorage.setItem('token', resp.body.jwt)
-        this.user.authenticated = true
-
-        if (redirect) {
-          context.$router.push({path: redirect})
-        }
-      }, resp => {
-        console.log(resp.body.errors)
-        context.errors = resp.body.errors
-      })
-  },
-
   logout (context, options) {
     window.localStorage.removeItem('token')
     this.user.authenticated = false
