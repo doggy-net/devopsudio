@@ -30,17 +30,20 @@ class ConnectionPoint(MongoModel):
 class NetworkInterfaceObject(MongoModel):
     name = fields.CharField(max_length=MAX_LENGTH_CHAR)
     properties = fields.DictField()
-    variables = fields.ListField(fields.ReferenceField(Variable))
-    connection_points = fields.ListField(fields.ReferenceField(Variable))
+    variables = fields.ListField(fields.ReferenceField(Variable), mongo_name='vars')
+    connection_points = fields.ListField(
+        fields.ReferenceField(Variable), mongo_name='cps')
 
 
 class NetworkObject(MongoModel):
     name = fields.CharField(max_length=MAX_LENGTH_CHAR)
     properties = fields.DictField()
     variables = fields.ListField(fields.ReferenceField(Variable))
-    connection_points = fields.ListField(fields.ReferenceField(Variable))
-    children = fields.ListField(fields.ObjectIdField())
-    interfaces = fields.ListField(fields.ReferenceField(NetworkInterfaceObject))
+    connection_points = fields.ListField(
+        fields.ReferenceField(Variable), mongo_name='cps')
+    children = fields.ListField(fields.ObjectIdField(), mongo_name='chd')
+    interfaces = fields.ListField(fields.ReferenceField(
+        NetworkInterfaceObject), mongo_name='intfs')
 
 
 class NetworkObjectGroup(MongoModel):

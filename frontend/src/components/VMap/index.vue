@@ -1,14 +1,16 @@
 <template>
   <div class="map-parent-container">
-    <div :id="mapId" class="map-container"
+    <div
+      :id="mapId"
+      class="map-container"
       @mousewheel.alt.prevent="zoom($event)"
       @keydown.ctrl.65.prevent="selectAllItems($event)"
-      @keydown.46.prevent="deleteSelectedItems($event)"
+      @keydown.46.prevent.exact="deleteSelectedItems($event)"
       @keydown.ctrl.90.prevent="undo"
       @dragstart.prevent
       @dragover.prevent
-      @drop="drop($event)">
-    </div>
+      @drop="drop($event)"
+    ></div>
     <div :id="minimapId" :class="minimapContainerClasses" v-if="showMinimap"></div>
     <div class="toolbar">
       <el-tooltip class="item" content="Save" placement="top">
@@ -17,7 +19,12 @@
         </el-button>
       </el-tooltip>
       <el-tooltip class="item" content="Menu" placement="top">
-        <el-button icon="el-icon-menu" circle @click="toggleMinimap" :disabled="showMinimap? false: true"></el-button>
+        <el-button
+          icon="el-icon-menu"
+          circle
+          @click="toggleMinimap"
+          :disabled="showMinimap? false: true"
+        ></el-button>
       </el-tooltip>
       <el-dropdown placement="top" class="margin-left">
         <el-button icon="el-icon-share" circle></el-button>
@@ -48,23 +55,30 @@
           <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <el-slider v-model="scale" style="width: 348px" :min="40" :max="200" :step="20" :format-tooltip="formatSliderTooltip"></el-slider>
+      <el-slider
+        v-model="scale"
+        style="width: 348px"
+        :min="40"
+        :max="200"
+        :step="20"
+        :format-tooltip="formatSliderTooltip"
+      ></el-slider>
     </div>
   </div>
 </template>
 
 <script>
-import G6 from '@antv/g6';
+import G6 from "@antv/g6";
 // import G6 from '../../../node_modules/@antv/g6/src';
-import '@antv/g6/build/plugin.tool.minimap';
-import iconPlus from './svg-icons/plus-circle-fill.svg';
-import router from './svg-icons/router.svg';
+import "@antv/g6/build/plugin.tool.minimap";
+import iconPlus from "./svg-icons/plus-circle-fill.svg";
+import router from "./svg-icons/router.svg";
 
 G6.track(false);
 
 const defaultIconSize = 50;
-const lineColor = '#666';
-const selectedLineColor = '#0af';
+const lineColor = "#666";
+const selectedLineColor = "#0af";
 const imgPlus = new Image();
 imgPlus.src = iconPlus;
 
@@ -72,12 +86,14 @@ function getContainerSize(containerId) {
   const container = document.getElementById(containerId);
   let containerWidth = parseInt(container.offsetWidth, 10);
   let containerHeight = parseInt(container.offsetHeight, 10);
-  containerWidth = containerWidth % 2 === 0 ? containerWidth + 1: containerWidth;
-  containerHeight = containerHeight % 2 === 0 ? containerHeight + 1: containerHeight;
-  return {width: containerWidth, height: containerHeight};
+  containerWidth =
+    containerWidth % 2 === 0 ? containerWidth + 1 : containerWidth;
+  containerHeight =
+    containerHeight % 2 === 0 ? containerHeight + 1 : containerHeight;
+  return { width: containerWidth, height: containerHeight };
 }
 let imageCache;
-G6.registerNode('networkObject', {
+G6.registerNode("networkObject", {
   draw: function draw(item) {
     const group = item.getGraphicGroup();
     const icon = item.model.icon;
@@ -100,7 +116,7 @@ G6.registerNode('networkObject', {
         image = imageCache[icon];
       } else {
         const downloadingImage = new Image();
-        downloadingImage.onload = function(){
+        downloadingImage.onload = function() {
           image.src = this.src;
           // iconSize.height = image.naturalHeight /  image.naturalWidth * defaultIconSize;
           // keyShape.attr('height', iconSize.height);
@@ -109,8 +125,8 @@ G6.registerNode('networkObject', {
         imageCache[icon] = image;
         downloadingImage.src = icon;
       }
-      keyShape = group.addShape('image', {
-        name: 'keyShape',
+      keyShape = group.addShape("image", {
+        name: "keyShape",
         attrs: {
           img: image,
           x: 0,
@@ -119,42 +135,41 @@ G6.registerNode('networkObject', {
           height: iconSize.height
         }
       });
-    }
-    else {
-      keyShape = group.addShape('circle', {
-        name: 'keyShape',
+    } else {
+      keyShape = group.addShape("circle", {
+        name: "keyShape",
         attrs: {
           x: defaultIconSize / 2,
           y: defaultIconSize / 2,
           r: defaultIconSize / 2,
-          stroke: '#2a71b9',
-          fill: 'transparent'
+          stroke: "#2a71b9",
+          fill: "transparent"
         }
       });
     }
     group.sort();
     return keyShape;
   },
-  drawSelected: function (item) {
+  drawSelected: function(item) {
     const group = item.getGraphicGroup();
-    return group.addShape('rect', {
-      name: 'selected',
+    return group.addShape("rect", {
+      name: "selected",
       attrs: {
         x: -10,
         y: -6,
         width: defaultIconSize + 20,
         height: defaultIconSize + 12,
-        stroke: '#0af',
+        stroke: "#0af",
         lineDash: [4, 2],
         lineWidth: 1,
-        fill: 'rgba(0,170,255,0.04)'
+        fill: "rgba(0,170,255,0.04)"
       }
     });
   },
-  drawExtender: function (item) {
+  drawExtender: function(item) {
     const group = item.getGraphicGroup();
-    group.addShape('image', {
-      name: 'extendNeighbor',
+    group.addShape("image", {
+      name: "extendNeighbor",
       zIndex: 1,
       attrs: {
         img: imgPlus,
@@ -165,66 +180,66 @@ G6.registerNode('networkObject', {
       }
     });
   },
-  drawText: function (item) {
+  drawText: function(item) {
     const group = item.getGraphicGroup();
-    group.addShape('text', {
-      name: 'pos0',
+    group.addShape("text", {
+      name: "pos0",
       attrs: {
         x: defaultIconSize / 2,
         y: defaultIconSize + 6,
-        fill: '#999',
+        fill: "#999",
         text: item.id,
-        textBaseline: 'top',
-        textAlign: 'center'
+        textBaseline: "top",
+        textAlign: "center"
       }
     });
-    group.addShape('text', {
-      name: 'pos1',
+    group.addShape("text", {
+      name: "pos1",
       attrs: {
         x: defaultIconSize / 2,
         y: defaultIconSize + 18,
-        fill: '#999',
+        fill: "#999",
         text: item.model.pos2,
-        textBaseline: 'top',
-        textAlign: 'center'
+        textBaseline: "top",
+        textAlign: "center"
       }
     });
-    group.addShape('text', {
-      name: 'pos2',
+    group.addShape("text", {
+      name: "pos2",
       attrs: {
         x: defaultIconSize / 2,
         y: defaultIconSize + 30,
-        fill: '#999',
+        fill: "#999",
         text: item.model.pos2,
-        textBaseline: 'top',
-        textAlign: 'center'
+        textBaseline: "top",
+        textAlign: "center"
       }
     });
-    group.addShape('text', {
-      name: 'pos3',
+    group.addShape("text", {
+      name: "pos3",
       attrs: {
         x: defaultIconSize / 2,
         y: defaultIconSize + 42,
-        fill: '#999',
+        fill: "#999",
         text: item.model.pos3,
-        textBaseline: 'top',
-        textAlign: 'center'
+        textBaseline: "top",
+        textAlign: "center"
       }
     });
-    group.addShape('text', {
-      name: 'pos4',
+    group.addShape("text", {
+      name: "pos4",
       attrs: {
         x: defaultIconSize / 2,
         y: defaultIconSize + 54,
-        fill: '#999',
+        fill: "#999",
         text: item.model.pos4,
-        textBaseline: 'top',
-        textAlign: 'center'
+        textBaseline: "top",
+        textAlign: "center"
       }
     });
   }
 });
-G6.registerEdge('topology', {
+G6.registerEdge("topology", {
   draw: function(item) {
     const group = item.getGraphicGroup();
     const points = item.getPoints();
@@ -244,17 +259,19 @@ G6.registerEdge('topology', {
         edgeCount++;
       }
     }
-    const radian = Math.atan((points[1].y - points[0].y) / (points[1].x - points[0].x));
+    const radian = Math.atan(
+      (points[1].y - points[0].y) / (points[1].x - points[0].x)
+    );
     let offset = 0;
     const defaultOffset = 25;
     if (edgeCount % 2 === 0) {
-      const pairIndex = Math.trunc((curEdgeIndex) / 2);
+      const pairIndex = Math.trunc(curEdgeIndex / 2);
       if (pairIndex === 0) {
         offset = defaultOffset;
       } else {
         offset = pairIndex * defaultOffset * 2 + defaultOffset;
       }
-      if ((curEdgeIndex) % 2 === 0) {
+      if (curEdgeIndex % 2 === 0) {
         offset = -offset;
       }
     } else {
@@ -270,11 +287,18 @@ G6.registerEdge('topology', {
     }
     let offsetX = Math.sin(2 * Math.PI - radian) * offset;
     let offsetY = Math.cos(2 * Math.PI - radian) * offset;
-    const midControlPoint = {x: (points[0].x + points[1].x) / 2 + offsetX, y: (points[0].y + points[1].y) / 2 + offsetY}
-    const textRadian1 = Math.atan((midControlPoint.y - points[0].y) / (midControlPoint.x - points[0].x));
-    const textRadian2 = Math.atan((points[1].y - midControlPoint.y) / (points[1].x - midControlPoint.x));
-    const textAlign = ['right', 'left'];
-    const textBaseline = ['top', 'bottom'];
+    const midControlPoint = {
+      x: (points[0].x + points[1].x) / 2 + offsetX,
+      y: (points[0].y + points[1].y) / 2 + offsetY
+    };
+    const textRadian1 = Math.atan(
+      (midControlPoint.y - points[0].y) / (midControlPoint.x - points[0].x)
+    );
+    const textRadian2 = Math.atan(
+      (points[1].y - midControlPoint.y) / (points[1].x - midControlPoint.x)
+    );
+    const textAlign = ["right", "left"];
+    const textBaseline = ["top", "bottom"];
     let leftStyleIndex = 0;
     let rightStyleIndex = 1;
     if (points[0].x < midControlPoint.x) {
@@ -283,41 +307,61 @@ G6.registerEdge('topology', {
     if (points[1].x > midControlPoint.x) {
       rightStyleIndex = 0;
     }
-    const text1 = group.addShape('text', {
+    const text1 = group.addShape("text", {
       attrs: {
         x: points[0].x,
         y: points[0].y,
-        fill: '#333',
-        text: 'source:' + item.model.source,
+        fill: "#333",
+        text: "source:" + item.model.source,
         textBaseline: textBaseline[leftStyleIndex],
         textAlign: textAlign[leftStyleIndex]
       }
     });
-    const text2 = group.addShape('text', {
+    const text2 = group.addShape("text", {
       attrs: {
         x: points[1].x,
         y: points[1].y,
-        fill: '#333',
-        text: 'target:' + item.model.target,
+        fill: "#333",
+        text: "target:" + item.model.target,
         textBaseline: textBaseline[rightStyleIndex],
         textAlign: textAlign[rightStyleIndex]
       }
     });
     // auxiliaryLine for selecting
-    group.addShape('path', {
+    group.addShape("path", {
       attrs: {
-        path: 'M' + points[0].x + ',' + points[0].y
-          + ' Q ' + midControlPoint.x + ',' + midControlPoint.y
-          + ' ' + points[1].x + ',' + points[1].y,
-        stroke: 'rgba(0,0,0,0)',
+        path:
+          "M" +
+          points[0].x +
+          "," +
+          points[0].y +
+          " Q " +
+          midControlPoint.x +
+          "," +
+          midControlPoint.y +
+          " " +
+          points[1].x +
+          "," +
+          points[1].y,
+        stroke: "rgba(0,0,0,0)",
         lineWidth: 9
       }
     });
-    const keyShape = group.addShape('path', {
+    const keyShape = group.addShape("path", {
       attrs: {
-        path: 'M' + points[0].x + ',' + points[0].y
-          + ' Q ' + midControlPoint.x + ',' + midControlPoint.y
-          + ' ' + points[1].x + ',' + points[1].y,
+        path:
+          "M" +
+          points[0].x +
+          "," +
+          points[0].y +
+          " Q " +
+          midControlPoint.x +
+          "," +
+          midControlPoint.y +
+          " " +
+          points[1].x +
+          "," +
+          points[1].y,
         stroke: item.model.selected ? selectedLineColor : lineColor,
         lineWidth: 1,
         lineDash: item.model.selected ? [5, 2] : undefined
@@ -325,12 +369,12 @@ G6.registerEdge('topology', {
     });
     text1.rotateAtStart(textRadian1);
     text2.rotateAtStart(textRadian2);
-    return keyShape
+    return keyShape;
   }
 });
 
 export default {
-  name: 'vmap',
+  name: "vmap",
   props: {
     showMinimap: {
       type: Boolean,
@@ -340,108 +384,129 @@ export default {
   },
   data: function() {
     return {
-      minimapId: this.mapId + '-minimap',
+      minimapId: this.mapId + "-minimap",
       minimapVisiable: this.showMinimap,
       scale: 100,
       graph: undefined,
       mapData: {
-        nodes: [{
-          id: 'node1',
-          x: 0,
-          y: 0,
-          pos1: '111',
-          pos2: '1111',
-          shape: 'networkObject',
-          icon: router,
-          parent: 'group1'
-        }, {
-          id: 'node2',
-          x: 400,
-          y: 0,
-          pos1: '222',
-          pos2: '2222',
-          shape: 'networkObject',
-          icon: router,
-          parent: 'node1'
-        }, {
-          id: 'node3',
-          x: 0,
-          y: 500,
-          pos1: '111',
-          pos2: '1111',
-          shape: 'networkObject',
-          icon: router
-          // icon: 'img/router.png'
-        }, {
-          id: 'node4',
-          x: 400,
-          y: 500,
-          pos1: '222',
-          pos2: '2222',
-          shape: 'networkObject',
-        }],
-        edges: [{
-          source: 'node1',
-          target: 'node2',
-          shape: 'topology'
-        }, {
-          source: 'node1',
-          target: 'node2',
-          shape: 'topology'
-        }, {
-          source: 'node2',
-          target: 'node1',
-          shape: 'topology'
-        }, {
-          source: 'node2',
-          target: 'node1',
-          shape: 'topology'
-        }, {
-          source: 'node3',
-          target: 'node4',
-          shape: 'topology'
-        }, {
-          source: 'node3',
-          target: 'node4',
-          shape: 'topology'
-        }, {
-          source: 'node4',
-          target: 'node3',
-          shape: 'topology'
-        }, {
-          source: 'node4',
-          target: 'node3',
-          shape: 'topology'
-        }, {
-          source: 'node3',
-          target: 'group1',
-          shape: 'topology'
-        }, {
-          source: 'node4',
-          target: 'node2',
-          shape: 'topology'
-        }],
-        groups: [{
-          id: 'group1',       // id 必须唯一
-          color: '#f00',
-          style: {         // 关键形样式（优先级高于color）
-            stroke: 'blue',
-            fill: 'transparent',
-            lineDash: [8, 4]
+        nodes: [
+          {
+            id: "node1",
+            x: 0,
+            y: 0,
+            pos1: "111",
+            pos2: "1111",
+            pos3: "555",
+            shape: "networkObject",
+            icon: router,
+            parent: "group1"
           },
-          label: {   // 文本标签 || 文本图形配置
-            text: 'HA Group'
+          {
+            id: "node2",
+            x: 400,
+            y: 0,
+            pos1: "222",
+            pos2: "2222",
+            shape: "networkObject",
+            icon: router,
+            parent: "node1"
+          },
+          {
+            id: "node3",
+            x: 0,
+            y: 500,
+            pos1: "111",
+            pos2: "1111",
+            shape: "networkObject",
+            icon: router
+            // icon: 'img/router.png'
+          },
+          {
+            id: "node4",
+            x: 400,
+            y: 500,
+            pos1: "222",
+            pos2: "2222",
+            shape: "networkObject"
           }
-        }]
+        ],
+        edges: [
+          {
+            source: "node1",
+            target: "node2",
+            shape: "topology"
+          },
+          {
+            source: "node1",
+            target: "node2",
+            shape: "topology"
+          },
+          {
+            source: "node2",
+            target: "node1",
+            shape: "topology"
+          },
+          {
+            source: "node2",
+            target: "node1",
+            shape: "topology"
+          },
+          {
+            source: "node3",
+            target: "node4",
+            shape: "topology"
+          },
+          {
+            source: "node3",
+            target: "node4",
+            shape: "topology"
+          },
+          {
+            source: "node4",
+            target: "node3",
+            shape: "topology"
+          },
+          {
+            source: "node4",
+            target: "node3",
+            shape: "topology"
+          },
+          {
+            source: "node3",
+            target: "group1",
+            shape: "topology"
+          },
+          {
+            source: "node4",
+            target: "node2",
+            shape: "topology"
+          }
+        ],
+        groups: [
+          {
+            id: "group1", // id 必须唯一
+            color: "#f00",
+            style: {
+              // 关键形样式（优先级高于color）
+              stroke: "blue",
+              fill: "transparent",
+              lineDash: [8, 4]
+            },
+            label: {
+              // 文本标签 || 文本图形配置
+              text: "HA Group"
+            }
+          }
+        ]
       }
     };
   },
   computed: {
     minimapContainerClasses() {
       if (this.minimapVisiable) {
-        return ['minimap-container'];
+        return ["minimap-container"];
       }
-      return ['minimap-container', 'hide'];
+      return ["minimap-container", "hide"];
     }
   },
   watch: {
@@ -454,22 +519,22 @@ export default {
   },
   methods: {
     test: function() {
-      this.graph.update('node1', {parent: 'group1'});
-      this.graph.update('node2', {parent: 'group1'});
-      this.graph.update('group1', {});
-      this.graph.find('node1').updateCollapsedParent(true);
+      this.graph.update("node1", { parent: "group1" });
+      this.graph.update("node2", { parent: "group1" });
+      this.graph.update("group1", {});
+      this.graph.find("node1").updateCollapsedParent(true);
     },
     test2: function() {
       // console.log(this.graph.save());
     },
     saveToImage: function() {
-      // console.log(this.graph.saveImage().toDataURL());
+      this.graph.saveImage().toDataURL();
     },
     toggleMinimap: function() {
       this.minimapVisiable = !this.minimapVisiable;
     },
     zoomToFit: function() {
-      this.graph.setFitView('autoZoom');
+      this.graph.setFitView("autoZoom");
       this.scale = this.graph.getZoom() * 100;
     },
     zoomTo100: function() {
@@ -483,11 +548,11 @@ export default {
       }
     },
     formatSliderTooltip: function(value) {
-      return value + '%';
+      return value + "%";
     },
     drop: function(event) {
       const nodeId = event.dataTransfer.getData("text");
-      if (nodeId === 'undefined') {
+      if (nodeId === "undefined") {
         return;
       }
       if (this.graph.find(nodeId) === undefined) {
@@ -499,11 +564,11 @@ export default {
           id: nodeId,
           x: points.x,
           y: points.y,
-          pos1: '333',
-          pos2: '333',
-          shape: 'networkObject'
+          pos1: "333",
+          pos2: "333",
+          shape: "networkObject"
         };
-        this.graph.add('node', nodeModel);
+        this.graph.add("node", nodeModel);
       } else {
         this.graph.focus(nodeId);
       }
@@ -549,15 +614,15 @@ export default {
     selectAllItems: function(event) {
       event.preventDefault();
       for (let item of this.graph.getItems()) {
-        this.graph.update(item, {selected: true});
+        this.graph.update(item, { selected: true });
       }
-    },
+    }
   },
   mounted: function() {
     imageCache = {};
     const plugins = [];
     if (this.showMinimap) {
-      const minimap = new G6.Plugins['tool.minimap']({
+      const minimap = new G6.Plugins["tool.minimap"]({
         container: this.minimapId,
         width: 200,
         height: 120
@@ -569,50 +634,48 @@ export default {
       container: this.mapId,
       width: containerSize.width,
       height: containerSize.height,
-      fitView: 'cc',
+      fitView: "cc",
       plugins: plugins
     });
     const graph = this.graph;
     this.graph.read(this.mapData);
-    this.graph.getNodes().forEach(
-      node => {
-        this.graph.update(node, {});
-      }
-    );
-    this.graph.css({
-      cursor: '-webkit-grab'
+    this.graph.getNodes().forEach(node => {
+      this.graph.update(node, {});
     });
-    this.graph.on('contextmenu', event => {
+    this.graph.css({
+      cursor: "-webkit-grab"
+    });
+    this.graph.on("contextmenu", event => {
       event.domEvent.preventDefault();
       const item = event.item;
-      const div = document.createElement('div');
+      const div = document.createElement("div");
       div.innerHTML = `<el-button>${item.id}</el-button>`;
       this.graph.getGraphContainer().appendChild(div);
     });
-    this.graph.on('click', event => {
+    this.graph.on("click", event => {
       if (!event.item) {
         for (let item of graph.getItems()) {
           if (item.model.selected) {
-            graph.update(item, {selected: false});
+            graph.update(item, { selected: false });
           }
         }
       } else {
-        graph.update(event.item, {selected: true});
+        graph.update(event.item, { selected: true });
       }
     });
     let mouseOffset;
-    this.graph.on('dragstart', function(event) {
+    this.graph.on("dragstart", function(event) {
       if (event.currentItem && event.currentItem.isNode) {
         if (event.currentItem.isNode) {
           mouseOffset = {
             x: event.currentItem.model.x - event.x,
             y: event.currentItem.model.y - event.y
           };
-          graph.update(event.currentItem, {selected: true});
+          graph.update(event.currentItem, { selected: true });
         }
       }
     });
-    this.graph.on('drag', event => {
+    this.graph.on("drag", event => {
       const movementX = event.domEvent.movementX;
       const movementY = event.domEvent.movementY;
       if (event.currentItem) {
@@ -647,29 +710,29 @@ export default {
         this.graph.translate(movementX, movementY);
       }
     });
-    this.graph.on('dragend', () => {
+    this.graph.on("dragend", () => {
       mouseOffset = undefined;
     });
-    this.graph.on('mouseenter', event => {
+    this.graph.on("mouseenter", event => {
       if (event.item) {
         this.graph.css({
-          cursor: 'default'
+          cursor: "default"
         });
       }
     });
-    this.graph.on('mouseleave', event => {
+    this.graph.on("mouseleave", event => {
       if (event.item) {
         this.graph.css({
-          cursor: '-webkit-grab'
+          cursor: "-webkit-grab"
         });
       }
     });
     window.onresize = () => {
-      const containerSize = getContainerSize(this.graph.get('container'));
+      const containerSize = getContainerSize(this.graph.get("container"));
       this.graph.changeSize(containerSize.width, containerSize.height);
-    }
+    };
   }
-}
+};
 </script>
 
 <style scoped>
