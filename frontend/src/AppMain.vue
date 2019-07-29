@@ -19,6 +19,10 @@ html, body {
   width: 20px;
   margin-right: 6px;
 }
+.el-button .icon {
+  height: 14px;
+  width: 14px;
+}
 .float-right {
   float: right;
 }

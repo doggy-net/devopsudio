@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
 import elementEnLocale from 'element-ui/lib/locale/lang/en' // element-ui lang
 import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN'// element-ui lang

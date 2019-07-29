@@ -5,17 +5,17 @@
       <el-button @click="toggleSidebar" type="text" class="el-menu-button float-left">
         <icon icon-class="menu"/>
       </el-button>
-      <el-menu-item index="/admin">
-        <icon icon-class="admin"/>
-        <span slot="title">{{ $t("message.admin") }}</span>
+      <el-menu-item index="/ops">
+        <icon icon-class="operation"/>
+        <span slot="title">{{ $t("message.operations") }}</span>
       </el-menu-item>
       <el-menu-item index="/dev">
         <icon icon-class="dev"/>
         <span slot="title">{{ $t("message.development") }}</span>
       </el-menu-item>
-      <el-menu-item index="/ops">
-        <icon icon-class="operation"/>
-        <span slot="title">{{ $t("message.operations") }}</span>
+      <el-menu-item index="/admin">
+        <icon icon-class="admin"/>
+        <span slot="title">{{ $t("message.admin") }}</span>
       </el-menu-item>
     </el-menu>
     <div class="float-right">
