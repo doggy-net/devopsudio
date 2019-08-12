@@ -1,6 +1,6 @@
 import G6 from "@antv/g6"
+// import G6 from '../../../node_modules/@antv/g6/src'
 
-console.log('reg1B', this);
 G6.registerBehavior('select', {
   getDefaultCfg() {
     return {
@@ -23,19 +23,22 @@ G6.registerBehavior('select', {
     if (!self.multiple) {
       this.removeSelectedState();
     }
-    if (item.hasState('selected')) {
+    const itemModel = item.getModel();
+    if (itemModel.selected) {
       if (self.shouldUpdate(self, event)) {
-        graph.setItemState(item, 'selected', false);
+        // itemModel.selected = false;
+        item.update({selected: false});
       }
       graph.emit('nodeselectchange', { target: item, select: false });
     } else {
       if (self.shouldUpdate(self, event)) {
-        graph.setItemState(item, 'selected', true);
+        // itemModel.selected = true;
+        item.update({selected: true});
       }
       graph.emit('nodeselectchange', { target: item, select: true });
     }
-    graph.setAutoPaint(autoPaint);
     graph.paint();
+    graph.setAutoPaint(autoPaint);
   },
   onCanvasClick() {
     this.removeSelectedState();
@@ -44,8 +47,10 @@ G6.registerBehavior('select', {
     const graph = this.graph;
     const autoPaint = graph.get('autoPaint');
     graph.setAutoPaint(false);
-    graph.findAllByState('node', 'selected').forEach(node => {
-      graph.setItemState(node, 'selected', false);
+    graph.getNodes().forEach(node => {
+      if (node.getModel().selected) {
+        graph.update(node, {selected: false});
+      }
     });
     graph.findAllByState('edge', 'selected').forEach(edge => {
       graph.setItemState(edge, 'selected', false);

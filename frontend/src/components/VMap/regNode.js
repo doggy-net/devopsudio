@@ -1,4 +1,5 @@
 import G6 from "@antv/g6"
+// import G6 from '../../../node_modules/@antv/g6/src'
 
 import iconPlus from "./svg-icons/plus-circle-fill.svg"
 const defaultIconSize = 60;
@@ -9,7 +10,6 @@ let imageCache = {};
 G6.registerNode("networkObject", {
   draw(cfg, group) {
     const selecedShape = this.drawSelected(cfg, group);
-    // this.hasState('selected')
     if (cfg.selected) {
       selecedShape.show();
     } else {
@@ -57,8 +57,6 @@ G6.registerNode("networkObject", {
         }
       });
     }
-    console.log('regN', this);
-    console.log('regN2', keyShape);
     group.sort();
     return keyShape;
   },

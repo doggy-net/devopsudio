@@ -11,13 +11,12 @@
       @dragstart.prevent
       @dragover.prevent
       @drop="drop($event)"
-      @contextmenu.prevent="$refs.menu.open"
     ></div>
     <div :id="minimapId" :class="minimapContainerClasses" v-if="showMinimap"></div>
     <div class="toolbar">
       <el-tooltip class="item" content="Save" placement="top">
         <el-button circle @click="saveImage">
-          <icon icon-class="save"/>
+          <icon icon-class="save-fill"/>
         </el-button>
       </el-tooltip>
       <el-tooltip class="item" content="Menu" placement="top">
@@ -40,14 +39,18 @@
       </el-dropdown>
       <el-tooltip class="item" content="Test" placement="top">
         <el-button circle @click="test">
-          <icon icon-class="save-fill"/>
+          <icon icon-class="pie-chart"/>
         </el-button>
       </el-tooltip>
       <el-tooltip class="item" content="Fit View" placement="top">
-        <el-button icon="el-icon-picture-outline" circle @click="zoomToFit"></el-button>
+        <el-button circle @click="zoomToFit">
+          <icon icon-class="fit-to-view"/>
+        </el-button>
       </el-tooltip>
       <el-tooltip class="item" content="Zoom to 100%" placement="top">
-        <el-button icon="el-icon-picture-outline" circle @click="zoomTo100"></el-button>
+        <el-button circle @click="zoomTo100">
+          <icon icon-class="1to1"/>
+        </el-button>
       </el-tooltip>
       <el-dropdown placement="top" class="margin-left">
         <el-button icon="el-icon-more" circle></el-button>
@@ -73,6 +76,7 @@
 
 <script>
 import G6 from '@antv/g6'
+// import G6 from '../../../node_modules/@antv/g6/src'
 import Minimap from '@antv/g6/build/minimap'
 import mapData from './mapData'
 require('./regNode');
@@ -145,13 +149,8 @@ export default {
     });
     // fix canvas resize issue while resizing container
     this.graph.get('canvas').get('el').style.display = 'block';
-    this.graph.get('canvas').get('el').style['line-height-step'] = '0px';
     const graph = this.graph;
-    const autoPaint = graph.get('autoPaint');
-    graph.setAutoPaint(false);
     this.graph.read(this.mapData);
-    graph.paint();
-    graph.setAutoPaint(autoPaint);
     this.graph.on("node:mouseleave", () => {
       graph.get("canvas").get('el').style.cursor = "-webkit-grab";
     });
@@ -165,7 +164,6 @@ export default {
   },
   methods: {
     test: function() {
-      this.graph.changeSize(500,500);
     },
     saveImage: function() {
       this.graph.downloadImage(this.mapId);
@@ -188,7 +186,7 @@ export default {
       }
     },
     formatSliderTooltip: function(value) {
-      return value + "%";
+      return value + '%';
     },
     drop: function(event) {
       const nodeId = event.dataTransfer.getData("text");
@@ -249,13 +247,16 @@ export default {
       // this.graph.draw();
     },
     undo() {
-      console.log('undo');
     },
     selectAllItems(event) {
       event.preventDefault();
-      for (let item of this.graph.getNodes()) {
-        this.graph.update(item, { selected: true });
+      const autoPaint = this.graph.get('autoPaint');
+      this.graph.setAutoPaint(false);
+      for (let node of this.graph.getNodes()) {
+        this.graph.update(node, { selected: true });
       }
+      this.graph.paint();
+      this.graph.setAutoPaint(autoPaint);
     }
   }
 };

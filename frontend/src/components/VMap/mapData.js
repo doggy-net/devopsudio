@@ -11,7 +11,6 @@ const mapData = {
       pos3: "555",
       shape: "networkObject",
       icon: router,
-      parent: "group1"
     },
     {
       id: "node2",
@@ -21,7 +20,6 @@ const mapData = {
       pos2: "2222",
       shape: "networkObject",
       icon: router,
-      parent: "node1"
     },
     {
       id: "node3",
