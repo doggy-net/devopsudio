@@ -1,10 +1,10 @@
-import G6 from "@antv/g6"
+import G6 from '@antv/g6'
 // import G6 from '../../../node_modules/@antv/g6/src'
 
-const lineColor = "#666";
-const selectedLineColor = "#0af";
+const lineColor = '#666';
+const selectedLineColor = '#0af';
 
-G6.registerEdge("topology", {
+G6.registerEdge('topology', {
   draw(cfg, group) {
     const sourceEdges = cfg.sourceNode.getEdges();
     const targetId = cfg.targetNode.id;
@@ -60,8 +60,8 @@ G6.registerEdge("topology", {
     const textRadian2 = Math.atan(
       (cfg.endPoint.y - midControlPoint.y) / (cfg.endPoint.x - midControlPoint.x)
     );
-    const textAlign = ["right", "left"];
-    const textBaseline = ["top", "bottom"];
+    const textAlign = ['right', 'left'];
+    const textBaseline = ['top', 'bottom'];
     let leftStyleIndex = 0;
     let rightStyleIndex = 1;
     if (cfg.startPoint.x < midControlPoint.x) {
@@ -70,60 +70,60 @@ G6.registerEdge("topology", {
     if (cfg.endPoint.x > midControlPoint.x) {
       rightStyleIndex = 0;
     }
-    const text1 = group.addShape("text", {
+    const text1 = group.addShape('text', {
       attrs: {
         x: cfg.startPoint.x,
         y: cfg.startPoint.y,
-        fill: "#333",
-        text: "source:" + cfg.source,
+        fill: '#333',
+        text: 'source:' + cfg.source,
         textBaseline: textBaseline[leftStyleIndex],
         textAlign: textAlign[leftStyleIndex]
       }
     });
-    const text2 = group.addShape("text", {
+    const text2 = group.addShape('text', {
       attrs: {
         x: cfg.endPoint.x,
         y: cfg.endPoint.y,
-        fill: "#333",
-        text: "target:" + cfg.target,
+        fill: '#333',
+        text: 'target:' + cfg.target,
         textBaseline: textBaseline[rightStyleIndex],
         textAlign: textAlign[rightStyleIndex]
       }
     });
     // auxiliaryLine for selecting
-    group.addShape("path", {
+    group.addShape('path', {
       attrs: {
         path:
-          "M" +
+          'M' +
           cfg.startPoint.x +
-          "," +
+          ',' +
           cfg.startPoint.y +
-          " Q " +
+          ' Q ' +
           midControlPoint.x +
-          "," +
+          ',' +
           midControlPoint.y +
-          " " +
+          ' ' +
           cfg.endPoint.x +
-          "," +
+          ',' +
           cfg.endPoint.y,
-        stroke: "rgba(0,0,0,0)",
+        stroke: 'rgba(0,0,0,0)',
         lineWidth: 9
       }
     });
-    const keyShape = group.addShape("path", {
+    const keyShape = group.addShape('path', {
       attrs: {
         path:
-          "M" +
+          'M' +
           cfg.startPoint.x +
-          "," +
+          ',' +
           cfg.startPoint.y +
-          " Q " +
+          ' Q ' +
           midControlPoint.x +
-          "," +
+          ',' +
           midControlPoint.y +
-          " " +
+          ' ' +
           cfg.endPoint.x +
-          "," +
+          ',' +
           cfg.endPoint.y,
         stroke: cfg.selected ? selectedLineColor : lineColor,
         lineWidth: 1,

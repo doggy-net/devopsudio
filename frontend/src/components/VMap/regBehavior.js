@@ -1,4 +1,4 @@
-import G6 from "@antv/g6"
+import G6 from '@antv/g6'
 // import G6 from '../../../node_modules/@antv/g6/src'
 
 G6.registerBehavior('select', {

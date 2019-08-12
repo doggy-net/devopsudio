@@ -94,7 +94,7 @@ function getContainerSize(container) {
 }
 
 export default {
-  name: "vmap",
+  name: 'vmap',
   props: {
     showMinimap: {
       type: Boolean,
@@ -104,7 +104,7 @@ export default {
   },
   data() {
     return {
-      minimapId: this.mapId + "-minimap",
+      minimapId: this.mapId + '-minimap',
       minimapVisiable: this.showMinimap,
       scale: 100,
       graph: undefined,
@@ -114,9 +114,9 @@ export default {
   computed: {
     minimapContainerClasses() {
       if (this.minimapVisiable) {
-        return ["minimap-container"];
+        return ['minimap-container'];
       }
-      return ["minimap-container", "hide"];
+      return ['minimap-container', 'hide'];
     }
   },
   watch: {
@@ -151,11 +151,11 @@ export default {
     this.graph.get('canvas').get('el').style.display = 'block';
     const graph = this.graph;
     this.graph.read(this.mapData);
-    this.graph.on("node:mouseleave", () => {
-      graph.get("canvas").get('el').style.cursor = "-webkit-grab";
+    this.graph.on('node:mouseleave', () => {
+      graph.get('canvas').get('el').style.cursor = '-webkit-grab';
     });
-    this.graph.on("edge:mouseleave", () => {
-      graph.get("canvas").get('el').style.cursor = "-webkit-grab";
+    this.graph.on('edge:mouseleave', () => {
+      graph.get('canvas').get('el').style.cursor = '-webkit-grab';
     });
     window.onresize = () => {
       const containerSize = getContainerSize(document.getElementById(this.mapId));
@@ -189,8 +189,8 @@ export default {
       return value + '%';
     },
     drop: function(event) {
-      const nodeId = event.dataTransfer.getData("text");
-      if (nodeId === "undefined") {
+      const nodeId = event.dataTransfer.getData('text');
+      if (nodeId === 'undefined') {
         return;
       }
       if (this.graph.find(nodeId) === undefined) {
@@ -202,11 +202,11 @@ export default {
           id: nodeId,
           x: points.x,
           y: points.y,
-          pos1: "333",
-          pos2: "333",
-          shape: "networkObject"
+          pos1: '333',
+          pos2: '333',
+          shape: 'networkObject'
         };
-        this.graph.add("node", nodeModel);
+        this.graph.add('node', nodeModel);
       } else {
         this.graph.focus(nodeId);
       }

@@ -1,13 +1,13 @@
-import G6 from "@antv/g6"
+import G6 from '@antv/g6'
 // import G6 from '../../../node_modules/@antv/g6/src'
 
-import iconPlus from "./svg-icons/plus-circle-fill.svg"
+import iconPlus from './svg-icons/plus-circle-fill.svg'
 const defaultIconSize = 60;
 const imgPlus = new Image();
 imgPlus.src = iconPlus;
 
 let imageCache = {};
-G6.registerNode("networkObject", {
+G6.registerNode('networkObject', {
   draw(cfg, group) {
     const selecedShape = this.drawSelected(cfg, group);
     if (cfg.selected) {
@@ -35,8 +35,8 @@ G6.registerNode("networkObject", {
         imageCache[cfg.icon] = image;
         downloadingImage.src = cfg.icon;
       }
-      keyShape = group.addShape("image", {
-        name: "keyShape",
+      keyShape = group.addShape('image', {
+        name: 'keyShape',
         attrs: {
           img: cfg.icon,
           x: 0,
@@ -46,14 +46,14 @@ G6.registerNode("networkObject", {
         }
       });
     } else {
-      keyShape = group.addShape("circle", {
-        name: "keyShape",
+      keyShape = group.addShape('circle', {
+        name: 'keyShape',
         attrs: {
           x: defaultIconSize / 2,
           y: defaultIconSize / 2,
           r: defaultIconSize / 2,
-          stroke: "#2a71b9",
-          fill: "transparent"
+          stroke: '#2a71b9',
+          fill: 'transparent'
         }
       });
     }
@@ -61,23 +61,23 @@ G6.registerNode("networkObject", {
     return keyShape;
   },
   drawSelected(cfg, group) {
-    return group.addShape("rect", {
-      name: "selected",
+    return group.addShape('rect', {
+      name: 'selected',
       attrs: {
         x: -10,
         y: -6,
         width: defaultIconSize + 20,
         height: defaultIconSize + 12,
-        stroke: "#0af",
+        stroke: '#0af',
         lineDash: [4, 2],
         lineWidth: 1,
-        fill: "rgba(0,170,255,0.04)"
+        fill: 'rgba(0,170,255,0.04)'
       }
     });
   },
   drawExtender(cfg, group) {
-    group.addShape("image", {
-      name: "extendNeighbor",
+    group.addShape('image', {
+      name: 'extendNeighbor',
       zIndex: 1,
       attrs: {
         img: imgPlus,
@@ -95,15 +95,15 @@ G6.registerNode("networkObject", {
     } else {
       text = cfg['pos' + pos];
     }
-    group.addShape("text", {
+    group.addShape('text', {
       name: text,
       attrs: {
         x: defaultIconSize / 2,
         y: defaultIconSize + 6 + 12 * pos,
-        fill: "#999",
+        fill: '#999',
         text: text,
-        textBaseline: "top",
-        textAlign: "center",
+        textBaseline: 'top',
+        textAlign: 'center',
         cursor: 'pointer'
       }
     });
