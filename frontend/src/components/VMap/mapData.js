@@ -1,4 +1,5 @@
 import router from './svg-icons/router.svg';
+import l2switch from './svg-icons/l2_switch.svg';
 
 const mapData = {
   nodes: [
@@ -37,7 +38,8 @@ const mapData = {
       y: 500,
       pos1: '222',
       pos2: '2222',
-      shape: 'networkObject'
+      shape: 'networkObject',
+      icon: l2switch
     }
   ],
   edges: [
@@ -47,24 +49,9 @@ const mapData = {
       shape: 'topology'
     },
     {
-      source: 'node1',
-      target: 'node2',
-      shape: 'topology'
-    },
-    {
-      source: 'node2',
-      target: 'node1',
-      shape: 'topology'
-    },
-    {
-      source: 'node2',
-      target: 'node1',
-      shape: 'topology'
-    },
-    {
       source: 'node3',
       target: 'node4',
-      shape: 'line'
+      shape: 'topology'
     }
   ],
   groups: [

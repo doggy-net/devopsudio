@@ -7,21 +7,22 @@
       </el-button>
       <el-menu-item index="/ops">
         <icon icon-class="operation"/>
-        <span slot="title">{{ $t("message.operations") }}</span>
+        <span slot="title">{{ $t('message.operations') }}</span>
       </el-menu-item>
       <el-menu-item index="/dev">
         <icon icon-class="dev"/>
-        <span slot="title">{{ $t("message.development") }}</span>
+        <span slot="title">{{ $t('message.development') }}</span>
       </el-menu-item>
       <el-menu-item index="/admin">
         <icon icon-class="admin"/>
-        <span slot="title">{{ $t("message.admin") }}</span>
+        <span slot="title">{{ $t('message.admin') }}</span>
       </el-menu-item>
     </el-menu>
     <div class="float-right">
-      <el-popover placement="top-start" trigger="click">
-        <el-tabs>
-          <el-tab-pane label="Message">
+      <el-popover placement="top-start" trigger="click" width="240">
+        <el-tabs stretch>
+          <el-tab-pane>
+            <icon slot="label" icon-class="message"/>
             <el-collapse>
               <el-collapse-item title="一致性 Consistency" name="1">
                 <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
@@ -42,7 +43,8 @@
               </el-collapse-item>
             </el-collapse>
           </el-tab-pane>
-          <el-tab-pane label="Alert">
+          <el-tab-pane>
+            <icon slot="label" icon-class="alert"/>
             <el-collapse>
               <el-collapse-item title="一致性 Consistency" name="1">
                 <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
@@ -63,7 +65,8 @@
               </el-collapse-item>
             </el-collapse>
           </el-tab-pane>
-          <el-tab-pane label="Notification">
+          <el-tab-pane>
+            <icon slot="label" icon-class="notification"/>
             <el-collapse>
               <el-collapse-item title="一致性 Consistency" name="1">
                 <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
@@ -86,8 +89,8 @@
           </el-tab-pane>
         </el-tabs>
         <el-button type="text" slot="reference" class="el-menu-button">
-          <el-badge :value="300" :max="99">
-            <icon icon-class="message"/>
+          <el-badge :value="300" :max="99" is-dot>
+            {{ $t('message.message') }}
           </el-badge>
         </el-button>
       </el-popover>
@@ -103,7 +106,7 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <el-button type="text" @click="logout">
+      <el-button type="text" @click="logout" class="el-menu-button">
         {{ $t('message.logout') }}
       </el-button>
     </div>
@@ -123,9 +126,6 @@ export default {
       }, {
         value: 'zh-chs',
         label: '简体中文'
-      }, {
-        value: 'zh-cht',
-        label: '繁體中文'
       }],
       curLang: {
         value: 'en',
@@ -179,7 +179,7 @@ export default {
 }
 .el-menu-button {
   height: 60px;
-  padding: 0 20px;
+  padding: 0px 20px;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;

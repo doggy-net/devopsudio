@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import path from 'path'
 import { routes } from '@/router'
 import { getBaseRoute } from '@/utils/path'
@@ -29,9 +28,6 @@ export default {
     Sidebar,
   },
   computed: {
-    ...mapState({
-      isSidebarCollapsed: state => state.isSidebarCollapsed
-    }),
     baseRoute() {
       return getBaseRoute(this.$route.path);
     },

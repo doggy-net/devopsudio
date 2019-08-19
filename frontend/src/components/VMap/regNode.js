@@ -52,7 +52,7 @@ G6.registerNode('networkObject', {
           x: defaultIconSize / 2,
           y: defaultIconSize / 2,
           r: defaultIconSize / 2,
-          stroke: '#2a71b9',
+          stroke: '#409eff',
           fill: 'transparent'
         }
       });

@@ -3,10 +3,11 @@ import VueRouter from 'vue-router'
 import Login from './views/Login.vue'
 import Layout from './views/Layout'
 import User from './views/Admin/User.vue'
+import Email from './views/Admin/Email.vue'
 import DevApp from './views/Development/App.vue'
 import Network from './views/Operations/Network.vue'
-import OpsApp from './views/Operations/App.vue'
-import OpsDashboard from './views/Operations/Dashboard.vue'
+import Discovery from './views/Operations/Discovery.vue'
+import Dashboard from './views/Operations/Dashboard.vue'
 import auth from './auth'
 
 
@@ -34,7 +35,13 @@ export const routes = [
         path: 'user',
         name: 'user',
         component: User,
-        meta: { requiresAuth: true, permission: 'admin.user', title: 'user', icon: 'user'},
+        meta: { requiresAuth: true, permission: 'admin.user', title: 'userAccounts', icon: 'user'},
+      },
+      {
+        path: 'email',
+        name: 'email',
+        component: Email,
+        meta: { requiresAuth: true, permission: 'admin.email', title: 'emailSettings', icon: 'email'},
       }
     ]
   },
@@ -60,7 +67,7 @@ export const routes = [
     children: [{
         path: 'dashboard',
         name: 'dashboard',
-        component: OpsDashboard,
+        component: Dashboard,
         meta: { requiresAuth: true, permission: 'operations.dashboard', title: 'dashboard', icon: 'dashboard' },
       },
       {
@@ -70,10 +77,10 @@ export const routes = [
         meta: { requiresAuth: true, permission: 'operations.network', title: 'network', icon: 'topo' },
       },
       {
-        path: 'app',
-        name: 'app',
-        component: OpsApp,
-        meta: { requiresAuth: true, permission: 'operations.app', title: 'app', icon: 'app-store-fill' },
+        path: 'discovery',
+        name: 'discovery',
+        component: Discovery,
+        meta: { requiresAuth: true, permission: 'operations.discovery', title: 'discovery', icon: 'discovery' },
       }
     ]
   },
@@ -94,9 +101,9 @@ const router = new VueRouter({
 });
 
 const permissions = {
-  'admin': ['user'],
+  'admin': ['user', 'email'],
   'development': ['app'],
-  'operations': ['app', 'network', 'dashboard'],
+  'operations': ['discovery', 'network', 'dashboard'],
 }
 
 function hasPermission(reqiredPermission, permissions) {

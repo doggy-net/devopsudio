@@ -1,11 +1,9 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import elementEnLocale from 'element-ui/lib/locale/lang/en' // element-ui lang
-import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN'// element-ui lang
-import elementTwLocale from 'element-ui/lib/locale/lang/zh-TW'// element-ui lang
+import elementEnLocale from 'element-ui/lib/locale/lang/en'
+import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN'
 import enLang from './i18n/en'
 import zhChsLang from './i18n/zh-chs'
-import zhChtLang from './i18n/zh-cht'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import AppMain from './AppMain.vue'
@@ -35,10 +33,6 @@ const i18n = new VueI18n({
     'zh-chs': {
       ...zhChsLang,
       ...elementZhLocale,
-    },
-    'zh-cht': {
-      ...zhChtLang,
-      ...elementTwLocale,
     }
   }
 });

@@ -158,12 +158,21 @@ export default {
       graph.get('canvas').get('el').style.cursor = '-webkit-grab';
     });
     window.onresize = () => {
-      const containerSize = getContainerSize(document.getElementById(this.mapId));
+      const mapContainer = document.getElementById(this.mapId);
+      if (!mapContainer){
+        return
+      }
+      const containerSize = getContainerSize(mapContainer);
       this.graph.changeSize(containerSize.width, containerSize.height);
     };
   },
   methods: {
     test: function() {
+      const firstNode = this.graph.getNodes()[0];
+      console.log(firstNode);
+      // this.graph.update(firstNode, {pos2: 987});
+      firstNode.update({pos2: '888'});
+      // firstNode.refresh();
     },
     saveImage: function() {
       this.graph.downloadImage(this.mapId);
