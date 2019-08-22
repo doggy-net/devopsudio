@@ -9,12 +9,7 @@ imgPlus.src = iconPlus;
 let imageCache = {};
 G6.registerNode('networkObject', {
   draw(cfg, group) {
-    const selecedShape = this.drawSelected(cfg, group);
-    if (cfg.selected) {
-      selecedShape.show();
-    } else {
-      selecedShape.hide();
-    }
+    this.drawSelected(group);
     // this.drawExtender(cfg, group);
     this.drawText(cfg, group);
     const iconSize = {
@@ -39,8 +34,8 @@ G6.registerNode('networkObject', {
         name: 'keyShape',
         attrs: {
           img: cfg.icon,
-          x: 0,
-          y: 0,
+          x: -defaultIconSize / 2,
+          y: -defaultIconSize / 2,
           width: iconSize.width,
           height: iconSize.height
         }
@@ -49,8 +44,8 @@ G6.registerNode('networkObject', {
       keyShape = group.addShape('circle', {
         name: 'keyShape',
         attrs: {
-          x: defaultIconSize / 2,
-          y: defaultIconSize / 2,
+          x: -defaultIconSize / 2,
+          y: -defaultIconSize / 2,
           r: defaultIconSize / 2,
           stroke: '#409eff',
           fill: 'transparent'
@@ -60,19 +55,20 @@ G6.registerNode('networkObject', {
     group.sort();
     return keyShape;
   },
-  drawSelected(cfg, group) {
+  drawSelected(group) {
     return group.addShape('rect', {
       name: 'selected',
       attrs: {
-        x: -10,
-        y: -6,
+        x: -defaultIconSize / 2 - 10,
+        y: -defaultIconSize / 2 - 6,
         width: defaultIconSize + 20,
         height: defaultIconSize + 12,
         stroke: '#0af',
         lineDash: [4, 2],
         lineWidth: 1,
-        fill: 'rgba(0,170,255,0.04)'
-      }
+        fill: 'rgba(0, 170, 255, 0.04)'
+      },
+      visible: false
     });
   },
   drawExtender(cfg, group) {
@@ -96,10 +92,10 @@ G6.registerNode('networkObject', {
       text = cfg['pos' + pos];
     }
     group.addShape('text', {
-      name: text,
+      name: 'pos' + pos,
       attrs: {
-        x: defaultIconSize / 2,
-        y: defaultIconSize + 6 + 12 * pos,
+        x: 0,
+        y: defaultIconSize / 2 + 6 + 14 * pos,
         fill: '#999',
         text: text,
         textBaseline: 'top',
@@ -114,5 +110,16 @@ G6.registerNode('networkObject', {
     this.addText(2, cfg, group);
     this.addText(3, cfg, group);
     this.addText(4, cfg, group);
+  },
+  setState(name, value, item) {
+    const group = item.getContainer();
+    if (name === 'selected') {
+      const selectedShape = group.get('children')[0];
+      if (value) {
+        selectedShape.show();
+      } else {
+        selectedShape.hide();
+      }
+    }
   }
 });

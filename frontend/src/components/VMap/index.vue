@@ -84,12 +84,6 @@ require('./regEdge');
 require('./regBehavior');
 
 function getContainerSize(container) {
-  // let containerWidth = parseInt(container.offsetWidth, 10);
-  // let containerHeight = parseInt(container.offsetHeight, 10);
-  // containerWidth =
-  //   containerWidth % 2 === 0 ? containerWidth + 1 : containerWidth;
-  // containerHeight =
-  //   containerHeight % 2 === 0 ? containerHeight + 1 : containerHeight;
   return { width: container.offsetWidth, height: container.offsetHeight };
 }
 
@@ -143,20 +137,21 @@ export default {
       // fitView: 'cc',
       plugins: plugins,
       modes: {
-        default: [ 'drag-canvas', {type: 'drag-node', delegate: false}, 'select'],
+        default: [ 'drag-canvas', {type: 'drag-node', delegate: true}, 'select'],
         edit: ['brush-select']
       }
     });
-    // fix canvas resize issue while resizing container
-    this.graph.get('canvas').get('el').style.display = 'block';
     const graph = this.graph;
     this.graph.read(this.mapData);
+    this.graph.refresh();
+
     this.graph.on('node:mouseleave', () => {
       graph.get('canvas').get('el').style.cursor = '-webkit-grab';
     });
     this.graph.on('edge:mouseleave', () => {
       graph.get('canvas').get('el').style.cursor = '-webkit-grab';
     });
+
     window.onresize = () => {
       const mapContainer = document.getElementById(this.mapId);
       if (!mapContainer){
@@ -173,6 +168,8 @@ export default {
       // this.graph.update(firstNode, {pos2: 987});
       firstNode.update({pos2: '888'});
       // firstNode.refresh();
+    },
+    undo() {
     },
     saveImage: function() {
       this.graph.downloadImage(this.mapId);
@@ -226,43 +223,33 @@ export default {
       const nodes = this.graph.getNodes();
       for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
         const node = nodes[nodeIndex];
-        if (node.getModel().selected) {
-          // const nodeParent = node.getParent();
+        if (node.hasState('selected')) {
           this.graph.remove(node);
-          // this.graph.update(nodeParent, {});
           nodeIndex--;
         }
       }
       const edges = this.graph.getEdges();
       for (let edgeIndex = 0; edgeIndex < edges.length; edgeIndex++) {
         const edge = edges[edgeIndex];
-        const source = edge.source;
-        if (edge.getModel().selected) {
+        // const source = edge.source;
+        if (edge.hasState('selected')) {
           this.graph.remove(edge);
-          if (source) {
-            this.graph.update(source, {});
-          }
+          // if (source) {
+          //   this.graph.update(source, {});
+          // }
           edgeIndex--;
         }
       }
-      // const groups = this.graph.getGroups();
-      // for (let groupIndex = 0; groupIndex < groups.length; groupIndex++) {
-      //   const group = groups[groupIndex];
-      //   if (group.getChildren().length === 0) {
-      //     this.graph.remove(group);
-      //     groupIndex--;
-      //   }
-      // }
-      // this.graph.draw();
-    },
-    undo() {
     },
     selectAllItems(event) {
       event.preventDefault();
       const autoPaint = this.graph.get('autoPaint');
       this.graph.setAutoPaint(false);
       for (let node of this.graph.getNodes()) {
-        this.graph.update(node, { selected: true });
+        node.setState('selected', true);
+      }
+      for (let edge of this.graph.getEdges()) {
+        edge.setState('selected', true);
       }
       this.graph.paint();
       this.graph.setAutoPaint(autoPaint);

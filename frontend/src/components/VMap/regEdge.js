@@ -90,7 +90,7 @@ G6.registerEdge('topology', {
         textAlign: textAlign[rightStyleIndex]
       }
     });
-    // auxiliaryLine for selecting
+    // auxiliary line for selecting
     group.addShape('path', {
       attrs: {
         path:
@@ -107,7 +107,7 @@ G6.registerEdge('topology', {
           ',' +
           cfg.endPoint.y,
         stroke: 'rgba(0,0,0,0)',
-        lineWidth: 9
+        lineWidth: 14
       }
     });
     const keyShape = group.addShape('path', {
@@ -125,13 +125,22 @@ G6.registerEdge('topology', {
           cfg.endPoint.x +
           ',' +
           cfg.endPoint.y,
-        stroke: cfg.selected ? selectedLineColor : lineColor,
-        lineWidth: 1,
-        lineDash: cfg.selected ? [5, 2] : undefined
+        stroke: lineColor,
+        lineWidth: 1
       }
     });
     text1.rotateAtStart(textRadian1);
     text2.rotateAtStart(textRadian2);
     return keyShape;
+  },
+  setState(name, value, item) {
+    if (name === 'selected') {
+      const keyShape = item.getKeyShape();
+      if (value) {
+        keyShape.attr({stroke: selectedLineColor, lineDash: [5, 2]});
+      } else {
+        keyShape.attr({stroke: lineColor, lineDash: []});
+      }
+    }
   }
 });

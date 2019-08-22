@@ -1,6 +1,6 @@
 <template>
   <div class="email-form">
-    <el-form ref="form" :model="emailSettings" label-width="120px">
+    <el-form ref="form" :model="emailSettings" label-width="150px">
       <el-form-item :label="$t('message.smtpServer')">
         <el-input v-model="emailSettings.smtp"></el-input>
       </el-form-item>
@@ -21,8 +21,8 @@
         <el-input v-model="emailSettings.password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">立即创建</el-button>
-        <el-button>取消</el-button>
+        <el-button type="primary" @click="onSubmit">{{ $t('message.save') }}</el-button>
+        <el-button>{{ $t('message.cancle') }}</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -52,10 +52,7 @@ export default {
 
 <style>
 .email-form {
-  /* position: absolute;
-  left: 0;
-  right: 0; */
-  margin: 0px auto;
-  witdh: 500px;
+  margin: 20px auto 0px auto;
+  width: 600px;
 }
 </style>

@@ -23,17 +23,14 @@ G6.registerBehavior('select', {
     if (!self.multiple) {
       this.removeSelectedState();
     }
-    const itemModel = item.getModel();
-    if (itemModel.selected) {
+    if (item.hasState('selected')) {
       if (self.shouldUpdate(self, event)) {
-        // itemModel.selected = false;
-        item.update({selected: false});
+        item.setState('selected', false);
       }
       graph.emit('nodeselectchange', { target: item, select: false });
     } else {
       if (self.shouldUpdate(self, event)) {
-        // itemModel.selected = true;
-        item.update({selected: true});
+        item.setState('selected', true);
       }
       graph.emit('nodeselectchange', { target: item, select: true });
     }
@@ -47,10 +44,8 @@ G6.registerBehavior('select', {
     const graph = this.graph;
     const autoPaint = graph.get('autoPaint');
     graph.setAutoPaint(false);
-    graph.getNodes().forEach(node => {
-      if (node.getModel().selected) {
-        graph.update(node, {selected: false});
-      }
+    graph.findAllByState('node', 'selected').forEach(node => {
+      graph.setItemState(node, 'selected', false);
     });
     graph.findAllByState('edge', 'selected').forEach(edge => {
       graph.setItemState(edge, 'selected', false);

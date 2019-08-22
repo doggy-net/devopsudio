@@ -1,3 +1,5 @@
 celery
 paramiko
+pymongo
+pymodm
 sanic

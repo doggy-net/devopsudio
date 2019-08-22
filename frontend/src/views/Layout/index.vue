@@ -7,9 +7,7 @@
       <el-aside width="auto">
         <sidebar :routes="permissionRoutes"/>
       </el-aside>
-      <el-main>
-        <router-view></router-view>
-      </el-main>
+      <router-view></router-view>
     </el-container>
   </el-container>
 </template>

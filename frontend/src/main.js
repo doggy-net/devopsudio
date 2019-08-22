@@ -5,7 +5,7 @@ import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN'
 import enLang from './i18n/en'
 import zhChsLang from './i18n/zh-chs'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import splitPane from 'vue-splitpane'
 import AppMain from './AppMain.vue'
 import Icon from './components/Icon/index.vue'
 import router from './router'
@@ -40,6 +40,7 @@ const i18n = new VueI18n({
 Vue.use(ElementUI, {
   i18n: (key, value) => i18n.t(key, value)
 });
+Vue.component('split-pane', splitPane);
 Vue.component(Icon.name, Icon);
 
 new Vue({

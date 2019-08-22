@@ -5,8 +5,8 @@ const mapData = {
   nodes: [
     {
       id: 'node1',
-      x: 0,
-      y: 0,
+      x: 50,
+      y: 50,
       pos1: '111',
       pos2: '1111',
       pos3: '555',
@@ -16,7 +16,7 @@ const mapData = {
     {
       id: 'node2',
       x: 400,
-      y: 0,
+      y: 50,
       pos1: '222',
       pos2: '2222',
       shape: 'networkObject',
@@ -24,7 +24,7 @@ const mapData = {
     },
     {
       id: 'node3',
-      x: 0,
+      x: 50,
       y: 500,
       pos1: '111',
       pos2: '1111',
@@ -43,6 +43,16 @@ const mapData = {
     }
   ],
   edges: [
+    {
+      source: 'node1',
+      target: 'node2',
+      shape: 'topology'
+    },
+    {
+      source: 'node1',
+      target: 'node2',
+      shape: 'topology'
+    },
     {
       source: 'node1',
       target: 'node2',

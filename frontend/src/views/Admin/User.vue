@@ -1,5 +1,5 @@
 <template>
-  <el-tabs>
+  <el-tabs style="padding: 20px; width: 100%;">
     <el-tab-pane :label="$t('message.users')">
       <el-row>
         <el-col :span="20">
