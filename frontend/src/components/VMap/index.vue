@@ -12,7 +12,7 @@
       @dragover.prevent
       @drop="drop($event)"
     ></div>
-    <div :id="minimapId" :class="minimapContainerClasses" v-if="showMinimap"></div>
+    <div :id="minimapId" class="minimap-container" v-show="showMinimap"></div>
     <div class="toolbar">
       <el-tooltip class="item" content="Save" placement="top">
         <el-button circle @click="saveImage">
@@ -94,7 +94,10 @@ export default {
       type: Boolean,
       default: true
     },
-    mapId: String
+    mapId: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {
@@ -104,14 +107,6 @@ export default {
       graph: undefined,
       mapData: mapData
     };
-  },
-  computed: {
-    minimapContainerClasses() {
-      if (this.minimapVisiable) {
-        return ['minimap-container'];
-      }
-      return ['minimap-container', 'hide'];
-    }
   },
   watch: {
     scale: function(val) {

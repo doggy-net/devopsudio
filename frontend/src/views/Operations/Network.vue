@@ -1,6 +1,6 @@
 <template>
   <el-container style="height: 100%; width: 100%;">
-    <el-aside style="width: 324px; padding: 20px; border-right: solid 1px #e6e6e6;">
+    <el-aside style="width: 308px; padding: 20px; border-right: solid 1px #e6e6e6;">
       <el-select v-model="value" placeholder="请选择" style="display: inline-block;">
         <el-option
           v-for="item in options"
@@ -9,10 +9,8 @@
           :value="item.value">
         </el-option>
       </el-select>
-      <el-button style="margin-left: 10px; display: inline-block;" icon="el-icon-refresh"></el-button>
-      <el-tree
-        lazy
-        show-checkbox>
+      <el-button style="margin-left: 10px; display: inline-block; padding: 12px;" icon="el-icon-refresh"></el-button>
+      <el-tree>
       </el-tree>
     </el-aside>
     <el-main>
