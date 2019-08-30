@@ -22,6 +22,11 @@ export const routes = [
     // beforeEnter: afterAuth
   },
   {
+    path: '/404',
+    component: () => import('@/views/404'),
+    hidden: true,
+  },
+  {
     path: '',
     redirect: {name: 'operations'},
   },
@@ -87,7 +92,8 @@ export const routes = [
   {
     // not found handler
     path: '*',
-    redirect: '/'
+    redirect: '/404',
+    hidden: true,
   }
 ]
 

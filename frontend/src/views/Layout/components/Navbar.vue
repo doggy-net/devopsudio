@@ -1,10 +1,9 @@
 <template>
   <div>
     <div :class="logoClasses"></div>
+    <Hamburger id="hamburger-container" :is-active="!isSidebarCollapsed" class="hamburger-container"
+      @toggleClick="toggleSidebar"/>
     <el-menu mode="horizontal" router :default-active="baseRoute" class="float-left">
-      <el-button @click="toggleSidebar" type="text" class="el-menu-button float-left">
-        <icon icon-class="menu"/>
-      </el-button>
       <el-menu-item index="/ops">
         <icon icon-class="operation"/>
         <span slot="title">{{ $t('message.operations') }}</span>
@@ -88,11 +87,10 @@
             </el-collapse>
           </el-tab-pane>
         </el-tabs>
-        <el-button type="text" slot="reference" class="el-menu-button">
-          <el-badge :value="300" :max="99" is-dot>
-            {{ $t('message.message') }}
-          </el-badge>
-        </el-button>
+        <el-badge :value="300" :max="99" is-dot slot="reference">
+          <el-button type="danger" icon="el-icon-message-solid" style="width: 36px; padding: 10px;">
+          </el-button>
+        </el-badge>
       </el-popover>
       <el-dropdown trigger="click" @command="changeLang">
         <el-button type="text" class="el-menu-button">
@@ -115,9 +113,14 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import Hamburger from '@/components/Hamburger'
 import { getBaseRoute } from '@/utils/path'
+
 export default {
   name: 'Navbar',
+  components: {
+    Hamburger,
+  },
   data () {
     return {
       langs: [{
@@ -165,7 +168,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .logo {
   display: block;
   width: 200px;
@@ -181,12 +184,15 @@ export default {
   height: 60px;
   padding: 0px 20px;
 }
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
+.hamburger-container {
+  line-height: 60px;
   height: 100%;
-}
-.el-menu--collapse {
-  height: 100%;
-  width: 64px;
+  float: left;
+  cursor: pointer;
+  transition: background .3s;
+  -webkit-tap-highlight-color:transparent;
+  &:hover {
+    background: rgba(0, 0, 0, .025)
+  }
 }
 </style>

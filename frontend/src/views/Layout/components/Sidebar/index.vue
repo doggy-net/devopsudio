@@ -29,3 +29,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  height: 100%;
+}
+.el-menu--collapse {
+  height: 100%;
+  width: 64px;
+}
+</style>

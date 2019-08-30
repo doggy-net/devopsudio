@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from devopstudio.common.utils.mixin import dict_mixin
+
 
 ADMINDB = 'admin'
 DEVDB = 'dev'
@@ -10,9 +12,8 @@ OPSDB = 'ops'
 _config = {
     'amqp': {
         'host': 'localhost',
-        'port': 5672,
-        'username': '',
-        'password': '',
+        'username': 'guest',
+        'password': 'guest',
     },
     'mongodb': {
         'host': 'localhost',
@@ -42,9 +43,7 @@ class Config:
 
     def __init__(self):
         self._config = _config
-        print(_user_config, self._config)
-        self._config.update(_user_config)
-        print(self._config)
+        dict_mixin(self._config, _user_config)
 
     def get_property(self, *keys, default=None):
         result = self._config
@@ -53,7 +52,35 @@ class Config:
                 result = result[key]
             else:
                 return default
-        return default
+        return result
+
+
+class MQConfig(Config):
+
+    @property
+    def host(self):
+        return self.get_property('amqp', 'host')
+
+    @property
+    def username(self):
+        return self.get_property('amqp', 'username')
+
+    @property
+    def password(self):
+        return self.get_property('amqp', 'password')
+
+    # amqp_URI       = "amqp://" amqp_authority [ "/" vhost ]
+    # amqp_authority = [ amqp_userinfo "@" ] host [ ":" port ]
+    # amqp_userinfo  = username [ ":" password ]
+    # username       = *( unreserved / pct-encoded / sub-delims )
+    # password       = *( unreserved / pct-encoded / sub-delims )
+    # vhost          = segment
+    def get_conn_str(self):
+        if self.username and self.password:
+            authen_str = f'{self.username}:{self.password}@'
+        else:
+            authen_str = ''
+        return f'amqp://{authen_str}{self.host}/'
 
 
 class MongoDBConfig(Config):
@@ -74,8 +101,8 @@ class MongoDBConfig(Config):
     def ssl(self):
         return self.get_property('mongodb', 'ssl')
 
+    # mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[database][?options]]
     def get_conn_str(self, database):
-        # mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[database][?options]]
         if self.username and self.password:
             authen_str = f'{self.username}:{self.password}@'
         else:
