@@ -16,7 +16,7 @@
 import path from 'path'
 import { routes } from '@/router'
 import { getBaseRoute } from '@/utils/path'
-import Navbar from './components/Navbar.vue'
+import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 
 export default {
@@ -37,6 +37,8 @@ export default {
       }
       for (const route of routes) {
         if (baseRoute === route.path) {
+          // redirect to the first child if given url has only main route
+          // e.g. '/ops' => 'ops/dashboard'
           if (baseRoute === curPath && route.children.length > 0) {
             this.$router.replace(path.resolve(baseRoute, route.children[0].path));
           }

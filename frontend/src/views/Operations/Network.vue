@@ -1,7 +1,7 @@
 <template>
-  <el-container style="height: 100%; width: 100%;">
-    <el-aside style="width: 308px; padding: 20px; border-right: solid 1px #e6e6e6;">
-      <el-select v-model="value" placeholder="请选择" style="display: inline-block;">
+  <el-container>
+    <el-aside style="width: 312px; padding: 20px; border-right: solid 1px #e6e6e6;">
+      <el-select v-model="value">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -9,7 +9,7 @@
           :value="item.value">
         </el-option>
       </el-select>
-      <el-button style="margin-left: 10px; display: inline-block; padding: 12px;" icon="el-icon-refresh"></el-button>
+      <el-button style="padding: 12px; margin-left: 10px;" icon="el-icon-refresh"></el-button>
       <el-tree>
       </el-tree>
     </el-aside>
@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import VMap from '@/components/VMap/index.vue'
+import VMap from '@/components/VMap'
+
 export default {
   name: 'Network',
   components: {

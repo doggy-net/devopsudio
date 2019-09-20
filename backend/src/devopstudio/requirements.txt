@@ -1,5 +1,6 @@
 celery
 flask
+netaddr
 paramiko
 pymongo
 pymodm

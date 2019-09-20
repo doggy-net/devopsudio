@@ -79,9 +79,9 @@ import G6 from '@antv/g6'
 // import G6 from '../../../node_modules/@antv/g6/src'
 import Minimap from '@antv/g6/build/minimap'
 import mapData from './mapData'
-require('./regNode');
-require('./regEdge');
-require('./regBehavior');
+import './regNode'
+import './regEdge'
+import './regBehavior'
 
 function getContainerSize(container) {
   return { width: container.offsetWidth, height: container.offsetHeight };
@@ -109,7 +109,7 @@ export default {
     };
   },
   watch: {
-    scale: function(val) {
+    scale(val) {
       if (!val && val !== 0) {
         return;
       }
@@ -157,7 +157,7 @@ export default {
     };
   },
   methods: {
-    test: function() {
+    test() {
       const firstNode = this.graph.getNodes()[0];
       console.log(firstNode);
       // this.graph.update(firstNode, {pos2: 987});
@@ -166,30 +166,30 @@ export default {
     },
     undo() {
     },
-    saveImage: function() {
+    saveImage() {
       this.graph.downloadImage(this.mapId);
     },
-    toggleMinimap: function() {
+    toggleMinimap() {
       this.minimapVisiable = !this.minimapVisiable;
     },
-    zoomToFit: function() {
+    zoomToFit() {
       this.graph.fitView(0);
       this.scale = this.graph.getZoom() * 100;
     },
-    zoomTo100: function() {
+    zoomTo100() {
       this.scale = 100;
     },
-    zoom: function(event) {
+    zoom(event) {
       if (event.wheelDelta > 0) {
         this.scale += 20;
       } else {
         this.scale -= 20;
       }
     },
-    formatSliderTooltip: function(value) {
+    formatSliderTooltip(value) {
       return value + '%';
     },
-    drop: function(event) {
+    drop(event) {
       const nodeId = event.dataTransfer.getData('text');
       if (nodeId === 'undefined') {
         return;
@@ -213,7 +213,7 @@ export default {
       }
       event.dataTransfer.clearData();
     },
-    deleteSelectedItems: function(event) {
+    deleteSelectedItems(event) {
       event.preventDefault();
       const nodes = this.graph.getNodes();
       for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {

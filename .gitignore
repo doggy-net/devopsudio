@@ -144,3 +144,4 @@ node_modules
 # Ignore all local history of files
 .history
 backend/run_venv.bat
+/backend/src/devopstudio/config/config.json

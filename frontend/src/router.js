@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from './views/Login.vue'
-import Layout from './views/Layout'
-import User from './views/Admin/User.vue'
-import Email from './views/Admin/Email.vue'
-import DevApp from './views/Development/App.vue'
-import Network from './views/Operations/Network.vue'
-import Discovery from './views/Operations/Discovery.vue'
-import Dashboard from './views/Operations/Dashboard.vue'
-import auth from './auth'
+import Login from '@/views/Login'
+import Layout from '@/views/Layout'
+import User from '@/views/Admin/User'
+import Email from '@/views/Admin/Email'
+import Task from '@/views/Development/Task'
+import Network from '@/views/Operations/Network'
+import Discovery from '@/views/Operations/Discovery'
+import Dashboard from '@/views/Operations/Dashboard'
+import auth from '@/auth'
 
 
 Vue.use(VueRouter);
@@ -57,10 +57,10 @@ export const routes = [
     meta: { requiresAuth: true, permission: 'development', title: 'development', icon: 'development' },
     children: [
       {
-        path: 'app',
-        name: 'devapp',
-        component: DevApp,
-        meta: { requiresAuth: true, permission: 'development.app', title: 'app', icon: 'app-store-fill' },
+        path: 'task',
+        name: 'task',
+        component: Task,
+        meta: { requiresAuth: true, permission: 'development.task', title: 'tasks', icon: 'app-store-fill' },
       }
     ]
   },
@@ -108,7 +108,7 @@ const router = new VueRouter({
 
 const permissions = {
   'admin': ['user', 'email'],
-  'development': ['app'],
+  'development': ['task'],
   'operations': ['discovery', 'network', 'dashboard'],
 }
 

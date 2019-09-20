@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import elementEnLocale from 'element-ui/lib/locale/lang/en'
-import elementZhLocale from 'element-ui/lib/locale/lang/zh-CN'
+import elementEnLang from 'element-ui/lib/locale/lang/en'
+import elementZhLang from 'element-ui/lib/locale/lang/zh-CN'
 import enLang from './i18n/en'
 import zhChsLang from './i18n/zh-chs'
 import ElementUI from 'element-ui'
@@ -10,7 +10,6 @@ import AppMain from './AppMain.vue'
 import Icon from './components/Icon/index.vue'
 import router from './router'
 import store from './store'
-import auth from './auth'
 
 Vue.config.productionTip = false
 
@@ -28,11 +27,11 @@ const i18n = new VueI18n({
   messages: {
     'en': {
       ...enLang,
-      ...elementEnLocale,
+      ...elementEnLang,
     },
     'zh-chs': {
       ...zhChsLang,
-      ...elementZhLocale,
+      ...elementZhLang,
     }
   }
 });

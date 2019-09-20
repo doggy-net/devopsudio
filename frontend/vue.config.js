@@ -1,4 +1,5 @@
 const path = require('path');
+
 module.exports = {
   chainWebpack: config => {
     const svgRule = config.module.rule('svg')
@@ -29,6 +30,11 @@ module.exports = {
     }
   },
   devServer: {
-    proxy: 'http://localhost:8000'
+    proxy: {
+      '/api': {
+        'secure':false,
+        'target': 'http://localhost:5000'
+      }
+    }
   }
 }

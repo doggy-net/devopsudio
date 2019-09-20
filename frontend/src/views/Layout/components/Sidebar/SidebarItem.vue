@@ -14,7 +14,6 @@ export default {
   name: 'SidebarItem',
   mixins: [FixiOSBug],
   props: {
-    // route object
     item: {
       type: Object,
       required: true

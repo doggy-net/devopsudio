@@ -6,15 +6,15 @@
     <el-menu mode="horizontal" router :default-active="baseRoute" class="float-left">
       <el-menu-item index="/ops">
         <icon icon-class="operation"/>
-        <span slot="title">{{ $t('message.operations') }}</span>
+        <span slot="title">{{ $t('ui.operations') }}</span>
       </el-menu-item>
       <el-menu-item index="/dev">
         <icon icon-class="dev"/>
-        <span slot="title">{{ $t('message.development') }}</span>
+        <span slot="title">{{ $t('ui.development') }}</span>
       </el-menu-item>
       <el-menu-item index="/admin">
         <icon icon-class="admin"/>
-        <span slot="title">{{ $t('message.admin') }}</span>
+        <span slot="title">{{ $t('ui.admin') }}</span>
       </el-menu-item>
     </el-menu>
     <div class="float-right">
@@ -105,7 +105,7 @@
         </el-dropdown-menu>
       </el-dropdown>
       <el-button type="text" @click="logout" class="el-menu-button">
-        {{ $t('message.logout') }}
+        {{ $t('ui.logout') }}
       </el-button>
     </div>
   </div>
@@ -151,9 +151,9 @@ export default {
     }
   },
   methods: {
-    ...mapMutations({
-      toggleSidebar: 'toggleSidebar'
-    }),
+    ...mapMutations([
+      'toggleSidebar'
+    ]),
     changeLang(command) {
       this.curLang = command;
       this.$i18n.locale = this.curLang.value;

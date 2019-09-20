@@ -1,5 +1,5 @@
 export default {
-  message: {
+  ui: {
     add: '添加',
     admin: '管理',
     analysis: '分析',
@@ -18,6 +18,7 @@ export default {
     emailSettings: '邮箱设置',
     filterTip: '输入关健字过滤',
     groups: '组',
+    id: 'ID',
     logout: '注销',
     message: '消息',
     monitor: '监控',
@@ -28,15 +29,28 @@ export default {
     port: '端口',
     priviledges: '权限',
     profile: '资料',
+    progress: '进度',
     role: '角色',
     save: '保存',
     scheduleTask: '定期任务',
     settings: '设置',
-    smtpServer: 'SMTP服务器',
+    smtpServer: 'SMTP 服务器',
+    start: '开始',
+    starting: '正在开始...',
+    startDiscovery: '开始发现',
+    stop: '停止',
+    stopping: '正在停止...',
     system: '系统',
-    task: '任务',
+    tasks: '任务列表',
     users: '用户',
     userAccounts: '用户账户',
     username: '用户名',
+    viewLog: '查看日志',
+  },
+  message: {
+    discoveryFormIpsEmpty: '请输入 IP 地址',
+    discoveryFormIpsInvalid: '请输入有效的 IP 地址',
+    discoveryFormStarted: '开始发现成功',
+    discoveryFormStartedFailed: '开始发现失败',
   }
 }

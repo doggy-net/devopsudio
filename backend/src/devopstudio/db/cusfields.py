@@ -9,8 +9,8 @@ class EnumField(fields.MongoBaseField):
     def __init__(self, enum_type, verbose_name=None, mongo_name=None, **kwargs):
         """
         :parameters:
-          - `enum_type`: The type of this enum filed.
-          - `verbose_name`: A human-readable name for the Field.
+          - `enum_type`: The type of this enum field.
+          - `verbose_name`: A human-readable name for the field.
           - `mongo_name`: The name of this field when stored in MongoDB.
 
         .. seealso:: constructor for

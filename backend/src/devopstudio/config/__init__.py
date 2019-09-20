@@ -101,7 +101,12 @@ class MongoDBConfig(Config):
     def ssl(self):
         return self.get_property('mongodb', 'ssl')
 
+    @property
+    def auth_mechanism(self):
+        return self.get_property('mongodb', 'authMechanism')
+
     # mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[database][?options]]
+    # https://docs.mongodb.com/manual/reference/connection-string/#connections-connection-options
     def get_conn_str(self, database):
         if self.username and self.password:
             authen_str = f'{self.username}:{self.password}@'
@@ -111,4 +116,12 @@ class MongoDBConfig(Config):
             ssl_str = '&ssl=true'
         else:
             ssl_str = ''
+        if self.ssl:
+            ssl_str = '&ssl=true'
+        else:
+            ssl_str = ''
+        if self.auth_mechanism:
+            auth_mechanism_str = f'&authMechanism={self.auth_mechanism}'
+        else:
+            auth_mechanism_str = ''
         return f'mongodb://{authen_str}{self.host}/{database}?authSource=admin{ssl_str}'

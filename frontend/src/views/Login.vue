@@ -100,7 +100,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .login-form-container {
   background: url(../assets/bg4.jpg);
   background: #edf0f1;

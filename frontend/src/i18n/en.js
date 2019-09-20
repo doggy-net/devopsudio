@@ -1,5 +1,5 @@
 export default {
-  message: {
+  ui: {
     add: 'Add',
     admin: 'Admin',
     analysis: 'Analysis',
@@ -18,6 +18,7 @@ export default {
     emailSettings: 'Email Settings',
     filterTip: 'Type to filter',
     groups: 'Groups',
+    id: 'ID',
     logout: 'Logout',
     message: 'Message',
     monitor: 'Monitor',
@@ -28,15 +29,28 @@ export default {
     port: 'Port',
     priviledges: 'Priviledges',
     profile: 'Profile',
+    progress: 'Progress',
     role: 'Role',
     save: 'Save',
     scheduleTask: 'Schedule Task',
     settings: 'Settings',
     smtpServer: 'SMTP Server',
+    start: 'Start',
+    starting: 'Starting...',
+    startDiscovery: 'Start Discovery',
+    stop: 'Stop',
+    stopping: 'Stopping...',
     system: 'System',
-    task: 'Task',
+    tasks: 'Tasks',
     users: 'Users',
     userAccounts: 'User Accounts',
     username: 'User Name',
+    viewLog: 'View Log',
+  },
+  message: {
+    discoveryFormIpsEmpty: 'Please input IPs',
+    discoveryFormIpsInvalid: 'Please input valid IPs',
+    discoveryFormStarted: 'Successfully started discovery',
+    discoveryFormStartedFailed: 'Failed to start discovery',
   }
 }

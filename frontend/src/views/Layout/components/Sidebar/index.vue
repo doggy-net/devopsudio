@@ -13,7 +13,6 @@ export default {
   name: 'Sidebar',
   components: { SidebarItem },
   props: {
-    // route object
     routes: {
       type: Array,
       required: true
