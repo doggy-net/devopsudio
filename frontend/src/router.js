@@ -2,12 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/views/Login'
 import Layout from '@/views/Layout'
-import User from '@/views/Admin/User'
-import Email from '@/views/Admin/Email'
-import Task from '@/views/Development/Task'
+import Accounts from '@/views/System/Accounts'
+import Email from '@/views/System/Email'
+import Tasks from '@/views/Development/Tasks'
 import Network from '@/views/Operations/Network'
 import Discovery from '@/views/Operations/Discovery'
 import Dashboard from '@/views/Operations/Dashboard'
+import Credentials from '@/views/Operations/Credentials'
 import auth from '@/auth'
 
 
@@ -28,25 +29,25 @@ export const routes = [
   },
   {
     path: '',
-    redirect: {name: 'operations'},
+    redirect: { name: 'operations' },
   },
   {
-    path: '/admin',
-    name: 'admin',
+    path: '/system',
+    name: 'system',
     component: Layout,
-    meta: { requiresAuth: true, permission: 'admin' },
+    meta: { requiresAuth: true, permission: 'system' },
     children: [
       {
-        path: 'user',
-        name: 'user',
-        component: User,
-        meta: { requiresAuth: true, permission: 'admin.user', title: 'userAccounts', icon: 'user'},
+        path: 'accounts',
+        name: 'accounts',
+        component: Accounts,
+        meta: { requiresAuth: true, permission: 'system.accounts', title: 'userAccounts', icon: 'user'},
       },
       {
         path: 'email',
         name: 'email',
         component: Email,
-        meta: { requiresAuth: true, permission: 'admin.email', title: 'emailSettings', icon: 'email'},
+        meta: { requiresAuth: true, permission: 'system.email', title: 'emailSettings', icon: 'email'},
       }
     ]
   },
@@ -57,10 +58,10 @@ export const routes = [
     meta: { requiresAuth: true, permission: 'development', title: 'development', icon: 'development' },
     children: [
       {
-        path: 'task',
-        name: 'task',
-        component: Task,
-        meta: { requiresAuth: true, permission: 'development.task', title: 'tasks', icon: 'app-store-fill' },
+        path: 'tasks',
+        name: 'tasks',
+        component: Tasks,
+        meta: { requiresAuth: true, permission: 'development.tasks', title: 'tasks', icon: 'app-store-fill' },
       }
     ]
   },
@@ -80,6 +81,12 @@ export const routes = [
         name: 'network',
         component: Network,
         meta: { requiresAuth: true, permission: 'operations.network', title: 'network', icon: 'topo' },
+      },
+      {
+        path: 'credentials',
+        name: 'credentials',
+        component: Credentials,
+        meta: { requiresAuth: true, permission: 'operations.credentials', title: 'credentials', icon: 'auth' },
       },
       {
         path: 'discovery',
@@ -107,9 +114,9 @@ const router = new VueRouter({
 });
 
 const permissions = {
-  'admin': ['user', 'email'],
-  'development': ['task'],
-  'operations': ['discovery', 'network', 'dashboard'],
+  'system': ['accounts', 'email'],
+  'development': ['tasks'],
+  'operations': ['credentials', 'dashboard', 'discovery', 'network'],
 }
 
 function hasPermission(reqiredPermission, permissions) {

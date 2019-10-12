@@ -12,9 +12,9 @@
         <icon icon-class="dev"/>
         <span slot="title">{{ $t('ui.development') }}</span>
       </el-menu-item>
-      <el-menu-item index="/admin">
-        <icon icon-class="admin"/>
-        <span slot="title">{{ $t('ui.admin') }}</span>
+      <el-menu-item index="/system">
+        <icon icon-class="system"/>
+        <span slot="title">{{ $t('ui.system') }}</span>
       </el-menu-item>
     </el-menu>
     <div class="float-right">

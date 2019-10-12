@@ -88,15 +88,15 @@ function getContainerSize(container) {
 }
 
 export default {
-  name: 'vmap',
+  name: 'VMap',
   props: {
     showMinimap: {
       type: Boolean,
-      default: true
+      default: true,
     },
     mapId: {
       type: String,
-      required: true
+      required: true,
     }
   },
   data() {
@@ -132,7 +132,7 @@ export default {
       // fitView: 'cc',
       plugins: plugins,
       modes: {
-        default: [ 'drag-canvas', {type: 'drag-node', delegate: true}, 'select'],
+        default: ['drag-canvas', { type: 'drag-node', delegate: true }, 'select'],
         edit: ['brush-select']
       }
     });
@@ -160,8 +160,8 @@ export default {
     test() {
       const firstNode = this.graph.getNodes()[0];
       console.log(firstNode);
-      // this.graph.update(firstNode, {pos2: 987});
-      firstNode.update({pos2: '888'});
+      // this.graph.update(firstNode, { pos2: 987 });
+      firstNode.update({ pos2: '888' });
       // firstNode.refresh();
     },
     undo() {

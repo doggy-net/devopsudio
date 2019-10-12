@@ -1,5 +1,3 @@
-import APIURI from '../service/api'
-
 export default {
   user: {
     authenticated: window.localStorage.getItem('token')
@@ -14,7 +12,7 @@ export default {
 
     //     if (redirect) {
     //       context.loginLoading = false
-    //       context.$router.push({path: redirect})
+    //       context.$router.push({ path: redirect })
     //     }
     //   }, resp => {
     //     context.loginLoading = false
@@ -29,13 +27,13 @@ export default {
       this.user.authenticated = true
       if (redirect) {
         context.loginLoading = false
-        context.$router.push({path: redirect})
+        context.$router.push({ path: redirect })
       }
     }
   },
 
   currentUser (context) {
-    context.$http.get(APIURI.CURRENT_USER_URL, {headers: this.getAuthHeader()})
+    context.$http.get(APIURI.CURRENT_USER_URL, { headers: this.getAuthHeader() })
       .then(resp => {
         context.user = resp.body.username
       }, _ => {
@@ -43,7 +41,7 @@ export default {
         this.user.authenticated = false
         context.$router.push({
           path: '/login',
-          query: {redirect: context.$route.fullPath}
+          query: { redirect: context.$route.fullPath }
         })
       })
   },
@@ -51,7 +49,7 @@ export default {
   logout (context, options) {
     window.localStorage.removeItem('token')
     this.user.authenticated = false
-    context.$router.push({path: '/login'})
+    context.$router.push({ path: '/login' })
   },
 
   checkAuth () {

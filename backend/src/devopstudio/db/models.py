@@ -9,3 +9,4 @@ class Enum(MongoModel):
 
 class OneInstanceTask(MongoModel):
     name = fields.CharField(primary_key=True)
+    task_id = fields.CharField()

@@ -10,11 +10,11 @@ const requireAll = requireContext => requireContext.keys().map(requireContext);
 requireAll(req);
 
 export default {
-  name: 'icon',
+  name: 'Icon',
   props: {
     iconClass: {
       type: String,
-      required: true
+      required: true,
     }
   },
   computed: {

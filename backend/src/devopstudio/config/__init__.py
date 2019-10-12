@@ -4,7 +4,7 @@ from pathlib import Path
 from devopstudio.common.utils.mixin import dict_mixin
 
 
-ADMINDB = 'admin'
+SYSDB = 'sys'
 DEVDB = 'dev'
 OPSDB = 'ops'
 

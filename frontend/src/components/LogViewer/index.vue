@@ -10,12 +10,12 @@ import LogItem from './LogItem'
 export default {
   name: 'LogViewer',
   components: {
-    LogItem
+    LogItem,
   },
   props: {
     logs: {
       type: Array,
-      required: true
+      required: true,
     },
   }
 }

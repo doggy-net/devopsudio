@@ -4,35 +4,32 @@
       <el-form-item prop="ips">
         <el-input autofocus v-model="discoveryForm.ips" style="width: 400px"
           placeholder="e.g. 10.0.0.1; 172.16.0.1-172.16.0.100; 192.168.0.0/24"/>
-        <el-button style="margin-left: 10px"
-          @click="handleDiscovery" :loading="discoveryButton.loading"
-          :type="discoveryButtonType">{{ $t(discoveryButtonText) }}</el-button>
+        <async-button style="margin-left: 10px" ref="commandButton"
+          @init-state="updateState" @normal-click="handleStart" @danger-click="handleStop"
+          normal-text="ui.startDiscovery" normal-loading-text="ui.starting"
+          danger-text="ui.stop" danger-loading-text="ui.stopping">
+        </async-button>
        </el-form-item>
     </el-form>
-    <el-button @click="refresh">Refresh</el-button>
+    <el-progress type="circle" :percentage="percentage" :status="state"></el-progress>
     <log-viewer :logs="logs"/>
   </div>
 </template>
 
 <script>
-import { MessageBox, Message } from 'element-ui'
+import { Message, MessageBox } from 'element-ui'
+import AsyncButton from '@/components/AsyncButton'
 import LogViewer from '@/components/LogViewer'
-import { startDiscovery, getDiscoveryStatus } from '@/api/discovery'
+import { startDiscovery, stopDiscovery, getDiscoveryStatus } from '@/api/discovery'
+import { validateIp } from '@/utils/ip'
 
 export default {
   name: 'Discovery',
   components: {
-    LogViewer
+    AsyncButton,
+    LogViewer,
   },
   data() {
-    function validateIp(ip)
-    {
-      if (/^\s*(?:(25[0-5]|2[0-4][0-9]|[1]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[1]?[0-9][0-9]?)(?:\/(3[0-2]|[12]?[0-9]))?\s*$/.test(ip))
-      {
-        return true;
-      }
-      return false;
-    }
     function validateIps(ips)
     {
       try {
@@ -62,7 +59,7 @@ export default {
     };
     return {
       discoveryForm: {
-        ips: '192.168.0.101'
+        ips: ''
       },
       rules: {
         ips: [
@@ -76,46 +73,25 @@ export default {
       discoveryButton: {
         loading: false,
         isStart: true,
-        text: '',
       },
+      percentage: 0,
+      state: null,
       logs: [],
-      taskId: '',
-    }
-  },
-  computed:{
-    discoveryButtonType() {
-      return this.discoveryButton.isStart ? 'primary' : 'danger';
-    },
-    discoveryButtonText() {
-      if (this.discoveryButton.isStart) {
-        if (this.discoveryButton.loading) {
-          return 'ui.starting'
-        } else {
-          return 'ui.startDiscovery'
-        }
-      } else {
-        if (this.discoveryButton.loading) {
-          return 'ui.stopping'
-        } else {
-          return 'ui.stop'
-        }
-      }
-      return this.discoveryButton.isStart ? 'primary' : 'danger';
     }
   },
   created() {
-    console.log('created');
+    this.startUpdateTimer();
   },
-  beforeDestroy() {
-    console.log('beforeDestroy');
+  beforeDestroy () {
+    this.stopUpdateTimer();
   },
   methods: {
-    handleDiscovery() {
-      if (this.discoveryButton.isStart) {
-        this.$refs['discoveryForm'].validate((valid) => {
-          if (valid) {
-            this.discoveryButton.loading = true;
-            startDiscovery(this.discoveryForm)
+    handleStart() {
+      this.$refs['discoveryForm'].validate((valid) => {
+        if (valid) {
+          this.state = null;
+          this.percentage = 0;
+          startDiscovery(this.discoveryForm)
             .then(response => {
               this.$message({
                 message: this.$t('message.discoveryFormStarted'),
@@ -123,18 +99,9 @@ export default {
                 showClose: true,
                 duration: 5 * 1000,
               });
-              this.discoveryButton.loading = false;
-              this.discoveryButton.isStart = false;
-              this.taskId = response['taskId'];
-              console.log('bbb');
-              console.log(this.taskId);
-              // setInterval(function() {
-              //   num++;
-              //   var date = new Date();
-              //   document.write(date.getMinutes() + ':' + date.getSeconds() + ':' + date.getMilliseconds() + '<br>');
-              //   if (num > 10)
-              //       clearInterval(i);
-              // }, 1000);
+              this.startUpdateTimer();
+              this.$refs['commandButton'].loading = false;
+              this.$refs['commandButton'].state = 'running';
             })
             .catch(err => {
               this.$message({
@@ -142,30 +109,73 @@ export default {
                 type: 'error',
                 showClose: true,
                 duration: 5 * 1000,
-              })
-              this.discoveryButton.loading = false;
+              });
+              this.$refs['commandButton'].loading = false;
+              this.$refs['commandButton'].state = 'normal';
             });
-          } else {
-            return false;
-          }
-        });
-      } else {
-        this.discoveryButton.loading = true;
-        this.discoveryButton.loading = false;
-        this.discoveryButton.isStart = true;
-      }
-    },
-    refresh() {
-      console.log(this.taskId, 'refresh');
-      if (!this.taskId) {
-        return;
-      }
-      getDiscoveryStatus(this.taskId)
-      .then(response => {
-      })
-      .catch(err => {
+        } else {
+          return;
+        }
       });
-    }
-  }
+    },
+    handleStop() {
+      stopDiscovery()
+        .then(response => {
+          this.state = 'warning';
+          this.$message({
+            message: this.$t('message.discoveryFormStopped'),
+            type: 'success',
+            showClose: true,
+            duration: 5 * 1000,
+          });
+          this.stopUpdateTimer();
+          this.$refs['commandButton'].loading = false;
+          this.$refs['commandButton'].state = 'normal';
+        })
+        .catch(err => {
+          this.$message({
+            message: this.$t('message.discoveryFormStoppedFailed') + ': ' + err,
+            type: 'error',
+            showClose: true,
+            duration: 5 * 1000,
+          });
+          this.$refs['commandButton'].loading = false;
+        });
+    },
+    updateState() {
+      getDiscoveryStatus()
+        .then(response => {
+          if (response.state === 'SUCCESS') {
+            this.$refs['commandButton'].state = 'normal';
+            this.state = 'success';
+            this.stopUpdateTimer();
+          } else if (response.state === 'FAILED') {
+            this.$refs['commandButton'].state = 'normal';
+            this.state = 'warning';
+            this.stopUpdateTimer();
+          } else if (response.state === 'ERROR') {
+            this.$refs['commandButton'].state = 'normal';
+            this.state = 'exception';
+            this.stopUpdateTimer();
+          } else {
+            this.state = null;
+            this.$refs['commandButton'].state = 'running';
+          }
+          this.percentage = response.progress / response.total * 100;
+          this.$refs['commandButton'].loading = false;
+        })
+        .catch(err => {
+          this.state = 'exception';
+          this.$refs['commandButton'].loading = false;
+          this.$refs['commandButton'].state = 'normal';
+        });
+    },
+    startUpdateTimer() {
+      this.updateTimer = setInterval(this.updateState, 3 * 1000);
+    },
+    stopUpdateTimer() {
+      clearInterval(this.updateTimer);
+    },
+  },
 }
 </script>

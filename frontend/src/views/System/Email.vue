@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  name: 'User',
+  name: 'Email',
   data() {
     return {
       emailSettings: {

@@ -8,10 +8,16 @@ export function startDiscovery(data) {
   })
 }
 
-export function getDiscoveryStatus(taskId) {
+export function stopDiscovery() {
+  return request({
+    url: '/discovery',
+    method: 'delete',
+  })
+}
+
+export function getDiscoveryStatus() {
   return request({
     url: '/discovery',
     method: 'get',
-    params: { taskId },
   })
 }

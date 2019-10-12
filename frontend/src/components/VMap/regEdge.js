@@ -137,9 +137,9 @@ G6.registerEdge('topology', {
     if (name === 'selected') {
       const keyShape = item.getKeyShape();
       if (value) {
-        keyShape.attr({stroke: selectedLineColor, lineDash: [5, 2]});
+        keyShape.attr({ stroke: selectedLineColor, lineDash: [5, 2] });
       } else {
-        keyShape.attr({stroke: lineColor, lineDash: []});
+        keyShape.attr({ stroke: lineColor, lineDash: [] });
       }
     }
   }

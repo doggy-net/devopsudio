@@ -12,7 +12,7 @@
         </el-col>
       </el-row>
       <el-table :data="userData.filter(data => !userSearch || data.username.toLowerCase().includes(userSearch.toLowerCase()))"
-        :default-sort="{prop: 'username', order: 'ascending'}">
+        :default-sort="{ prop: 'username', order: 'ascending' }">
         <el-table-column prop="username" :label="$t('ui.username')" sortable width="180"/>
         <el-table-column prop="email" :label="$t('ui.email')"/>
         <el-table-column prop="groups" :label="$t('ui.groups')"
@@ -39,7 +39,7 @@
           <el-input v-model="groupSearch" :placeholder="$t('ui.filterTip')"/>
         </el-col>
       <el-table :data="groupData.filter(data => !groupSearch || data.name.toLowerCase().includes(groupSearch.toLowerCase()))"
-        :default-sort="{prop: 'name', order: 'ascending'}">
+        :default-sort="{ prop: 'name', order: 'ascending' }">
         <el-table-column prop="name" :label="$t('ui.name')" sortable width="180"/>
         <el-table-column prop="privileges" :label="$t('ui.priviledges')"/>
         <el-table-column :label="$t('ui.operations')" width="180">
@@ -57,7 +57,7 @@
 
 <script>
 export default {
-  name: 'User',
+  name: 'Accounts',
   data() {
     return {
       userData: [],
