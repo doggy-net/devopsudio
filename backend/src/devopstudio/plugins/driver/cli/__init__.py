@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from array import array
+from copy import deepcopy
 from telnetlib import Telnet
 
 from ._util import to_bytes
@@ -29,10 +29,10 @@ class CLIMode(metaclass=ABCMeta):
 
     def __init__(self, session):
         self._session = session
+        self.settings = deepcopy(self.spec)
 
-    @classmethod
-    def update_spec(cls, update):
-        cls.spec.update(update)
+    def update_settings(self, update):
+        self.settings.update(update)
 
     @abstractmethod
     def enter(self):
@@ -52,31 +52,31 @@ class GeneralDefaultMode(CLIMode):
         'username': None,
         'password_prompt': 'Password: ',
         'password': None,
-        'login_error_prompts': [],
+        'error_prompts': [],
         'exit_command': None,
     }
     name = 'default'
     prompts = []
 
     def enter(self):
-        login_error_prompts_len = len(self.spec['login_error_prompts'])
+        error_prompts_len = len(self.spec['error_prompts'])
         prompts_len = len(self.prompts)
         while True:
-            recv = self._session.receive([*self.spec['login_error_prompts'], *self.prompts,
+            recv = self._session.receive([*self.spec['error_prompts'], *self.prompts,
                                          self.spec['login_prompt'], self.spec['password_prompt']])
             if not recv:
                 return False
 
             # Match login error prompts
-            if recv.index < login_error_prompts_len:
+            if recv.index < error_prompts_len:
                 return False
 
             # Match prompts
-            if recv.index < login_error_prompts_len + prompts_len:
+            if recv.index < error_prompts_len + prompts_len:
                 return True
 
             # Match login prompt
-            if recv.index == login_error_prompts_len + prompts_len:
+            if recv.index == error_prompts_len + prompts_len:
                 username = self.spec.get('username')
                 if not username:
                     return False
@@ -84,7 +84,7 @@ class GeneralDefaultMode(CLIMode):
                 continue
 
             # Match password prompt
-            if recv.index == login_error_prompts_len + prompts_len + 1:
+            if recv.index == error_prompts_len + prompts_len + 1:
                 password = self.spec.get('password')
                 if not password:
                     return False
@@ -107,34 +107,50 @@ class GeneralPriviledgeMode(CLIMode):
         'username': None,
         'password_prompt': 'Password: ',
         'password': None,
-        'login_error_prompts': [],
-        'page_stopping_command': [],
+        'error_prompts': [],
+        'page_stopping_commands': [],
         'exit_command': None,
     }
 
     def enter(self):
         self._session.send(self.spec['enter_command'])
-        recv = self._session.receive([self.spec['password_prompt']])
-        if not recv:
-            return False
-        password = self.spec.get('password')
-        if not password:
-            return False
-        self._session.send(password)
-        recv = self._session.receive(self.prompts)
-        if not recv:
-            return False
-        for command in self.spec['page_stopping_command']:
-            self._session.execute_command(command)
-        return True
+
+        error_prompts_len = len(self.spec['error_prompts'])
+        prompts_len = len(self.prompts)
+        while True:
+            recv = self._session.receive([*self.spec['error_prompts'], *self.prompts,
+                                        self.spec['password_prompt']])
+            if not recv:
+                return False
+
+            # Match login error prompts
+            if recv.index < error_prompts_len:
+                return False
+
+            # Match prompts
+            if recv.index < error_prompts_len + prompts_len:
+                # execute page stopping commands
+                for command in self.spec['page_stopping_commands']:
+                    self._session.execute_command(command)
+                return True
+
+            # Match password prompt
+            if recv.index == error_prompts_len + prompts_len:
+                password = self.spec.get('password')
+                if not password:
+                    return False
+                self._session.send(password)
+                continue
+
+        return False
 
     def exit(self):
         self._session.send(self.spec['exit_command'])
 
 
 class CLIDriverBase(metaclass=ABCMeta):
-    error_output = []
-    _cli_modes = {}
+    error_prompts = []
+    cli_modes = {}
 
     def __init__(self, host, method='telnet', port=None, username=None, password=None, **kwargs):
         if method == 'telnet':
@@ -147,6 +163,8 @@ class CLIDriverBase(metaclass=ABCMeta):
             raise NotImplementedError('Todo')
         else:
             raise ValueError("'method' musth be 'telnet' or 'ssh'")
+
+        self._cli_modes = {name: self.cli_modes[name](self) for name in self.cli_modes}
 
         if not self._cli_modes:
             raise ValueError('No registered CLI modes found')
@@ -174,14 +192,6 @@ class CLIDriverBase(metaclass=ABCMeta):
             except:
                 pass
 
-    def reg_cli_mode(self, cli_mode, default=False):
-        if default:
-            if 'default' in self._cli_modes:
-                raise ValueError("'default' CLI mode has been registered")
-            self._cli_modes['default'] = cli_mode(self)
-        else:
-            self._cli_modes[cli_mode.name] = cli_mode(self)
-
     def send(self, data, send_enter=True):
         data = to_bytes(data)
         if send_enter:
@@ -202,9 +212,10 @@ class CLIDriverBase(metaclass=ABCMeta):
 
     def execute_command(self, command, cli_mode_name=None, timeout=600):
         if not cli_mode_name:
-            cli_mode_name = 'default'
-        cli_mode = self._cli_modes.get(cli_mode_name, self._cli_modes['default'])
-        expected = [*cli_mode.prompts, *self.error_output]
+            cli_mode = self._curr_mode
+        else:
+            cli_mode = self._cli_modes.get(cli_mode_name, self._curr_mode)
+        expected = [*cli_mode.prompts, *self.error_prompts]
         self.send(command)
         recv = self.receive(expected, timeout)
         if recv.index < len(cli_mode.prompts):
