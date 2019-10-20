@@ -60,10 +60,8 @@ export default {
       }
       if (this.state === 'normal') {
         this.$emit('normal-click');
-        this.loading = true;
       } else {
         this.$emit('danger-click');
-        this.loading = true;
       }
     },
   }

@@ -2,26 +2,37 @@ from pymodm import connect, fields, MongoModel, EmbeddedMongoModel
 from pymongo.operations import IndexModel
 
 from devopstudio import config
-from devopstudio.common import enums
 from devopstudio.db import cusfields
+from devopstudio.models import enums
 
 
 mongo_config = config.MongoDBConfig()
 connect(mongo_config.get_conn_str(config.OPSDB))
 
 
-class BasicDataModel(EmbeddedMongoModel):
-    name = fields.CharField()
+class SoftwareDataModel(EmbeddedMongoModel):
+    os = fields.CharField()
+    version = fields.CharField()
+    image = fields.CharField()
+
+    class Meta:
+        indexes = [
+            IndexModel('os'),
+            IndexModel('version'),
+            IndexModel('image'),
+        ]
 
 
 class NetworkObject(MongoModel):
-    name = fields.CharField()
-    children = fields.ListField(fields.ObjectIdField(),
-                                mongo_name='chd')
-    basic = fields.EmbeddedDocumentField(BasicDataModel)
+    name = fields.CharField(primary_key=True, required=True)
+    driver = fields.CharField(required=True)
+    object_type = cusfields.EnumField(enums.ObjectType, required=True)
+    management_ip = fields.CharField()
+    children = fields.ListField(fields.ObjectIdField())
+    software = fields.EmbeddedDocumentField(SoftwareDataModel)
 
     class Meta:
-        indexes = IndexModel(['children'])
+        indexes = [IndexModel('children')]
 
 
 class InterfaceKey(EmbeddedMongoModel):
@@ -47,8 +58,7 @@ class NetworkObjectGroup(MongoModel):
 
 class TopologyLink(MongoModel):
     link_type = cusfields.EnumField(enums.LinkType)
-    topology_type = cusfields.EnumField(enums.LinkType,
-                                        mongo_name='topo_type')
+    topology_type = cusfields.EnumField(enums.LinkType)
     no1 = fields.CharField()
     nio1 = fields.CharField()
     cp1 = fields.CharField()
@@ -58,6 +68,6 @@ class TopologyLink(MongoModel):
 
 
 class NetworkRelationship(MongoModel):
-    relationship_type = fields.CharField(mongo_name='rel_type')
-    source_no = fields.CharField(mongo_name='src_no')
-    destination_no = fields.CharField(mongo_name='dst_no')
+    relationship_type = fields.CharField()
+    source_no = fields.CharField()
+    destination_no = fields.CharField()

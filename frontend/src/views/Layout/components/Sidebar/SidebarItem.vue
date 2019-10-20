@@ -32,7 +32,7 @@ export default {
     resolvePath(routePath) {
       return path.resolve(this.basePath, routePath)
     },
-    generateTitle
+    generateTitle,
   }
 }
 </script>

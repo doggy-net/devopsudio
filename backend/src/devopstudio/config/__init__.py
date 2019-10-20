@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from devopstudio.common.utils.mixin import dict_mixin
+from devopstudio.utils.mixin import dict_mixin
 
 
 SYSDB = 'sys'

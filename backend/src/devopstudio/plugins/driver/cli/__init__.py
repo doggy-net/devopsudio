@@ -5,7 +5,7 @@ from telnetlib import Telnet
 from ._util import to_bytes
 
 
-DEBUGGING = True
+DEBUGGING = False
 
 
 class Received:
@@ -77,7 +77,7 @@ class GeneralDefaultMode(CLIMode):
 
             # Match login prompt
             if recv.index == error_prompts_len + prompts_len:
-                username = self.spec.get('username')
+                username = self.spec.get('username') or self._session.username
                 if not username:
                     return False
                 self._session.send(username)
@@ -85,7 +85,7 @@ class GeneralDefaultMode(CLIMode):
 
             # Match password prompt
             if recv.index == error_prompts_len + prompts_len + 1:
-                password = self.spec.get('password')
+                password = self.spec.get('password') or self._session.password
                 if not password:
                     return False
                 self._session.send(password)
@@ -151,6 +151,8 @@ class GeneralPriviledgeMode(CLIMode):
 class CLIDriverBase(metaclass=ABCMeta):
     error_prompts = []
     cli_modes = {}
+    basic_parser = None
+    parsers = []
 
     def __init__(self, host, method='telnet', port=None, username=None, password=None, **kwargs):
         if method == 'telnet':
@@ -160,7 +162,7 @@ class CLIDriverBase(metaclass=ABCMeta):
         elif method == 'ssh':
             if not port:
                 port = 22
-            raise NotImplementedError('Todo')
+            raise NotImplementedError('To do')
         else:
             raise ValueError("'method' musth be 'telnet' or 'ssh'")
 
@@ -171,11 +173,11 @@ class CLIDriverBase(metaclass=ABCMeta):
         elif 'default' not in self._cli_modes:
             raise ValueError('No default CLI mode found')
 
-        self._curr_mode = None
+        self._current_mode = None
         try:
             cli_mode = self._cli_modes['default']
             if cli_mode.enter():
-                self._curr_mode = cli_mode
+                self._current_mode = cli_mode
                 self.prompts = cli_mode.prompts
             else:
                 raise PermissionError('Login invalid')
@@ -187,7 +189,7 @@ class CLIDriverBase(metaclass=ABCMeta):
             try:
                 cli_mode = self._cli_modes['priviledge']
                 if cli_mode.enter():
-                    self._curr_mode = cli_mode
+                    self._current_mode = cli_mode
                     self.prompts = cli_mode.prompts
             except:
                 pass
@@ -211,10 +213,16 @@ class CLIDriverBase(metaclass=ABCMeta):
         return Received(index, match, data)
 
     def execute_command(self, command, cli_mode_name=None, timeout=600):
-        if not cli_mode_name:
-            cli_mode = self._curr_mode
+        if self._current_mode.name in ('default', 'priviledge'):
+            default_mode = self._current_mode
+        elif 'priviledge' in self._cli_modes:
+            default_mode = self._cli_modes['priviledge']
         else:
-            cli_mode = self._cli_modes.get(cli_mode_name, self._curr_mode)
+            default_mode = self._cli_modes['default']
+        if not cli_mode_name:
+            cli_mode = default_mode
+        else:
+            cli_mode = self._cli_modes.get(cli_mode_name, default_mode)
         expected = [*cli_mode.prompts, *self.error_prompts]
         self.send(command)
         recv = self.receive(expected, timeout)
@@ -225,6 +233,24 @@ class CLIDriverBase(metaclass=ABCMeta):
             return self.execute_command(command, cli_mode_name='priviledge', timeout=timeout)
         return None
 
+    def run(self):
+        self.parsing()
+
+    def parsing(self):
+        self._execute_parsers()
+
+    def _execute_parsers(self):
+        no = self.basic_parser.ParserModule(self).run()
+        for parser_module in self.parsers:
+            parser = parser_module.ParserModule(self)
+            parser_name = parser.name
+            if hasattr(no, parser_name):
+                parser_result = parser.run()
+                setattr(no, parser_name, parser_result)
+            else:
+                raise Exception(parser_name)  # To do: add error message in the future
+        no.save()
+
     def __enter__(self):
         return self
 
@@ -232,11 +258,24 @@ class CLIDriverBase(metaclass=ABCMeta):
         self.close()
 
     def close(self):
-        if not self._curr_mode:
+        if not self._current_mode:
             pass
-        elif self._curr_mode.name != 'default':
-            self._curr_mode.exit()
+        elif self._current_mode.name != 'default':
+            self._current_mode.exit()
             self._cli_modes['default'].exit()
         else:
-            self._curr_mode.exit()
+            self._current_mode.exit()
         self._connection.close()
+
+
+class CLIParserBase(metaclass=ABCMeta):
+    datamodel = None
+
+    def __init__(self, driver):
+        self._driver = driver
+        self._data = None
+
+    @abstractmethod
+    def run(self):
+        # This method is supposed to run the CLI parser and return the parsed data
+        pass

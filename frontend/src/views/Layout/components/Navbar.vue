@@ -4,17 +4,9 @@
     <Hamburger id="hamburger-container" :is-active="!isSidebarCollapsed" class="hamburger-container"
       @toggleClick="toggleSidebar"/>
     <el-menu mode="horizontal" router :default-active="baseRoute" class="float-left">
-      <el-menu-item index="/ops">
-        <icon icon-class="operation"/>
-        <span slot="title">{{ $t('ui.operations') }}</span>
-      </el-menu-item>
-      <el-menu-item index="/dev">
-        <icon icon-class="dev"/>
-        <span slot="title">{{ $t('ui.development') }}</span>
-      </el-menu-item>
-      <el-menu-item index="/system">
-        <icon icon-class="system"/>
-        <span slot="title">{{ $t('ui.system') }}</span>
+      <el-menu-item v-for="route in permissionRoutes" :key="route.name" :index="route.path" >
+        <icon :icon-class="route.meta.icon"/>
+        <span slot="title">{{ generateTitle(route.meta.title) }}</span>
       </el-menu-item>
     </el-menu>
     <div class="float-right">
@@ -114,6 +106,8 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import Hamburger from '@/components/Hamburger'
+import { routes } from '@/router'
+import { generateTitle } from '@/utils/i18n'
 import { getBaseRoute } from '@/utils/path'
 
 export default {
@@ -148,6 +142,15 @@ export default {
     },
     baseRoute() {
       return getBaseRoute(this.$route.path);
+    },
+    permissionRoutes() {
+      const permittedRoutes = []
+      for (const route of routes) {
+        if (route.meta && route.meta.requiresAuth) {
+          permittedRoutes.push(route);
+        }
+      }
+      return permittedRoutes;
     }
   },
   methods: {
@@ -163,7 +166,8 @@ export default {
       // this.$store.dispatch('LogOut').then(() => {
       //   location.reload()// In order to re-instantiate the vue-router object to avoid bugs
       // })
-    }
+    },
+    generateTitle,
   }
 }
 </script>

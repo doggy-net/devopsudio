@@ -9,7 +9,7 @@
           :value="item.value">
         </el-option>
       </el-select>
-      <el-button style="padding: 12px; margin-left: 10px;" icon="el-icon-refresh"></el-button>
+      <el-button style="padding: 12px; margin-left: 10px;" icon="el-icon-setting"></el-button>
       <el-tree>
       </el-tree>
     </el-aside>

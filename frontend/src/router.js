@@ -5,10 +5,11 @@ import Layout from '@/views/Layout'
 import Accounts from '@/views/System/Accounts'
 import Email from '@/views/System/Email'
 import Tasks from '@/views/Development/Tasks'
-import Network from '@/views/Operations/Network'
-import Discovery from '@/views/Operations/Discovery'
-import Dashboard from '@/views/Operations/Dashboard'
 import Credentials from '@/views/Operations/Credentials'
+import Dashboard from '@/views/Operations/Dashboard'
+import Discovery from '@/views/Operations/Discovery'
+import Network from '@/views/Operations/Network'
+import Schedules from '@/views/Operations/Schedules'
 import auth from '@/auth'
 
 
@@ -32,44 +33,10 @@ export const routes = [
     redirect: { name: 'operations' },
   },
   {
-    path: '/system',
-    name: 'system',
-    component: Layout,
-    meta: { requiresAuth: true, permission: 'system' },
-    children: [
-      {
-        path: 'accounts',
-        name: 'accounts',
-        component: Accounts,
-        meta: { requiresAuth: true, permission: 'system.accounts', title: 'userAccounts', icon: 'user'},
-      },
-      {
-        path: 'email',
-        name: 'email',
-        component: Email,
-        meta: { requiresAuth: true, permission: 'system.email', title: 'emailSettings', icon: 'email'},
-      }
-    ]
-  },
-  {
-    path: '/dev',
-    name: 'development',
-    component: Layout,
-    meta: { requiresAuth: true, permission: 'development', title: 'development', icon: 'development' },
-    children: [
-      {
-        path: 'tasks',
-        name: 'tasks',
-        component: Tasks,
-        meta: { requiresAuth: true, permission: 'development.tasks', title: 'tasks', icon: 'app-store-fill' },
-      }
-    ]
-  },
-  {
     path: '/ops',
     name: 'operations',
     component: Layout,
-    meta: { requiresAuth: true, permission: 'operations', title: 'operations', icon: 'operations' },
+    meta: { requiresAuth: true, permission: 'operations', title: 'operations', icon: 'operation' },
     children: [{
         path: 'dashboard',
         name: 'dashboard',
@@ -93,6 +60,46 @@ export const routes = [
         name: 'discovery',
         component: Discovery,
         meta: { requiresAuth: true, permission: 'operations.discovery', title: 'discovery', icon: 'discovery' },
+      },
+      {
+        path: 'schedules',
+        name: 'schedules',
+        component: Schedules,
+        meta: { requiresAuth: true, permission: 'operations.schedules', title: 'schedules', icon: 'schedule' },
+      }
+    ]
+  },
+  {
+    path: '/dev',
+    name: 'development',
+    component: Layout,
+    meta: { requiresAuth: true, permission: 'development', title: 'development', icon: 'dev' },
+    children: [
+      {
+        path: 'tasks',
+        name: 'tasks',
+        component: Tasks,
+        meta: { requiresAuth: true, permission: 'development.tasks', title: 'tasks', icon: 'app-store-fill' },
+      }
+    ]
+  },
+  {
+    path: '/system',
+    name: 'system',
+    component: Layout,
+    meta: { requiresAuth: true, permission: 'system', title: 'system', icon: 'admin' },
+    children: [
+      {
+        path: 'accounts',
+        name: 'accounts',
+        component: Accounts,
+        meta: { requiresAuth: true, permission: 'system.accounts', title: 'userAccounts', icon: 'user'},
+      },
+      {
+        path: 'email',
+        name: 'email',
+        component: Email,
+        meta: { requiresAuth: true, permission: 'system.email', title: 'emailSettings', icon: 'email'},
       }
     ]
   },
@@ -116,7 +123,7 @@ const router = new VueRouter({
 const permissions = {
   'system': ['accounts', 'email'],
   'development': ['tasks'],
-  'operations': ['credentials', 'dashboard', 'discovery', 'network'],
+  'operations': ['credentials', 'dashboard', 'discovery', 'network', 'schedules'],
 }
 
 function hasPermission(reqiredPermission, permissions) {
