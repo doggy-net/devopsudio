@@ -1,13 +1,13 @@
 <template>
-  <el-container style="height: 100%">
-    <el-header style="padding: 0px; background-color: white; border-bottom: solid 1px #e6e6e6; height: 61px;">
+  <el-container>
+    <el-header height="61px" style="padding: 0px; background-color: white; border-bottom: solid 1px #e6e6e6">
       <navbar/>
     </el-header>
     <el-container>
       <el-aside width="auto">
         <sidebar :routes="permissionRoutes"/>
       </el-aside>
-      <router-view></router-view>
+        <router-view></router-view>
     </el-container>
   </el-container>
 </template>

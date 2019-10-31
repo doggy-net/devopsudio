@@ -5,7 +5,7 @@ from devopstudio.models.nom import NetworkObject
 
 
 class ExplorerModule(ExplorerBase):
-    name = 'Object Type'
+    name = 'Network Object'
 
     def run(self):
         for object_type in ObjectType:

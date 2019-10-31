@@ -1,15 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '@/views/Login'
 import Layout from '@/views/Layout'
-import Accounts from '@/views/System/Accounts'
-import Email from '@/views/System/Email'
-import Tasks from '@/views/Development/Tasks'
-import Credentials from '@/views/Operations/Credentials'
-import Dashboard from '@/views/Operations/Dashboard'
-import Discovery from '@/views/Operations/Discovery'
-import Network from '@/views/Operations/Network'
-import Schedules from '@/views/Operations/Schedules'
 import auth from '@/auth'
 
 
@@ -20,7 +11,7 @@ export const routes = [
   {
     path: '/login',
     name: 'login',
-    component: Login,
+    component: () => import('@/views/Login'),
     // beforeEnter: afterAuth
   },
   {
@@ -40,31 +31,45 @@ export const routes = [
     children: [{
         path: 'dashboard',
         name: 'dashboard',
-        component: Dashboard,
+        component: () => import('@/views/Operations/Dashboard'),
         meta: { requiresAuth: true, permission: 'operations.dashboard', title: 'dashboard', icon: 'dashboard' },
       },
       {
         path: 'network',
         name: 'network',
-        component: Network,
+        component: () => import('@/views/Operations/Network'),
+        redirect: { name: 'map browser' },
         meta: { requiresAuth: true, permission: 'operations.network', title: 'network', icon: 'topo' },
+        children: [{
+          path: 'browser',
+          name: 'map browser',
+          component: () => import('@/components/VMapBrowser'),
+          meta: { requiresAuth: true, permission: 'operations.network' },
+        },
+        {
+          path: 'view',
+          name: 'map viewer',
+          params: { new: true },
+          component: () => import('@/components/VMap'),
+          meta: { requiresAuth: true, permission: 'operations.network' },
+        }]
       },
       {
         path: 'credentials',
         name: 'credentials',
-        component: Credentials,
+        component: () => import('@/views/Operations/Credentials'),
         meta: { requiresAuth: true, permission: 'operations.credentials', title: 'credentials', icon: 'auth' },
       },
       {
         path: 'discovery',
         name: 'discovery',
-        component: Discovery,
+        component: () => import('@/views/Operations/Discovery'),
         meta: { requiresAuth: true, permission: 'operations.discovery', title: 'discovery', icon: 'discovery' },
       },
       {
         path: 'schedules',
         name: 'schedules',
-        component: Schedules,
+        component: () => import('@/views/Operations/Schedules'),
         meta: { requiresAuth: true, permission: 'operations.schedules', title: 'schedules', icon: 'schedule' },
       }
     ]
@@ -78,7 +83,7 @@ export const routes = [
       {
         path: 'tasks',
         name: 'tasks',
-        component: Tasks,
+        component: () => import('@/views/Development/Tasks'),
         meta: { requiresAuth: true, permission: 'development.tasks', title: 'tasks', icon: 'app-store-fill' },
       }
     ]
@@ -92,13 +97,13 @@ export const routes = [
       {
         path: 'accounts',
         name: 'accounts',
-        component: Accounts,
+        component: () => import('@/views/System/Accounts'),
         meta: { requiresAuth: true, permission: 'system.accounts', title: 'userAccounts', icon: 'user'},
       },
       {
         path: 'email',
         name: 'email',
-        component: Email,
+        component: () => import('@/views/System/Email'),
         meta: { requiresAuth: true, permission: 'system.email', title: 'emailSettings', icon: 'email'},
       }
     ]
@@ -175,7 +180,7 @@ router.beforeEach((to, from, next) => {
       // NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
     } else {
       // if (store.getters.roles.length === 0) { // 判断当前用户是否已拉取完user_info信息
-      if (false) {
+      // if (true) {
         // store.dispatch('GetUserInfo').then(res => { // 拉取user_info
         //   const roles = res.data.roles // note: roles must be a array! such as: ['editor','develop']
         //   store.dispatch('GenerateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
@@ -188,7 +193,7 @@ router.beforeEach((to, from, next) => {
         //     next({ path: '/' })
         //   })
         // })
-      } else {
+      // } else {
         // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
         if (hasPermission(to.meta.permission, permissions)) {
           next()
@@ -196,7 +201,7 @@ router.beforeEach((to, from, next) => {
           next({ path: '/401', replace: true, query: { noGoBack: true }})
         }
         // 可删 ↑
-      }
+      // }
     }
   } else {
     /* has no token*/

@@ -34,6 +34,10 @@ module.exports = {
       '/api': {
         'secure':false,
         'target': 'http://localhost:5000'
+      },
+      '/icons': {
+        'secure':false,
+        'target': 'http://localhost:5000'
       }
     }
   }

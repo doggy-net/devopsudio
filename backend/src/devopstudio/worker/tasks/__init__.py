@@ -3,7 +3,7 @@ from netaddr import IPAddress, IPNetwork, IPRange
 
 from . import _discovery
 from devopstudio.worker import app
-from devopstudio.plugins.explorer import object_type
+from devopstudio.plugins.explorer import network_object
 
 
 @app.task()
@@ -51,8 +51,9 @@ def discover(ip_list):
 
 @app.task()
 def build_explorers(explorers=None, incremental_changes=None):
-    explorer = object_type.ExplorerModule()
+    explorer = network_object.ExplorerModule()
     explorer.run()
+    explorer.save()
 
 
 # @app.task()

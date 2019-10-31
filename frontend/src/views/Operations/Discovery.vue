@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 20px; width: 100%;">
+  <el-main>
     <el-form :model="discoveryForm" :rules="rules" ref="discoveryForm">
       <el-form-item prop="ips">
         <el-input autofocus v-model="discoveryForm.ips" style="width: 400px"
@@ -16,13 +16,12 @@
       <el-table-column prop="ip" :label="$t('ui.ip')" width="180"/>
       <el-table-column prop="hostname" :label="$t('ui.hostname')"/>
     </el-table>
-  </div>
+  </el-main>
 </template>
 
 <script>
-import { Message, MessageBox } from 'element-ui'
-import AsyncButton from '@/components/AsyncButton'
 import { startDiscovery, stopDiscovery, getDiscoveryStatus } from '@/api/discovery'
+import AsyncButton from '@/components/AsyncButton'
 import { validateIp } from '@/utils/ip'
 
 export default {
@@ -49,11 +48,9 @@ export default {
               return false;
             }
             if (!validateIp(ipstr1)) {
-                console.log(ipstr1)
               return false;
             }
             if (!validateIp(ipstr2)) {
-                console.log(ipstr2)
               return false;
             }
           } else {
@@ -112,7 +109,7 @@ export default {
           this.percentage = 0;
           this.$refs['commandButton'].loading = true;
           startDiscovery(this.discoveryForm)
-            .then(response => {
+            .then(() => {
               this.$message({
                 message: this.$t('message.discoveryFormStarted'),
                 type: 'success',
@@ -141,7 +138,7 @@ export default {
     handleStop() {
       this.$refs['commandButton'].loading = true;
       stopDiscovery()
-        .then(response => {
+        .then(() => {
           this.state = 'warning';
           this.$message({
             message: this.$t('message.discoveryFormStopped'),
@@ -208,7 +205,7 @@ export default {
     },
     stopUpdateTimer() {
       clearInterval(this.updateTimer);
-    },
-  },
+    }
+  }
 }
 </script>

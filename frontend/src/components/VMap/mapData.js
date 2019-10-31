@@ -1,6 +1,3 @@
-import router from './svg-icons/router.svg';
-import l2switch from './svg-icons/l2_switch.svg';
-
 const mapData = {
   nodes: [
     {
@@ -11,7 +8,7 @@ const mapData = {
       pos2: '1111',
       pos3: '555',
       shape: 'networkObject',
-      icon: router,
+      icon: '/icons/router.svg',
     },
     {
       id: 'node2',
@@ -20,7 +17,7 @@ const mapData = {
       pos1: '222',
       pos2: '2222',
       shape: 'networkObject',
-      icon: router,
+      icon: '/icons/router.svg',
     },
     {
       id: 'node3',
@@ -29,8 +26,8 @@ const mapData = {
       pos1: '111',
       pos2: '1111',
       shape: 'networkObject',
-      icon: router
-      // icon: 'img/router.png'
+      icon: '/icons/router.svg',
+      // icon: 'img/'/icons/router.svg',.png'
     },
     {
       id: 'node4',
@@ -39,7 +36,7 @@ const mapData = {
       pos1: '222',
       pos2: '2222',
       shape: 'networkObject',
-      icon: l2switch
+      icon: '/icons/l2_switch.svg',
     }
   ],
   edges: [

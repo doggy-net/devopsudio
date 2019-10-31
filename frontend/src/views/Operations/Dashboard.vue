@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #eef0f3; padding: 20px; width: 100%;">
+  <el-main style="background-color: #eef0f3">
     <el-row :gutter="20">
       <el-col :span="6">
         <el-card shadow="hover" class="widget">
@@ -34,7 +34,7 @@
         </el-card>
       </el-col>
     </el-row>
-  </div>
+  </el-main>
 </template>
 
 <script>

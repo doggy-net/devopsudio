@@ -1,12 +1,7 @@
-from pymodm import fields, MongoModel
+from pymodm import EmbeddedMongoModel, MongoModel, fields
 
-
-class Enum(MongoModel):
-    name = fields.CharField(primary_key=True)
-    enums = fields.DictField()
-
-    class Meta:
-        final = True
+from devopstudio.db import cusfields
+from devopstudio.models.enums import ExplorerNodeType
 
 
 class OneInstanceTask(MongoModel):
@@ -17,3 +12,18 @@ class OneInstanceTask(MongoModel):
 class Disovery(MongoModel):
     name = fields.CharField(primary_key=True)
     task_id = fields.CharField()
+
+
+class ExplorerNode(EmbeddedMongoModel):
+    name = fields.CharField(required=True)
+    type = cusfields.EnumField(ExplorerNodeType, required=True)
+    icon = fields.CharField(blank=True)
+    path = fields.CharField()
+    level = fields.IntegerField(default=0)
+    parent = fields.CharField(blank=True)
+    children = fields.ListField(blank=True)
+
+
+class Explorer(MongoModel):
+    name = fields.CharField(primary_key=True)
+    nodes = fields.EmbeddedDocumentListField(ExplorerNode, blank=True)

@@ -1,6 +1,8 @@
 <template>
-  <svg class="icon" aria-hidden="true">
-    <use :xlink:href="iconName"></use>
+  <i v-if="iconType === 'el-icon'" :class="iconClass"/>
+  <svg v-else class="el-icon-svg" aria-hidden="true">
+    <image v-if="iconType === 'img-url'" :xlink:href="iconClass" style="height: 1em; width: 1em"/>
+    <use v-else :xlink:href="iconName"/>
   </svg>
 </template>
 
@@ -18,6 +20,15 @@ export default {
     }
   },
   computed: {
+    iconType() {
+      if (this.iconClass.startsWith('el-')) {
+        return 'el-icon';
+      } else if (this.iconClass.startsWith('http') || this.iconClass.startsWith('/')) {
+        return 'img-url';
+      } else {
+        return 'icon-class';
+      }
+    },
     iconName() {
       return `#icon-${this.iconClass}`
     }
@@ -26,21 +37,20 @@ export default {
 </script>
 
 <style>
-.icon {
+.el-icon-svg {
   width: 1em;
   height: 1em;
-  font-size: 18px;
-  font-style: normal;
+  /* font-style: normal;
   font-weight: 400;
   font-variant: normal;
   vertical-align: middle;
   text-transform: none;
   text-align: center;
   display: inline-block;
-  line-height: 1;
+  line-height: 1; */
   fill: currentColor;
-  overflow: hidden;
+  /* overflow: hidden;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale; */
 }
 </style>

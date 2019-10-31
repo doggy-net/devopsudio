@@ -2,7 +2,10 @@ import json
 from abc import ABCMeta, abstractmethod
 
 from devopstudio.models.enums import ExplorerNodeType
-from devopstudio.db.models import Explorer, ExplorerNode as DBExplorerNode
+from devopstudio.db.models import (
+    Explorer as DBExplorer,
+    ExplorerNode as DBExplorerNode,
+)
 
 
 class ExplorerNode:
@@ -26,7 +29,7 @@ class ExplorerNode:
 
     @property
     def level(self):
-        level = 0
+        level = 1
         parent = self._parent
         while parent:
             level += 1
@@ -65,7 +68,7 @@ class ExplorerNode:
             'icon': self.icon,
             'path': self.path,
             'level': self.level,
-            'parent': self.parent.name,
+            'parent': self.parent.name if self.parent else None,
             'children': [child.dump() for child in self._children],
         }
         return node_data
@@ -90,6 +93,7 @@ class ExplorerNode:
 
 
 class ExplorerBase(metaclass=ABCMeta):
+    name = ''
 
     def __init__(self):
         self.nodes = []
@@ -139,7 +143,11 @@ class ExplorerBase(metaclass=ABCMeta):
         return [node.dump() for node in self.nodes]
 
     def save(self):
-        return [node.dump() for node in self.nodes]
+        dbexplorer = DBExplorer(name=self.name)
+        for node in self.nodes:
+            dbnode = DBExplorerNode(**node.dump())
+            dbexplorer.nodes.append(dbnode)
+        return dbexplorer.save()
 
     def __iter__(self):
         for node in self.nodes:

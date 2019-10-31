@@ -1,10 +1,7 @@
 import G6 from '@antv/g6'
 // import G6 from '../../../node_modules/@antv/g6/src'
 
-import iconPlus from './svg-icons/plus-circle-fill.svg'
 const defaultIconSize = 60;
-const imgPlus = new Image();
-imgPlus.src = iconPlus;
 
 let imageCache = {};
 G6.registerNode('networkObject', {
@@ -69,19 +66,6 @@ G6.registerNode('networkObject', {
         fill: 'rgba(0, 170, 255, 0.04)'
       },
       visible: false
-    });
-  },
-  drawExtender(cfg, group) {
-    group.addShape('image', {
-      name: 'extendNeighbor',
-      zIndex: 1,
-      attrs: {
-        img: imgPlus,
-        x: defaultIconSize - 15,
-        y: -5,
-        width: 20,
-        height: 20
-      }
     });
   },
   addText(pos, cfg, group) {

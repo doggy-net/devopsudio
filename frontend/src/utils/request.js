@@ -41,6 +41,7 @@ service.interceptors.response.use(
       Message({
         message: response.message || 'Error',
         type: 'error',
+        showClose: true,
         duration: 5 * 1000
       });
 
@@ -68,6 +69,7 @@ service.interceptors.response.use(
     Message({
       message: error.message,
       type: 'error',
+      showClose: true,
       duration: 5 * 1000
     })
     return Promise.reject(error);

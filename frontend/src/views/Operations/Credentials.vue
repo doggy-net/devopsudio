@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 20px; width: 100%;">
+  <el-main>
     <el-row>
       <el-col :span="20">
         <el-button type="text" icon="el-icon-plus">
@@ -27,7 +27,7 @@
         </template>
       </el-table-column>
     </el-table>
-  </div>
+  </el-main>
 </template>
 
 <script>
@@ -42,11 +42,13 @@ export default {
   },
   methods: {
     filterByType(value, row, column) {
+      console.log(value, row, column);
     },
     handleEdit(index, row) {
       console.log(index, row);
     },
     handleDelete(index, row) {
+      console.log(index, row);
     }
   }
 }

@@ -1,84 +1,70 @@
 <template>
   <div class="map-parent-container">
     <div
-      :id="mapId"
+      :id="'map-' + mapId"
       tabindex="20"
       class="map-container"
       @mousewheel.alt.prevent="zoom($event)"
-      @keydown.ctrl.65.prevent="selectAllItems($event)"
-      @keydown.46.prevent.exact="deleteSelectedItems($event)"
-      @keydown.ctrl.90.prevent="undo"
+      @keydown.ctrl.65.prevent="selectAllItems"
+      @keydown.46.prevent.exact="deleteSelectedItems"
       @dragstart.prevent
       @dragover.prevent
       @drop="drop($event)"
     ></div>
-    <div :id="minimapId" class="minimap-container" v-show="showMinimap"></div>
+    <div :id="'minimap-' + mapId" class="minimap-container" v-show="showMinimap"></div>
     <div class="toolbar">
-      <el-tooltip class="item" content="Save" placement="top">
-        <el-button circle @click="saveImage">
+      <el-tooltip :content="$t('ui.save')" placement="top">
+        <el-button circle @click="save">
           <icon icon-class="save-fill"/>
         </el-button>
       </el-tooltip>
-      <el-tooltip class="item" content="Menu" placement="top">
+      <el-tooltip :content="$t('ui.toggelMiniMap')" placement="top">
         <el-button
           icon="el-icon-menu"
           circle
           @click="toggleMinimap"
-          :disabled="showMinimap? false: true"
         ></el-button>
       </el-tooltip>
-      <el-dropdown placement="top" class="margin-left">
-        <el-button icon="el-icon-share" circle></el-button>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>黄金糕</el-dropdown-item>
-          <el-dropdown-item>狮子头</el-dropdown-item>
-          <el-dropdown-item>螺蛳粉</el-dropdown-item>
-          <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-          <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-      <el-tooltip class="item" content="Test" placement="top">
-        <el-button circle @click="test">
-          <icon icon-class="pie-chart"/>
-        </el-button>
-      </el-tooltip>
-      <el-tooltip class="item" content="Fit View" placement="top">
+      <el-tooltip :content="$t('ui.fitView')" placement="top">
         <el-button circle @click="zoomToFit">
           <icon icon-class="fit-to-view"/>
         </el-button>
       </el-tooltip>
-      <el-tooltip class="item" content="Zoom to 100%" placement="top">
+      <el-tooltip :content="$t('ui.zoomTo100')" placement="top">
         <el-button circle @click="zoomTo100">
           <icon icon-class="1to1"/>
         </el-button>
       </el-tooltip>
-      <el-dropdown placement="top" class="margin-left">
-        <el-button icon="el-icon-more" circle></el-button>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>黄金糕</el-dropdown-item>
-          <el-dropdown-item>狮子头</el-dropdown-item>
-          <el-dropdown-item>螺蛳粉</el-dropdown-item>
-          <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-          <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+      <el-tooltip :content="$t('ui.close')" placement="top">
+        <el-button circle @click="close">
+          <icon icon-class="el-icon-close"/>
+        </el-button>
+      </el-tooltip>
       <el-slider
         v-model="scale"
-        style="width: 348px"
         :min="40"
         :max="200"
         :step="20"
         :format-tooltip="formatSliderTooltip"
       ></el-slider>
     </div>
+    <el-dialog
+      title="$t('ui.save')"
+      :visible.sync="showSaveDialog"
+      width="30%">
+      <span>这是一段信息</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import G6 from '@antv/g6'
-// import G6 from '../../../node_modules/@antv/g6/src'
 import Minimap from '@antv/g6/build/minimap'
-import mapData from './mapData'
+// import { getMap, saveMap } from '@/api/vmap'
 import './regNode'
 import './regEdge'
 import './regBehavior'
@@ -90,22 +76,21 @@ function getContainerSize(container) {
 export default {
   name: 'VMap',
   props: {
-    showMinimap: {
+    minimap: {
       type: Boolean,
       default: true,
     },
     mapId: {
       type: String,
-      required: true,
     }
   },
   data() {
     return {
-      minimapId: this.mapId + '-minimap',
-      minimapVisiable: this.showMinimap,
       scale: 100,
-      graph: undefined,
-      mapData: mapData
+      graph: null,
+      mapData: {},
+      showMinimap: this.minimap,
+      showSaveDialog: false,
     };
   },
   watch: {
@@ -116,20 +101,18 @@ export default {
       this.graph.zoomTo(this.scale / 100);
     }
   },
+  created() {
+  },
   mounted() {
-    const plugins = [];
-    if (this.showMinimap) {
-      const minimap = new Minimap({
-        container: this.minimapId
-      });
-      plugins.push(minimap);
-    }
-    const containerSize = getContainerSize(document.getElementById(this.mapId));
+    const minimap = new Minimap({
+      container: 'minimap-' + this.mapId
+    });
+    const plugins = [minimap];
+    const containerSize = getContainerSize(document.getElementById('map-' + this.mapId));
     this.graph = new G6.Graph({
-      container: this.mapId,
+      container: 'map-' + this.mapId,
       width: containerSize.width,
-      height: containerSize.height,
-      // fitView: 'cc',
+      height: containerSize.height - 4,
       plugins: plugins,
       modes: {
         default: ['drag-canvas', { type: 'drag-node', delegate: true }, 'select'],
@@ -137,8 +120,20 @@ export default {
       }
     });
     const graph = this.graph;
+
+    if (this.$route.params.new) {
+      if (this.$route.params.mapData) {
+        for (const node of this.$route.params.mapData.nodes) {
+          const points = this.graph.getPointByClient(node.clientX, node.clientY);
+          node.x = points.x;
+          node.y = points.y;
+          delete node.clientX;
+          delete node.clientY;
+        }
+        this.mapData = this.$route.params.mapData;
+      }
+    }
     this.graph.read(this.mapData);
-    this.graph.refresh();
 
     this.graph.on('node:mouseleave', () => {
       graph.get('canvas').get('el').style.cursor = '-webkit-grab';
@@ -148,29 +143,33 @@ export default {
     });
 
     window.onresize = () => {
-      const mapContainer = document.getElementById(this.mapId);
+      const mapContainer = document.getElementById('map-' + this.mapId);
       if (!mapContainer){
         return
       }
       const containerSize = getContainerSize(mapContainer);
-      this.graph.changeSize(containerSize.width, containerSize.height);
+      this.graph.changeSize(containerSize.width, containerSize.height - 4);
     };
   },
   methods: {
-    test() {
-      const firstNode = this.graph.getNodes()[0];
-      console.log(firstNode);
-      // this.graph.update(firstNode, { pos2: 987 });
-      firstNode.update({ pos2: '888' });
-      // firstNode.refresh();
-    },
-    undo() {
-    },
-    saveImage() {
+    downloadImage() {
       this.graph.downloadImage(this.mapId);
     },
+    save() {
+      const points = this.graph.getPointByClient(500, 89);
+      console.log(points);
+      console.log(this.graph.getNodes());
+      // const mapData = {
+      //   name: th
+      //   data: this.graph.save(),
+      //   image: this.graph.toDataURL(),
+      // }
+    },
+    close() {
+      this.$router.push({ name: 'map browser'});
+    },
     toggleMinimap() {
-      this.minimapVisiable = !this.minimapVisiable;
+      this.showMinimap = !this.showMinimap;
     },
     zoomToFit() {
       this.graph.fitView(0);
@@ -191,21 +190,20 @@ export default {
     },
     drop(event) {
       const nodeId = event.dataTransfer.getData('text');
-      if (nodeId === 'undefined') {
+      console.log(nodeId);
+      if (!nodeId) {
         return;
       }
       if (this.graph.find(nodeId) === undefined) {
-        let points = this.graph.getPointByClient({
-          x: event.clientX,
-          y: event.clientY
-        });
+        const points = this.graph.getPointByClient(event.clientX, event.clientY);
         const nodeModel = {
           id: nodeId,
           x: points.x,
           y: points.y,
           pos1: '333',
           pos2: '333',
-          shape: 'networkObject'
+          shape: 'networkObject',
+          icon: '/icons/router.svg',
         };
         this.graph.add('node', nodeModel);
       } else {
@@ -213,8 +211,7 @@ export default {
       }
       event.dataTransfer.clearData();
     },
-    deleteSelectedItems(event) {
-      event.preventDefault();
+    deleteSelectedItems() {
       const nodes = this.graph.getNodes();
       for (let nodeIndex = 0; nodeIndex < nodes.length; nodeIndex++) {
         const node = nodes[nodeIndex];
@@ -226,18 +223,13 @@ export default {
       const edges = this.graph.getEdges();
       for (let edgeIndex = 0; edgeIndex < edges.length; edgeIndex++) {
         const edge = edges[edgeIndex];
-        // const source = edge.source;
         if (edge.hasState('selected')) {
           this.graph.remove(edge);
-          // if (source) {
-          //   this.graph.update(source, {});
-          // }
           edgeIndex--;
         }
       }
     },
-    selectAllItems(event) {
-      event.preventDefault();
+    selectAllItems() {
       const autoPaint = this.graph.get('autoPaint');
       this.graph.setAutoPaint(false);
       for (let node of this.graph.getNodes()) {
@@ -259,7 +251,6 @@ export default {
   height: 100%;
   overflow: hidden;
   position: relative;
-  /* -webkit-user-drag: none; */
 }
 .map-container {
   height: 100%;

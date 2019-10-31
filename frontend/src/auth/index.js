@@ -32,21 +32,21 @@ export default {
     }
   },
 
-  currentUser (context) {
-    context.$http.get(APIURI.CURRENT_USER_URL, { headers: this.getAuthHeader() })
-      .then(resp => {
-        context.user = resp.body.username
-      }, _ => {
-        window.localStorage.removeItem('token')
-        this.user.authenticated = false
-        context.$router.push({
-          path: '/login',
-          query: { redirect: context.$route.fullPath }
-        })
-      })
-  },
+  // currentUser (context) {
+  //   context.$http.get(APIURI.CURRENT_USER_URL, { headers: this.getAuthHeader() })
+  //     .then(resp => {
+  //       context.user = resp.body.username
+  //     }, _ => {
+  //       window.localStorage.removeItem('token')
+  //       this.user.authenticated = false
+  //       context.$router.push({
+  //         path: '/login',
+  //         query: { redirect: context.$route.fullPath }
+  //       })
+  //     })
+  // },
 
-  logout (context, options) {
+  logout (context) {
     window.localStorage.removeItem('token')
     this.user.authenticated = false
     context.$router.push({ path: '/login' })
